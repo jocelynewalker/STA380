@@ -1,5 +1,7 @@
 ---
 title: "toy"
+author: "Jocelyne Walker"
+date: "08/17/2020"
 output: md_document
 ---
 

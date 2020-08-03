@@ -1,0 +1,57 @@
+---
+title: "toy"
+author: "Jocelyne Walker"
+date: "08/17/2020"
+output: md_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Visual story telling part 1: green buildings
+
+
+```{r 1.1, echo = FALSE}
+
+```
+
+## Visual story telling part 2: flights at ABIA
+
+
+```{r 2.1, echo=FALSE}
+
+```
+
+
+## Portfolio Modeling
+
+
+```{r 3.1, echo=FALSE}
+
+```
+
+## Market segmentation
+
+
+```{r 4.1, echo=FALSE}
+
+```
+
+
+
+## Author attribution
+
+
+```{r 5.1, echo=FALSE}
+
+```
+
+
+
+## Association rule mining
+
+
+```{r 6.1, echo=FALSE}
+
+```
