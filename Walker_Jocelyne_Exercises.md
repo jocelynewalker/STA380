@@ -267,7 +267,7 @@ color, at about 5000 flights per year or ~15 flights per day. The least
 frequent flights are shown in yellow, less than 1000 flights per year,
 or less than 3 flights per day.*
 
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/2.1-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/2.1-2.png)
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/2.1-1.png)
 
 The most frequent flight routes are to Dallas and Houston. Other notable
 frequent routes shown on the map are Phoenix, Denver, Chicago, and
