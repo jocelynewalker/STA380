@@ -727,9 +727,206 @@ The Southwest Nashville flight is most often delayed due to Late Aircraft Delays
 
 ## Portfolio Modeling
 
-```{r 3.1, echo=FALSE, warning = FALSE, message = FALSE}
+### Portfolio 1: "In it for the long run"
 
+```{r 3.1, echo=FALSE, warning = FALSE, message = FALSE}
+library(mosaic)
+library(quantmod)
+
+mystocks = c("VOO", "VTWO", "MGC", "SPYG", "VTI")
+myprices = getSymbols(mystocks, from = "2015-08-10")
+
+# A chunk of code for adjusting all stocks
+# creates a new object addind 'a' to the end
+# For example, WMT becomes WMTa, etc
+for(ticker in mystocks) {
+	expr = paste0(ticker, "a = adjustOHLC(", ticker, ")")
+	eval(parse(text=expr))
+}
+
+# Combine all the returns in a matrix
+all_returns = cbind(	ClCl(VOOa),
+								ClCl(VTWOa),
+								ClCl(MGCa),
+								ClCl(SPYGa),
+								ClCl(VTIa))
+#head(all_returns)
+all_returns = as.matrix(na.omit(all_returns))
+
+# Compute the returns from the closing prices
+pairs(all_returns)
+
+# Sample a random return from the empirical joint distribution
+# This simulates a random day
+return.today = resample(all_returns, 1, orig.ids=FALSE)
+
+# Update the value of your holdings
+# Assumes an equal allocation to each asset
+total_wealth = 100000
+my_weights = c(0.2,0.2,0.2, 0.2, 0.2)
+holdings = total_wealth*my_weights
+holdings = holdings*(1 + return.today)
+
+# Now simulate many different possible scenarios  
+initial_wealth = 100000
+sim1 = do(1000)*{
+	total_wealth = initial_wealth
+	weights = c(0.2, 0.2, 0.2, 0.2, 0.2)
+	holdings = weights * total_wealth
+	n_days = 20
+	wealthtracker = rep(0, n_days)
+	for(today in 1:n_days) {
+		return.today = resample(all_returns, 1, orig.ids=FALSE)
+		holdings = holdings + holdings*return.today
+		total_wealth = sum(holdings)
+		wealthtracker[today] = total_wealth
+	}
+	wealthtracker
+}
+
+#head(sim1)
+hist(sim1[,n_days], 25)
+
+# Profit/loss
+mean(sim1[,n_days])
+hist(sim1[,n_days]- initial_wealth, breaks=30)
+
+# Calculate 5% value at risk
+quantile(sim1[,n_days], 0.05) - initial_wealth
 ```
+
+### Portfolio 2: "Thrive on Volatility" 
+
+```{r 3.2, echo=FALSE, warning = FALSE, message = FALSE}
+mystocks = c("QQQ", "BTAL", "SDY", "XLP", "HYLV")
+myprices = getSymbols(mystocks, from = "2015-08-10")
+
+# A chunk of code for adjusting all stocks
+# creates a new object addind 'a' to the end
+# For example, WMT becomes WMTa, etc
+for(ticker in mystocks) {
+	expr = paste0(ticker, "a = adjustOHLC(", ticker, ")")
+	eval(parse(text=expr))
+}
+
+# Combine all the returns in a matrix
+all_returns = cbind(	ClCl(QQQa),
+								ClCl(BTALa),
+								ClCl(SDYa),
+								ClCl(XLPa),
+								ClCl(HYLVa))
+#head(all_returns)
+all_returns = as.matrix(na.omit(all_returns))
+
+# Compute the returns from the closing prices
+pairs(all_returns)
+
+# Sample a random return from the empirical joint distribution
+# This simulates a random day
+return.today = resample(all_returns, 1, orig.ids=FALSE)
+
+# Update the value of your holdings
+# Assumes an equal allocation to each asset
+total_wealth = 100000
+my_weights = c(0.2,0.2,0.2, 0.2, 0.2)
+holdings = total_wealth*my_weights
+holdings = holdings*(1 + return.today)
+
+# Now simulate many different possible scenarios  
+initial_wealth = 100000
+sim1 = do(1000)*{
+	total_wealth = initial_wealth
+	weights = c(0.2, 0.2, 0.2, 0.2, 0.2)
+	holdings = weights * total_wealth
+	n_days = 20
+	wealthtracker = rep(0, n_days)
+	for(today in 1:n_days) {
+		return.today = resample(all_returns, 1, orig.ids=FALSE)
+		holdings = holdings + holdings*return.today
+		total_wealth = sum(holdings)
+		wealthtracker[today] = total_wealth
+	}
+	wealthtracker
+}
+
+#head(sim1)
+hist(sim1[,n_days], 25)
+
+# Profit/loss
+mean(sim1[,n_days])
+hist(sim1[,n_days]- initial_wealth, breaks=30)
+
+# Calculate 5% value at risk
+quantile(sim1[,n_days], 0.05) - initial_wealth
+```
+
+
+### Portfolio 3: "Bonds and Consumer Staples" 
+
+```{r 3.3, echo=FALSE, warning = FALSE, message = FALSE}
+mystocks = c("FBND", "BLV", "IECS")
+myprices = getSymbols(mystocks, from = "2015-08-10")
+
+# A chunk of code for adjusting all stocks
+# creates a new object addind 'a' to the end
+# For example, WMT becomes WMTa, etc
+for(ticker in mystocks) {
+	expr = paste0(ticker, "a = adjustOHLC(", ticker, ")")
+	eval(parse(text=expr))
+}
+
+# Combine all the returns in a matrix
+all_returns = cbind(	ClCl(FBNDa),
+								ClCl(BLVa),
+								ClCl(IECSa))
+#head(all_returns)
+all_returns = as.matrix(na.omit(all_returns))
+
+# Compute the returns from the closing prices
+pairs(all_returns)
+
+# Sample a random return from the empirical joint distribution
+# This simulates a random day
+return.today = resample(all_returns, 1, orig.ids=FALSE)
+
+# Update the value of your holdings
+# Assumes an equal allocation to each asset
+total_wealth = 100000
+my_weights = c(0.25,0.25,0.5)
+holdings = total_wealth*my_weights
+holdings = holdings*(1 + return.today)
+
+# Now simulate many different possible scenarios  
+initial_wealth = 100000
+sim1 = do(1000)*{
+	total_wealth = initial_wealth
+	weights = c(0.25, 0.25, 0.5)
+	holdings = weights * total_wealth
+	n_days = 20
+	wealthtracker = rep(0, n_days)
+	for(today in 1:n_days) {
+		return.today = resample(all_returns, 1, orig.ids=FALSE)
+		holdings = holdings + holdings*return.today
+		total_wealth = sum(holdings)
+		wealthtracker[today] = total_wealth
+	}
+	wealthtracker
+}
+
+#head(sim1)
+hist(sim1[,n_days], 25)
+
+# Profit/loss
+mean(sim1[,n_days])
+hist(sim1[,n_days]- initial_wealth, breaks=30)
+
+# Calculate 5% value at risk
+quantile(sim1[,n_days], 0.05) - initial_wealth
+```
+
+
+
+
 
 ## Market segmentation
 

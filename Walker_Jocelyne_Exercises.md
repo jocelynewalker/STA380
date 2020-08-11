@@ -375,6 +375,39 @@ information?**
 Portfolio Modeling
 ------------------
 
+### Portfolio 1: “In it for the long run”
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.1-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.1-2.png)
+
+    ## [1] 101406.3
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.1-3.png)
+
+    ##        5% 
+    ## -8431.506
+
+### Portfolio 2: “Thrive on Volatility”
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.2-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.2-2.png)
+
+    ## [1] 100971.4
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.2-3.png)
+
+    ##        5% 
+    ## -4855.049
+
+### Portfolio 3: “Bonds and Consumer Staples”
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3-2.png)
+
+    ## [1] 101024.7
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3-3.png)
+
+    ##        5% 
+    ## -4761.049
+
 Market segmentation
 -------------------
 
