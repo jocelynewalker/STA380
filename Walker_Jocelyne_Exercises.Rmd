@@ -41,7 +41,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = RevPSF), fill = green_rating)
 
 ```
 
-We see from the graph above that the medians (on the boxplots) and means (represented by the red stars) of green and non-green building revenue per square foot are different. The not green buildings have a mean of \$24.50, while the green buildings have a mean of \$27.00. This shows that from both means and medians, there is additional revenue on average for green buildings.  
+We see from the graph above that the medians (black lines on the boxplots) and means (represented by the red stars) of green and non-green building revenue per square foot are different. The not green buildings have a mean of \$24.50, while the green buildings have a mean of \$27.00. This shows that from both means and medians, there is additional revenue on average for green buildings.  
 
 However, there are a number of issues with the original staff member's analysis: 
 
@@ -49,11 +49,13 @@ However, there are a number of issues with the original staff member's analysis:
 
 * Green and non-green buildings are **inherently different.** Green buildings are more likely to be newer, bigger, Class A developments. Variables like age, size, and class of the building are confounding variables that impact both whether or not a building is green and its revenue per square foot. Because these building groups have confounding variables, we cannot simply compare their means.
 
-* We must consider the **time value of money.** Performing an NPV analysis and talking to the construction company about reducing the cost of the project will supplement the analysis. 
+* We must consider the **time value of money.** Performing an NPV analysis and talking to the construction company about reducing the cost of the project will supplement our analysis. 
 
-First, instead of dropping all buildings with leasing rates less than 10%, I chose to drop only those with leasing rates less than 1% to consider more of the outliers. 
+First, instead of dropping all buildings with leasing rates less than 10%, we chose to drop only those with leasing rates less than 1% to consider more of the outliers. 
 
 **What variables appear to be confounding?** 
+
+I compared boxplots of each of the predictor variables for Not Green versus Green buildings
 
 ```{r 1.1.a, echo = FALSE, warning = FALSE, message = FALSE}
 green <- read_csv(file)
@@ -63,8 +65,8 @@ green = green[green$leasing_rate >= 1,]
 # Define revenue per square foot measure
 green$RevPSF = green$Rent * green$leasing_rate / 100
 
-par(mfrow=c(6,3))
-ggplot(green, aes(x = as.factor(green_rating), y = size)) + 
+
+p1 = ggplot(green, aes(x = as.factor(green_rating), y = size)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Size") +
@@ -72,7 +74,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = size)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = empl_gr)) + 
+p2 = ggplot(green, aes(x = as.factor(green_rating), y = empl_gr)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Employment Growth Rate") +
@@ -80,7 +82,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = empl_gr)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = Rent)) + 
+p3 = ggplot(green, aes(x = as.factor(green_rating), y = Rent)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Rent") +
@@ -88,7 +90,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = Rent)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = leasing_rate)) + 
+p4 = ggplot(green, aes(x = as.factor(green_rating), y = leasing_rate)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Leasing Rate") +
@@ -96,7 +98,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = leasing_rate)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = stories)) + 
+p5 = ggplot(green, aes(x = as.factor(green_rating), y = stories)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Stories") +
@@ -104,7 +106,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = stories)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = age)) + 
+p6 = ggplot(green, aes(x = as.factor(green_rating), y = age)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Age") +
@@ -112,14 +114,14 @@ ggplot(green, aes(x = as.factor(green_rating), y = age)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = renovated)) + 
+p7 = ggplot(green, aes(x = as.factor(green_rating), y = renovated)) + 
   geom_boxplot() + 
   xlab("Renovated") +
   labs(title = "Comparing Renovations of Not Green versus Green Buildings") +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = class_a)) + 
+p8 = ggplot(green, aes(x = as.factor(green_rating), y = class_a)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Class A") +
@@ -127,7 +129,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = class_a)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = class_b)) + 
+p9 = ggplot(green, aes(x = as.factor(green_rating), y = class_b)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Class B") +
@@ -135,7 +137,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = class_b)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = net)) + 
+p10 = ggplot(green, aes(x = as.factor(green_rating), y = net)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Net") +
@@ -143,7 +145,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = net)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = amenities)) + 
+p11 = ggplot(green, aes(x = as.factor(green_rating), y = amenities)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Amenities") +
@@ -151,7 +153,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = amenities)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = cd_total_07)) + 
+p12 = ggplot(green, aes(x = as.factor(green_rating), y = cd_total_07)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Cooling Degree Days") +
@@ -159,7 +161,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = cd_total_07)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = hd_total07)) + 
+p13 = ggplot(green, aes(x = as.factor(green_rating), y = hd_total07)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Heating Degree Days") +
@@ -167,7 +169,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = hd_total07)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = total_dd_07)) + 
+p14 = ggplot(green, aes(x = as.factor(green_rating), y = total_dd_07)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Total Degree Days") +
@@ -175,7 +177,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = total_dd_07)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = Precipitation)) + 
+p15 = ggplot(green, aes(x = as.factor(green_rating), y = Precipitation)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Precipitation") +
@@ -183,7 +185,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = Precipitation)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = Gas_Costs)) + 
+p16 = ggplot(green, aes(x = as.factor(green_rating), y = Gas_Costs)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Gas Costs") +
@@ -191,7 +193,7 @@ ggplot(green, aes(x = as.factor(green_rating), y = Gas_Costs)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = Electricity_Costs)) + 
+p17 = ggplot(green, aes(x = as.factor(green_rating), y = Electricity_Costs)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Electricity Costs") +
@@ -199,13 +201,15 @@ ggplot(green, aes(x = as.factor(green_rating), y = Electricity_Costs)) +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
-ggplot(green, aes(x = as.factor(green_rating), y = cluster_rent)) + 
+p18 = ggplot(green, aes(x = as.factor(green_rating), y = cluster_rent)) + 
   geom_boxplot() + 
   xlab("Green Rating") + 
   ylab("Cluster Rent") +
   labs(title = "Comparing Cluster Rent of Not Green versus Green Buildings") +
   scale_x_discrete(labels = c("Not Green", "Green")) +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, nrow = 6)
 
 ```
 
