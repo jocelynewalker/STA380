@@ -468,10 +468,278 @@ years = c(1:30)
 
 ## Visual story telling part 2: flights at ABIA
 
+The most frustrating part of travel is delays. Whether they're due to a late arriving plane, a weather delay, or a mechanical issue with the plane, no traveler likes to wait to board their plane and get to their destination. Not only do plane delays frustrate travelers, they represent extreme costs for both the airport and the airlines who rely on on-time schedules. 
+
+So, where were the most common flight delays at ABIA in 2008? What's the relationship between the frequency of a flight route and its average delays? What are the most common causes of delay? Analyzing delay data will enable ABIA and airlines to better anticipate delays and change flight paths or schedules to account for frequent delays. 
+
+First, it's important to consider what are the most common flight paths through Austin. This allows us to scale the delay data by the frequency of each flight. 
+
+### Most Common Flight Routes Passing through Austin-Bergstrom International Airport, 2008
+
+*The width and opaqueness of the lines increase by the frequency of the flight path. The most frequent routes are represented by the green color, at about 5000 flights per year or ~15 flights per day. The least frequent flights are shown in yellow, less than 1000 flights per year, or less than 3 flights per day.*
+
 ```{r 2.1, echo=FALSE, warning = FALSE, message = FALSE}
+library(ggplot2)
+library(maps)
+library(rgeos)
+library(maptools)
+library(ggmap)
+library(geosphere)
+library(plyr)
+
 file <- "https://raw.githubusercontent.com/jgscott/STA380/master/data/ABIA.csv"
 abia <- read_csv(file)
+
+file <- "https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat"
+airports <- read_csv(file)
+
+abia <- abia[,c(-11,-23)]
+
+abia[is.na(abia)] <- 0
+
+abia$OriginLat <-with(airports, `-6.081689834590001`[match(abia$Origin, GKA)])
+abia$OriginLong <- with(airports, `145.391998291`[match(abia$Origin, GKA)])
+
+abia$DestLat <-with(airports, `-6.081689834590001`[match(abia$Dest, GKA)])
+abia$DestLong <- with(airports, `145.391998291`[match(abia$Dest, GKA)])
+
+
+urbanareasin <- readShapePoly("C:/Users/jocel/OneDrive/2020_2_Summer/STA380.17 - Predictive Modeling/ne_10m_urban_areas.shp")
+worldmap = map_data ("world")
+wrld<-c(geom_polygon(aes(long,lat,group=group), size = 0.1, colour= "#090D2A", fill="#090D2A", alpha=0.8, data=worldmap))
+ 
+urb <- c(geom_polygon(aes(long, lat, group = group),
+size = 0.3,
+color = "#ffffff",
+fill = "#ffffff",
+alpha = 1,
+data = urbanareasin))
+ggplot() + wrld + urb + theme(panel.background = element_rect(fill='#00001C',colour='#00001C'),
+panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=3,
+label=paste("Austin 2008 Flights","",sep="\n"),color="white")
+
+
+library(dplyr)
+library(tidyr)     
+grouped = abia %>% group_by(Origin, Dest) %>% 
+       dplyr::summarise(Origin = Origin,
+                 Dest = Dest,
+                 Count = n(),
+                 Carrier = names(which.max(table(UniqueCarrier))),
+                 OriginLat =(OriginLat),
+                 OriginLong = (OriginLong),
+                 DestLat = (DestLat),
+                 DestLong = (DestLong),
+                 AvgDepDelay = mean(DepDelay),
+                 AvgArrDelay = mean(ArrDelay),
+                 AvgCarrDelay = mean(CarrierDelay),
+                 AvgWeatherDelay = mean(WeatherDelay),
+                 AvgNASDelay = mean(NASDelay),
+                 AvgSecurityDelay = mean(SecurityDelay),
+                 AvgLateAirDelay = mean(LateAircraftDelay))
+       
+grouped = unique(grouped)
+
+fortify.SpatialLinesDataFrame = function(model, data, ...){
+ldply(model@lines, fortify)
+}
+ 
+ 
+# calculate routes for each row
+routes = gcIntermediate(grouped[,c('OriginLong', 'OriginLat')], grouped[,c('DestLong', 'DestLat')], 200, breakAtDateLine = FALSE, addStartEnd = TRUE, sp=TRUE)
+# fortify to dataframe
+fortifiedroutes = fortify.SpatialLinesDataFrame(routes)
+ 
+# merge to form great circles
+routes_count = data.frame('count'=grouped$Count, 'id'=1:nrow(grouped), 'Origin'=grouped$Origin, 
+                          "DepDelay" = grouped$AvgDepDelay,
+                          "ArrDelay" = grouped$AvgArrDelay,
+                          "CarrDelay" = grouped$AvgCarrDelay,
+                          "WeatherDelay" = grouped$AvgWeatherDelay,
+                          "NASDelay" = grouped$AvgNASDelay,
+                          "SecurityDelay" = grouped$AvgSecurityDelay,
+                          "LateAirDelay" = grouped$AvgLateAirDelay,
+                          "Airline" = grouped$Carrier)
+greatcircles = merge(fortifiedroutes, routes_count, all.x=T, by='id')
+ 
+# get worldmap
+worldmap = map_data("world")
+ 
+# wrld layer
+wrld<-c(geom_polygon(aes(long,lat,group=group), size = 0.1, colour= "#090D2A",
+fill="#090D2A", alpha=0.8, data=worldmap))
+# urban layer
+urbanareasin <- readShapePoly("C:/Users/jocel/OneDrive/2020_2_Summer/STA380.17 - Predictive Modeling/ne_10m_urban_areas.shp")
+urb <- c(geom_polygon(aes(long, lat, group = group),
+size = 0.3,
+color = "#ffffff",
+fill = "#ffffff",
+alpha = 0.8,
+data = urbanareasin))
+
+greatcircles <- greatcircles[order(-greatcircles$count),]
+
+# final combine
+ggplot() +
+wrld +
+urb +
+geom_line(aes(long,lat,group=id, size=count, alpha = count, color = count), data= greatcircles) +
+theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+theme(legend.position = c(0,0.4),
+legend.justification = c(0,1),
+legend.background = element_rect(colour = NA, fill = NA),
+legend.key = element_rect(colour = NA, fill = NA, size = 10),
+legend.text = element_text(colour='white', size = 10)) +
+scale_x_continuous(limits = c(-125,-70)) +
+scale_y_continuous(limits = c(20,50)) + 
+scale_colour_gradient(low="#FFC966", high = "#7FFFD4") +
+#guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
+annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
+label=paste("Flight routes from top 8 countries","Created by Your name","Data From OpenFlights.org", sep="\n"),color="white")
+
 ```
+
+The most frequent flight routes are to Dallas and Houston. Other notable frequent routes shown on the map are Phoenix, Denver, Chicago, and Atlanta. 
+
+From intuition, frequent flight routes should have fewer average delays than less frequently flown routes. Next, we'll dive into the mapping of most frequent flight delays on ABIA flights. 
+
+### Most Common Flight Departure Delays from ABIA
+
+*The width of the lines increase by the frequency of the flight path. The routes with the most delays are more opaque and represented by the green color, while the routes with the fewest delays are represented by yellow color*
+
+```{r 2.2, echo=FALSE, warning = FALSE, message = FALSE}
+#delays
+ggplot() +
+wrld +
+urb +
+geom_line(aes(long,lat,group=id, color=DepDelay, alpha = DepDelay, size = count), data= greatcircles) +
+theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+theme(legend.position = c(0,0.4),
+legend.justification = c(0,1),
+legend.background = element_rect(colour = NA, fill = NA),
+legend.key = element_rect(colour = NA, fill = NA, size = 10),
+legend.text = element_text(colour='white', size = 10)) +
+scale_x_continuous(limits = c(-125,-70)) +
+scale_y_continuous(limits = c(20,50)) + 
+scale_colour_gradient(low="#FFC966", high = "#7FFFD4") +
+#guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
+annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
+label=paste("Flight routes from top 8 countries","Created by Your name","Data From OpenFlights.org", sep="\n"),color="white")
+```
+
+This graph is quite good for visualizing aggregate average departure delays, showing only high green color (average delays >60 minutes) for routes to Des Moines, Iowa and Nashville, Tennessee. However, this graph doesn't tell us much more than that, so we'll have to filter out some of the noise. 
+
+So what if we just filter the routes with very small average delays?
+
+### Routes with Average Delays <5 minutes from ABIA, 2008
+
+*The width of the lines increase by the frequency of the flight path. The routes with the most delays are more opaque and represented by the green color, while the routes with the fewest delays are represented by yellow color*
+
+```{r 2.3, echo=FALSE, warning = FALSE, message = FALSE}
+delayed <- filter(greatcircles, greatcircles$DepDelay < 5)
+
+ggplot() +
+wrld +
+urb +
+geom_line(aes(long,lat,group=id, color=DepDelay, alpha = DepDelay, size = count), data= delayed) +
+theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+theme(legend.position = c(0,0.4),
+legend.justification = c(0,1),
+legend.background = element_rect(colour = NA, fill = NA),
+legend.key = element_rect(colour = NA, fill = NA, size = 10),
+legend.text = element_text(colour='white', size = 10)) +
+scale_x_continuous(limits = c(-125,-70)) +
+scale_y_continuous(limits = c(20,50)) + 
+scale_colour_gradient(low="#FFC966", high = "#7FFFD4") +
+#guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
+annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
+label=paste("Flight routes from top 8 countries","Created by Your name","Data From OpenFlights.org", sep="\n"),color="white")
+
+```
+
+The rotues with the **shortest average delays** are to every West-Coast hub (Los Angeles, San Francisco, Seattle), and also include short routes in the southern half of the United States.
+
+Next, we'll examine the routes with medium average delays, between 5 and 30 minutes on average. 
+
+### Routes with Average Delays Between >5 and < 20 minutes from ABIA, 2008
+
+*The width of the lines increase by the frequency of the flight path. The routes with the most delays are more opaque and represented by the green color, while the routes with the fewest delays are represented by yellow color*
+
+```{r 2.4, echo=FALSE, warning = FALSE, message = FALSE}
+delayed <- filter(greatcircles, greatcircles$DepDelay > 5 & greatcircles$DepDelay < 20)
+
+ggplot() +
+wrld +
+urb +
+geom_line(aes(long,lat,group=id, color=DepDelay, alpha = DepDelay, size = count), data= delayed) +
+theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+theme(legend.position = c(0,0.4),
+legend.justification = c(0,1),
+legend.background = element_rect(colour = NA, fill = NA),
+legend.key = element_rect(colour = NA, fill = NA, size = 10),
+legend.text = element_text(colour='white', size = 10)) +
+scale_x_continuous(limits = c(-125,-70)) +
+scale_y_continuous(limits = c(20,50)) + 
+scale_colour_gradient(low="#FFC966", high = "#7FFFD4") +
+#guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
+annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
+label=paste("Flight routes from top 8 countries","Created by Your name","Data From OpenFlights.org", sep="\n"),color="white")
+
+```
+
+Our routes with medium delays expand to our east-coast hubs, that all tend to have higher average delays than the west-coast hubs. Namely, flights to Chicago, Illinois, Atlanta, Georgia, and New York City tend to have higher average delays closer to 20 minutes. 
+
+**So what are the routes with the most room for improvement?**
+
+### Routes with Average Delays > 20 minutes from ABIA, 2008
+
+*The width of the lines increase by the frequency of the flight path. The routes with the most delays are more opaque and represented by the green color, while the routes with the fewest delays are represented by yellow color*
+
+```{r 2.5, echo=FALSE, warning = FALSE, message = FALSE}
+delayed <- filter(greatcircles, greatcircles$DepDelay > 20)
+
+ggplot() +
+wrld +
+urb +
+geom_line(aes(long,lat,group=id, size = count,color=DepDelay, alpha = DepDelay), data= delayed) +
+theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+#theme(legend.position = c(0,0.4),
+#legend.justification = c(0,1),
+#legend.background = element_rect(colour = NA, fill = NA),
+#legend.key = element_rect(colour = NA, fill = NA, size = 10),
+#legend.text = element_text(colour='white', size = 10)) +
+scale_x_continuous(limits = c(-125,-70)) +
+scale_y_continuous(limits = c(20,50)) + 
+scale_colour_gradient(low="#FFC966", high = "#7FFFD4") +
+#guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
+annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
+label=paste("Flight routes from top 8 countries","Created by Your name","Data From OpenFlights.org", sep="\n"),color="white")
+```
+
+From this chart, we see two **frequently flown routes** with **highest room for improvement.** 
+
+* A Mesa Airlines (American Airlines operated) route from IAD to AUS, flown 631 times in 2008, with an average delay of 27 minutes.
+
+* A Southwest Airlines route from BNA to AUS, flown 795 times in 2008, with an average delay of 20 minutes. 
+
+The types of delays on these routes are shown below. 
+
+```{r 2.6, echo=FALSE, warning = FALSE, message = FALSE}
+improve <- delayed[c(1,213),]
+improve <- improve[,c(8:15)]
+
+improve <- t(improve[,c(-1:-3)])
+improve <- setNames(improve, c("BNA", "IAD"))
+
+barplot(improve, legend = TRUE, names = c("BNA-AUS Southwest", "IAD-AUS Mesa"),args.legend = list(x = "topleft", bty="n", xpd = FALSE), main = "Types of Delays at Most Frequently Delayed ABIA Routes")
+
+```
+
+The Southwest Nashville flight is most often delayed due to Late Aircraft Delays. The Mesa Washington DC flight is most often delayed due to Carrier Delays. **So, what can these airlines do with this information?**
+
+* Southwest Airlines should analyze the aircrafts coming into Nashville that are used on this Nashville-Austin flight. It may be necessary to have more time scheduled in between the flight paths in Nashville because the incoming flight is often delayed. Because the Arrival Delay on this flight is still 13 minutes, the planes are not "making up" the delay in the air. This speaks to the need to **revisit the timing of this scheduled BNA-AUS route.**
+
+* Mesa/American Airlines should dive into its historical data for this route that is consistently having Carrier Delays of nearly 20 minutes. This IAD-AUS route is also not "making up" its delay in the air, as the average arrival delay is also 27 minutes. These delays may be caused by a crew that takes longer to load passengers, the use of an older aircraft with more mechanical issues, or a slower baggage loading or fueling crew in Washington DC. With more information about the **breakdown of carrier delays,** Mesa will be able to improve its route with the maximum number of delays and reduce impact on ABIA delays. 
 
 ## Portfolio Modeling
 

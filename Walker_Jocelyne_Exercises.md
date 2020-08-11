@@ -242,6 +242,136 @@ revenue per square foot.**
 Visual story telling part 2: flights at ABIA
 --------------------------------------------
 
+The most frustrating part of travel is delays. Whether they’re due to a
+late arriving plane, a weather delay, or a mechanical issue with the
+plane, no traveler likes to wait to board their plane and get to their
+destination. Not only do plane delays frustrate travelers, they
+represent extreme costs for both the airport and the airlines who rely
+on on-time schedules.
+
+So, where were the most common flight delays at ABIA in 2008? What’s the
+relationship between the frequency of a flight route and its average
+delays? What are the most common causes of delay? Analyzing delay data
+will enable ABIA and airlines to better anticipate delays and change
+flight paths or schedules to account for frequent delays.
+
+First, it’s important to consider what are the most common flight paths
+through Austin. This allows us to scale the delay data by the frequency
+of each flight.
+
+### Most Common Flight Routes Passing through Austin-Bergstrom International Airport, 2008
+
+*The width and opaqueness of the lines increase by the frequency of the
+flight path. The most frequent routes are represented by the green
+color, at about 5000 flights per year or ~15 flights per day. The least
+frequent flights are shown in yellow, less than 1000 flights per year,
+or less than 3 flights per day.*
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/2.1-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/2.1-2.png)
+
+The most frequent flight routes are to Dallas and Houston. Other notable
+frequent routes shown on the map are Phoenix, Denver, Chicago, and
+Atlanta.
+
+From intuition, frequent flight routes should have fewer average delays
+than less frequently flown routes. Next, we’ll dive into the mapping of
+most frequent flight delays on ABIA flights.
+
+### Most Common Flight Departure Delays from ABIA
+
+*The width of the lines increase by the frequency of the flight path.
+The routes with the most delays are more opaque and represented by the
+green color, while the routes with the fewest delays are represented by
+yellow color*
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/2.2-1.png)
+
+This graph is quite good for visualizing aggregate average departure
+delays, showing only high green color (average delays &gt;60 minutes)
+for routes to Des Moines, Iowa and Nashville, Tennessee. However, this
+graph doesn’t tell us much more than that, so we’ll have to filter out
+some of the noise.
+
+So what if we just filter the routes with very small average delays?
+
+### Routes with Average Delays &lt;5 minutes from ABIA, 2008
+
+*The width of the lines increase by the frequency of the flight path.
+The routes with the most delays are more opaque and represented by the
+green color, while the routes with the fewest delays are represented by
+yellow color*
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/2.3-1.png)
+
+The rotues with the **shortest average delays** are to every West-Coast
+hub (Los Angeles, San Francisco, Seattle), and also include short routes
+in the southern half of the United States.
+
+Next, we’ll examine the routes with medium average delays, between 5 and
+30 minutes on average.
+
+### Routes with Average Delays Between &gt;5 and &lt; 20 minutes from ABIA, 2008
+
+*The width of the lines increase by the frequency of the flight path.
+The routes with the most delays are more opaque and represented by the
+green color, while the routes with the fewest delays are represented by
+yellow color*
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/2.4-1.png)
+
+Our routes with medium delays expand to our east-coast hubs, that all
+tend to have higher average delays than the west-coast hubs. Namely,
+flights to Chicago, Illinois, Atlanta, Georgia, and New York City tend
+to have higher average delays closer to 20 minutes.
+
+**So what are the routes with the most room for improvement?**
+
+### Routes with Average Delays &gt; 20 minutes from ABIA, 2008
+
+*The width of the lines increase by the frequency of the flight path.
+The routes with the most delays are more opaque and represented by the
+green color, while the routes with the fewest delays are represented by
+yellow color*
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/2.5-1.png)
+
+From this chart, we see two **frequently flown routes** with **highest
+room for improvement.**
+
+-   A Mesa Airlines (American Airlines operated) route from IAD to AUS,
+    flown 631 times in 2008, with an average delay of 27 minutes.
+
+-   A Southwest Airlines route from BNA to AUS, flown 795 times in 2008,
+    with an average delay of 20 minutes.
+
+The types of delays on these routes are shown below.
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/2.6-1.png)
+
+The Southwest Nashville flight is most often delayed due to Late
+Aircraft Delays. The Mesa Washington DC flight is most often delayed due
+to Carrier Delays. **So, what can these airlines do with this
+information?**
+
+-   Southwest Airlines should analyze the aircrafts coming into
+    Nashville that are used on this Nashville-Austin flight. It may be
+    necessary to have more time scheduled in between the flight paths in
+    Nashville because the incoming flight is often delayed. Because the
+    Arrival Delay on this flight is still 13 minutes, the planes are not
+    “making up” the delay in the air. This speaks to the need to
+    **revisit the timing of this scheduled BNA-AUS route.**
+
+-   Mesa/American Airlines should dive into its historical data for this
+    route that is consistently having Carrier Delays of nearly 20
+    minutes. This IAD-AUS route is also not “making up” its delay in the
+    air, as the average arrival delay is also 27 minutes. These delays
+    may be caused by a crew that takes longer to load passengers, the
+    use of an older aircraft with more mechanical issues, or a slower
+    baggage loading or fueling crew in Washington DC. With more
+    information about the **breakdown of carrier delays,** Mesa will be
+    able to improve its route with the maximum number of delays and
+    reduce impact on ABIA delays.
+
 Portfolio Modeling
 ------------------
 
