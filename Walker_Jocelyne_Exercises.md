@@ -178,12 +178,7 @@ datasets.
 The graphs below represent the compared boxplots of the data *before*
 matching and the data *after* matching.
 
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-2.png)
-
-    ##        0        1 
-    ## 26.83931 26.97499
-
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-3.png)
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-2.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-3.png)
 
 Balancing the data allows me to compare like with like. This eliminates
 the effect of the confounding variables because now the confounders are
@@ -199,10 +194,10 @@ a number of confounding variables.
 
 **Now that we’ve adjusted for confounding variables, the differences in
 mean revenue in the matched groups are smaller.** The mean revenue per
-square foot of the non-green matched buildings is $26.24, while the mean
-of the green buildings is $26.97, resulting in a difference of $0.73 per
-square foot. This is much smaller than original estimate of $2.60
-increased revenue per square foot. This would translate into an
+square foot of the **non-green matched buildings is $26.24**, while the
+**mean of the green buildings is $26.97**, resulting in a difference of
+**$0.73** per square foot. This is much smaller than original estimate
+of $2.60 increased revenue per square foot. This would translate into an
 additional 250,000 \* 0.73 = $182,500 of extra revenue per year. If the
 expected baseline construction costs are $100 million, with an expected
 5% premium for green certification, that means we should expect to spend
