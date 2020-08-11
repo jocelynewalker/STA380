@@ -181,7 +181,7 @@ matching and the data *after* matching.
 ![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-2.png)
 
     ##        0        1 
-    ## 26.87482 26.97499
+    ## 26.83931 26.97499
 
 ![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-3.png)
 
@@ -199,15 +199,15 @@ a number of confounding variables.
 
 **Now that we’ve adjusted for confounding variables, the differences in
 mean revenue in the matched groups are smaller.** The mean revenue per
-square foot of the non-green matched buildings is $26.20, while the mean
-of the green buildings is $26.97, resulting in a difference of $0.77 per
+square foot of the non-green matched buildings is $26.24, while the mean
+of the green buildings is $26.97, resulting in a difference of $0.73 per
 square foot. This is much smaller than original estimate of $2.60
 increased revenue per square foot. This would translate into an
-additional 250,000 \* 0.77 = $192,500 of extra revenue per year. If the
+additional 250,000 \* 0.73 = $182,500 of extra revenue per year. If the
 expected baseline construction costs are $100 million, with an expected
 5% premium for green certification, that means we should expect to spend
 an extra $5 million on the green building. It would take
-5,000,000/192,500 = 25.97 years to recuperate the costs, without
+5,000,000/182,500 = 27.4 years to recuperate the costs, without
 accounting for the time value of money. **This does not seem like a good
 financial move to build the green building; it is much riskier than the
 original estimate.**
@@ -221,6 +221,7 @@ coefficient for green rating is -$1.18 to +$1.91 with a mean of $0.46
 per square foot.
 
 ![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.b.1-1.png)
+
 From the bootstrapped regression, our estimate for the coefficient of
 green rating falls again, and we are not sure that it is greater than 0,
 as 0 is included in the confidence interval. This shows that there’s
