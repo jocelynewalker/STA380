@@ -93,7 +93,7 @@ green certification would hold true. However, we can’t do this in East
 Austin. Instead, we *can* **match our data in order to balance the green
 and non-green building groups.**
 
-The goal of our analysis is to eliminate those 8 confounding variables
+The goal of our analysis is to adjust for those 8 confounding variables
 described above like age, size, and class. The matching process entails:
 
 -   For each green building, finding a non-green building that is very
@@ -103,7 +103,8 @@ described above like age, size, and class. The matching process entails:
 -   Pairing the data up into a new dataset so each green building has a
     “matched” non-green building.
 
-<!-- -->
+The output below shows the summary of the matched and unmatched
+datasets.
 
     ## 
     ## Call:
@@ -174,7 +175,15 @@ described above like age, size, and class. The matching process entails:
     ## Unmatched    6298       0
     ## Discarded       0       0
 
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.b-1.png)
+The graphs below represent the compared boxplots of the data *before*
+matching and the data *after* matching.
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-2.png)
+
+    ##        0        1 
+    ## 26.87482 26.97499
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-3.png)
 
 Balancing the data allows me to compare like with like. This eliminates
 the effect of the confounding variables because now the confounders are
@@ -187,6 +196,49 @@ This is a better approach because we know that green rating is the only
 variable that is impacting differences in revenue per square foot. In
 the first situation, the differences in groups could have been caused by
 a number of confounding variables.
+
+**Now that we’ve adjusted for confounding variables, the differences in
+mean revenue in the matched groups are smaller.** The mean revenue per
+square foot of the non-green matched buildings is $26.20, while the mean
+of the green buildings is $26.97, resulting in a difference of $0.77 per
+square foot. This is much smaller than original estimate of $2.60
+increased revenue per square foot. This would translate into an
+additional 250,000 \* 0.77 = $192,500 of extra revenue per year. If the
+expected baseline construction costs are $100 million, with an expected
+5% premium for green certification, that means we should expect to spend
+an extra $5 million on the green building. It would take
+5,000,000/192,500 = 25.97 years to recuperate the costs, without
+accounting for the time value of money. **This does not seem like a good
+financial move to build the green building; it is much riskier than the
+original estimate.**
+
+**Next, we need to estimate how “stable” our estimate of $0.77 increased
+revenue per square foot of a green building is.** We ran a bootstrapped
+linear model to understand how the coefficient for **green rating**
+changes as we resample with replacement. The histogram of these
+coefficients is shown below, and the 95% confidence interval for the
+coefficient for green rating is -$1.18 to +$1.91 with a mean of $0.46
+per square foot.
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.b.1-1.png)
+From the bootstrapped regression, our estimate for the coefficient of
+green rating falls again, and we are not sure that it is greater than 0,
+as 0 is included in the confidence interval. This shows that there’s
+**no significant difference** in rental revenue between green and
+not-green buildings, and the green construction certification is not a
+profitable investment.
+
+The upper 95% confidence interval is $1.91 Revenue per Square Foot.
+Assuming a lift at the 95% coefficient level, 6% discount rate, and 90%
+leasing rate for the next 30 years, the NPV of this investment is
+$915,436.
+
+Assuming the mean coefficient of $0.46, 6% discount rate, and 90%
+leasing rate for the next 30 years, the **NPV of this investment is
+-$3,575,340.** This negative NPV shows that this is not a profitable
+investment, and **the $5,000,000 could be better spent on more
+development space or amenities that may be more likely to increase
+revenue per square foot.**
 
 Visual story telling part 2: flights at ABIA
 --------------------------------------------
