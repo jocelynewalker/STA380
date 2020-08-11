@@ -9,12 +9,12 @@ recovered in less than 8 years.
 
 ![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1-1.png)
 
-We see from the graph above that the medians (on the boxplots) and means
-(represented by the red stars) of green and non-green building revenue
-per square foot are different. The not green buildings have a mean of
-$24.50, while the green buildings have a mean of $27.00. This shows that
-from both means and medians, there is additional revenue on average for
-green buildings.
+We see from the graph above that the medians (black lines on the
+boxplots) and means (represented by the red stars) of green and
+non-green building revenue per square foot are different. The not green
+buildings have a mean of $24.50, while the green buildings have a mean
+of $27.00. This shows that from both means and medians, there is
+additional revenue on average for green buildings.
 
 However, there are a number of issues with the original staff member’s
 analysis:
@@ -35,15 +35,18 @@ analysis:
 
 -   We must consider the **time value of money.** Performing an NPV
     analysis and talking to the construction company about reducing the
-    cost of the project will supplement the analysis.
+    cost of the project will supplement our analysis.
 
 First, instead of dropping all buildings with leasing rates less than
-10%, I chose to drop only those with leasing rates less than 1% to
+10%, we chose to drop only those with leasing rates less than 1% to
 consider more of the outliers.
 
 **What variables appear to be confounding?**
 
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-2.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-3.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-4.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-5.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-6.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-7.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-8.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-9.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-10.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-11.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-12.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-13.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-14.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-15.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-16.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-17.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-18.png)
+I compared boxplots of each of the predictor variables for Not Green
+versus Green buildings
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.a-1.png)
 
 Visual story telling part 2: flights at ABIA
 --------------------------------------------
