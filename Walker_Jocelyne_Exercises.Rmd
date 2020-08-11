@@ -1,5 +1,5 @@
 ---
-title: "toy"
+title: "STA 380 Exercises"
 author: "Jocelyne Walker"
 date: "08/17/2020"
 output: md_document
@@ -11,47 +11,236 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Visual story telling part 1: green buildings
 
+Predicting expected profitability is essential for investments, especially large capital projects like a $100M 250,000 sq.ft. mixed-use building. From the initial analysis, it appears that the 5% expected premium for green certification is a good investment, as costs may be recovered in less than 8 years. 
 
-```{r 1.1, echo = FALSE}
+```{r 1.1, echo = FALSE, warning = FALSE, message = FALSE}
+library(readr)
+library(knitr)
+library(ggplot2)
+library(gridExtra)
+library(mosaic)
+library(MatchIt)
+
+file <- "https://raw.githubusercontent.com/jgscott/STA380/master/data/greenbuildings.csv"
+green <- read_csv(file)
+
+# Drop those with leasing rates < 10%
+green = green[green$leasing_rate >= 10,]
+
+# Define revenue per square foot measure
+green$RevPSF = green$Rent * green$leasing_rate / 100
+
+ggplot(green, aes(x = as.factor(green_rating), y = RevPSF), fill = green_rating) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Revenue per Square Foot") +
+  labs(title = "Comparing Revenue per Square Foot of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  coord_flip() +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red")
+
+```
+
+We see from the graph above that the medians (on the boxplots) and means (represented by the red stars) of green and non-green building revenue per square foot are different. The not green buildings have a mean of \$24.50, while the green buildings have a mean of \$27.00. This shows that from both means and medians, there is additional revenue on average for green buildings.  
+
+However, there are a number of issues with the original staff member's analysis: 
+
+* The staff member used the median in his analysis rather than the mean. While he is correct that the median is more robust to outliers, it is important to consider outliers in this analysis. Thus, the mean is a better measure of spread for comparing the two groups, and the **treatment of outliers** should be considered in more detail.
+
+* Green and non-green buildings are **inherently different.** Green buildings are more likely to be newer, bigger, Class A developments. Variables like age, size, and class of the building are confounding variables that impact both whether or not a building is green and its revenue per square foot. Because these building groups have confounding variables, we cannot simply compare their means.
+
+* We must consider the **time value of money.** Performing an NPV analysis and talking to the construction company about reducing the cost of the project will supplement the analysis. 
+
+First, instead of dropping all buildings with leasing rates less than 10%, I chose to drop only those with leasing rates less than 1% to consider more of the outliers. 
+
+**What variables appear to be confounding?** 
+
+```{r 1.1.a, echo = FALSE, warning = FALSE, message = FALSE}
+green <- read_csv(file)
+# Drop those with leasing rates < 1%
+green = green[green$leasing_rate >= 1,]
+
+# Define revenue per square foot measure
+green$RevPSF = green$Rent * green$leasing_rate / 100
+
+par(mfrow=c(6,3))
+ggplot(green, aes(x = as.factor(green_rating), y = size)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Size") +
+  labs(title = "Comparing Size of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = empl_gr)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Employment Growth Rate") +
+  labs(title = "Comparing Employment Growth Rate of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = Rent)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Rent") +
+  labs(title = "Comparing Rent of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = leasing_rate)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Leasing Rate") +
+  labs(title = "Comparing Leasing Rate of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = stories)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Stories") +
+  labs(title = "Comparing Stories of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = age)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Age") +
+  labs(title = "Comparing Age of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = renovated)) + 
+  geom_boxplot() + 
+  xlab("Renovated") +
+  labs(title = "Comparing Renovations of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = class_a)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Class A") +
+  labs(title = "Comparing Class A of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = class_b)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Class B") +
+  labs(title = "Comparing Class B of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = net)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Net") +
+  labs(title = "Comparing Net Contract Basis of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = amenities)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Amenities") +
+  labs(title = "Comparing Amenities of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = cd_total_07)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Cooling Degree Days") +
+  labs(title = "Comparing Cooling Degree Days of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = hd_total07)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Heating Degree Days") +
+  labs(title = "Comparing Heating Degree Days of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = total_dd_07)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Total Degree Days") +
+  labs(title = "Comparing Total Degree Days of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = Precipitation)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Precipitation") +
+  labs(title = "Comparing Precipiation in Region of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = Gas_Costs)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Gas Costs") +
+  labs(title = "Comparing Gas Costs in Region of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = Electricity_Costs)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Electricity Costs") +
+  labs(title = "Comparing Electricity Costs in Region of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
+
+ggplot(green, aes(x = as.factor(green_rating), y = cluster_rent)) + 
+  geom_boxplot() + 
+  xlab("Green Rating") + 
+  ylab("Cluster Rent") +
+  labs(title = "Comparing Cluster Rent of Not Green versus Green Buildings") +
+  scale_x_discrete(labels = c("Not Green", "Green")) +
+  stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 
 ```
 
 ## Visual story telling part 2: flights at ABIA
 
-
-```{r 2.1, echo=FALSE}
-
+```{r 2.1, echo=FALSE, warning = FALSE, message = FALSE}
+file <- "https://raw.githubusercontent.com/jgscott/STA380/master/data/ABIA.csv"
+abia <- read_csv(file)
 ```
-
 
 ## Portfolio Modeling
 
-
-```{r 3.1, echo=FALSE}
+```{r 3.1, echo=FALSE, warning = FALSE, message = FALSE}
 
 ```
 
 ## Market segmentation
 
+```{r 4.1, echo=FALSE, warning = FALSE, message = FALSE}
+file <- "https://raw.githubusercontent.com/jgscott/STA380/master/data/social_marketing.csv"
+social <- read_csv(file)
 
-```{r 4.1, echo=FALSE}
 
 ```
-
-
 
 ## Author attribution
 
-
-```{r 5.1, echo=FALSE}
+```{r 5.1, echo=FALSE, warning = FALSE, message = FALSE}
 
 ```
 
-
-
 ## Association rule mining
 
+```{r 6.1, echo=FALSE, warning = FALSE, message = FALSE}
+#file <- "https://raw.githubusercontent.com/jgscott/STA380/master/data/groceries.txt"
 
-```{r 6.1, echo=FALSE}
 
 ```
