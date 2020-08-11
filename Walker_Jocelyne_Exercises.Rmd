@@ -411,7 +411,7 @@ a18 = ggplot(green_matched, aes(x = as.factor(green_rating), y = cluster_rent)) 
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red") 
 ```
 
-The graphs below represent the compared boxplots of the data *before* matching and the data *after* matching. 
+The graphs below represent the compared boxplots of the data *before* matching and the data *after* matching. Each left graph is before matching, and each graph on the right shows the difference in the matched data. There is now much smaller difference in confounding variables. 
 
 ```{r 1.1.c, echo = FALSE, warning = FALSE, message = FALSE}
 plot_grid(p1,a1, p6,a6, p7,a7, p11,a11, nrow = 2, label_size = 2, scale = 1)

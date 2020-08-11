@@ -176,7 +176,10 @@ datasets.
     ## Discarded       0       0
 
 The graphs below represent the compared boxplots of the data *before*
-matching and the data *after* matching.
+matching and the data *after* matching. Each left graph is before
+matching, and each graph on the right shows the difference in the
+matched data. There is now much smaller difference in confounding
+variables.
 
 ![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-2.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/1.1.c-3.png)
 
