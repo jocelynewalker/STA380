@@ -818,7 +818,7 @@ abline(v = (quantile(sim1[,n_days], 0.05) - initial_wealth), col = "red")
 quantile(sim1[,n_days], 0.05) - initial_wealth
 ```
 
-From the histograms of the portfolio values and earnings, we see that negative earnings are a possibility. The 5% value at risk based on a 20-day bootstrapped period is **-\$8279.31** for this portfolio. 
+From the histograms of the portfolio values and earnings, we see that negative earnings are a possibility. The 5% value at risk based on a 20-day bootstrapped period is **-\$8155.05** for this portfolio. 
 
 ### Portfolio 2: "Thrive on Volatility" 
 
@@ -856,6 +856,7 @@ all_returns = as.matrix(na.omit(all_returns))
 pairs(all_returns)
 
 ```
+
 From the pairs plot, we see that these four ETFs are much less strongly correlated than the ETFs in Portfolio 1. Thus, I expect this portfolio to be "safer" and have a higher Value at Risk. 
 
 Then, we simulate the 20-day trading period of this portfolio. 
@@ -938,6 +939,7 @@ all_returns = as.matrix(na.omit(all_returns))
 # Compute the returns from the closing prices
 pairs(all_returns)
 ```
+
 From the pairs correlation matrix, we see that these Bond ETFs are less correlated than the ETFs in Portfolio 1 and Portfolio 2. 
 
 Then, we simulate the 20-day trading period of this portfolio.
@@ -976,7 +978,7 @@ sim1 = do(1000)*{
 hist(sim1[,n_days], 25, main = "Portfolio 3 Bootstrapped Portfolio Values")
 
 # Profit/loss
-mean(sim1[,n_days])
+#mean(sim1[,n_days])
 hist(sim1[,n_days]- initial_wealth, breaks=30, main = "Portfolio 3 Bootstrapped Earnings")
 abline(v = (quantile(sim1[,n_days], 0.05) - initial_wealth), col = "red")
 
@@ -987,7 +989,7 @@ From the histograms of the portfolio values and earnings, we see that negative e
 
 ### In summary
 
-* Portfolio 1 is best suited for longer-term investment. (In fact, some of these ETFs are in our team's own IRA portfolios.) The 5% VaR is the lowest at **-\$8279.31**
+* Portfolio 1 is best suited for longer-term investment. (In fact, some of these ETFs are in our team's own IRA portfolios.) The 5% VaR is the lowest at **-\$8155.05**
 
 * Portfolio 2 is a better short-term risk fund. Instead of simply tracking the market, it attempts to hedge against market volatility in other ways. These strategies include focusing on high-value tech firms, dividend funds, consumer staples, and low beta stocks. It increases VaR to **-\$5,047.68**. 
 
@@ -999,9 +1001,15 @@ For those most risk-averse investors over a 20-day trading period, Portfolio 3 i
 ## Market segmentation
 
 ```{r 4.1, echo=FALSE, warning = FALSE, message = FALSE}
+library(readr)
 file <- "https://raw.githubusercontent.com/jgscott/STA380/master/data/social_marketing.csv"
 social <- read_csv(file)
 
+pairs(social[,2:5])
+
+
+# clustering
+# pricipal component analysis
 
 ```
 
