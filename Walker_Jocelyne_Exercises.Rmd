@@ -727,7 +727,21 @@ The Southwest Nashville flight is most often delayed due to Late Aircraft Delays
 
 ## Portfolio Modeling
 
+We are building three different ETF-based portfolios, each based on a different investment risk strategy. These three portfolios each are built on different ideas of tracking market movement. For each portfolio, we'll use the last five years of daily data to calculate the 5% value at risk using 20 trading day bootstrap resampling on a \$100,000 capital investment. Each of these portfolios is redistributed at the end of the day to maintain the stated portfolio weights. 
+
 ### Portfolio 1: "In it for the long run"
+
+Portfolio 1 is built on the idea of tracking the S&P 500 movement. These ETFs are indicators of the entire market trends. Here's a breakdown of the portfolio:
+
+* **20% VOO** Vanguard 500 Index Fund, built to track the S&P 500
+
+* **20% VTWO** Vanguard Russell 2000 ETF, the next 2,000 diversified stocks after excluding the largest US public companies
+
+* **20% MGC** Vanguard Mega Cap ETF, diversified large blend domestic ETF
+
+* **20% SPYG** SPDR Portfolio S&P 500 Growth ETF, high growth large cap companies 
+
+* **20% VTI** Vanguard Total Stock Market ETF, built to track S&P 500, but more mid-cap exposure than VOO
 
 ```{r 3.1, echo=FALSE, warning = FALSE, message = FALSE}
 library(mosaic)
@@ -755,6 +769,13 @@ all_returns = as.matrix(na.omit(all_returns))
 
 # Compute the returns from the closing prices
 pairs(all_returns)
+```
+
+From the pairs correlation matrix above, you can see that the Close-to-Close earnings of each of these ETFs are highly correlated. Thus, when one goes up, the others also go up. When one goes down, they all go down. This is evidence that all of these ETFs are tracking market movement and largely moving in the same direction. 
+
+Then, we simulate the 20-day trading period of this portfolio. 
+
+```{r 3.1.a, echo=FALSE, warning = FALSE, message = FALSE}
 
 # Sample a random return from the empirical joint distribution
 # This simulates a random day
@@ -767,6 +788,7 @@ my_weights = c(0.2,0.2,0.2, 0.2, 0.2)
 holdings = total_wealth*my_weights
 holdings = holdings*(1 + return.today)
 
+set.seed(1)
 # Now simulate many different possible scenarios  
 initial_wealth = 100000
 sim1 = do(1000)*{
@@ -785,20 +807,33 @@ sim1 = do(1000)*{
 }
 
 #head(sim1)
-hist(sim1[,n_days], 25)
+hist(sim1[,n_days], 25, main = "Portfolio 1 Bootstrapped Portfolio Values")
 
 # Profit/loss
-mean(sim1[,n_days])
-hist(sim1[,n_days]- initial_wealth, breaks=30)
+#mean(sim1[,n_days])
+hist(sim1[,n_days]- initial_wealth, breaks=30, main = "Portfolio 1 Bootstrapped Earnings")
+abline(v = (quantile(sim1[,n_days], 0.05) - initial_wealth), col = "red")
 
 # Calculate 5% value at risk
 quantile(sim1[,n_days], 0.05) - initial_wealth
 ```
 
+From the histograms of the portfolio values and earnings, we see that negative earnings are a possibility. The 5% value at risk based on a 20-day bootstrapped period is **-\$8279.31** for this portfolio. 
+
 ### Portfolio 2: "Thrive on Volatility" 
 
+Portfolio 2 is built on the idea of thriving off market volatility. These ETFs are designed to thrive in volatile market conditions by increasing their diversity. Here's a breakdown of the portfolio:
+
+* **25% QQQ** Invesco QQQ Trust, tracks the Nasdaq 100 index, dominated by big tech names
+
+* **25% BTAL** AGFiQ U.S. Market Neutral Anti-Beta Fund, profiting off a spread between high and low beta stocks, performing well when low beta stocks are in favor in stormy market conditions
+
+* **25% SDY** SPDR S&P Dividend ETF, focusing on dividend growth stocks. Dividends represent a safer return as firms will reduce buybacks before cutting dividends. 
+
+* **25% XLP** SPDR Consumer Staples Select Sector, tracks consumer household stable products like Walmart and Proctor and Gamble that will not fall significantly during volatile markets
+
 ```{r 3.2, echo=FALSE, warning = FALSE, message = FALSE}
-mystocks = c("QQQ", "BTAL", "SDY", "XLP", "HYLV")
+mystocks = c("QQQ", "BTAL", "SDY", "XLP")
 myprices = getSymbols(mystocks, from = "2015-08-10")
 
 # A chunk of code for adjusting all stocks
@@ -813,13 +848,19 @@ for(ticker in mystocks) {
 all_returns = cbind(	ClCl(QQQa),
 								ClCl(BTALa),
 								ClCl(SDYa),
-								ClCl(XLPa),
-								ClCl(HYLVa))
+								ClCl(XLPa))
 #head(all_returns)
 all_returns = as.matrix(na.omit(all_returns))
 
 # Compute the returns from the closing prices
 pairs(all_returns)
+
+```
+From the pairs plot, we see that these four ETFs are much less strongly correlated than the ETFs in Portfolio 1. Thus, I expect this portfolio to be "safer" and have a higher Value at Risk. 
+
+Then, we simulate the 20-day trading period of this portfolio. 
+
+```{r 3.2.a, echo=FALSE, warning = FALSE, message = FALSE}
 
 # Sample a random return from the empirical joint distribution
 # This simulates a random day
@@ -828,15 +869,16 @@ return.today = resample(all_returns, 1, orig.ids=FALSE)
 # Update the value of your holdings
 # Assumes an equal allocation to each asset
 total_wealth = 100000
-my_weights = c(0.2,0.2,0.2, 0.2, 0.2)
+my_weights = c(0.25,0.25,0.25,0.25)
 holdings = total_wealth*my_weights
 holdings = holdings*(1 + return.today)
 
+set.seed(1)
 # Now simulate many different possible scenarios  
 initial_wealth = 100000
 sim1 = do(1000)*{
 	total_wealth = initial_wealth
-	weights = c(0.2, 0.2, 0.2, 0.2, 0.2)
+	weights = c(0.25,0.25,0.25,0.25)
 	holdings = weights * total_wealth
 	n_days = 20
 	wealthtracker = rep(0, n_days)
@@ -850,21 +892,32 @@ sim1 = do(1000)*{
 }
 
 #head(sim1)
-hist(sim1[,n_days], 25)
+hist(sim1[,n_days], 25, main = "Portfolio 2 Bootstrapped Portfolio Values")
 
 # Profit/loss
-mean(sim1[,n_days])
-hist(sim1[,n_days]- initial_wealth, breaks=30)
+#mean(sim1[,n_days])
+hist(sim1[,n_days]- initial_wealth, breaks=30, main = "Portfolio 2 Bootstrapped Earnings")
+abline(v = (quantile(sim1[,n_days], 0.05) - initial_wealth), col = "red")
+
 
 # Calculate 5% value at risk
 quantile(sim1[,n_days], 0.05) - initial_wealth
 ```
 
+From the histograms of the portfolio values and earnings, we see that negative earnings are a possibility. The 5% value at risk based on a 20-day bootstrapped period is **-\$5,047.68** for this portfolio. This is a much "safer" portfolio compared to the portfolio that simply tracks the S&P 500 above.  
 
-### Portfolio 3: "Bonds and Consumer Staples" 
+### Portfolio 3: "Safety and Risk-Aversion with Bonds" 
+
+While Portfolio 2 was built on the idea of thriving off market volatility, Portfolio 3 attempts to avoid market volatility altogether. These "safe" ETFs are designed to withstand market volatility, but have a smaller potential return. Here's a breakdown of the portfolio:
+
+* **33% FBND** Fidelity Total Bond ETF, tracks Barclays US Universal Bond Index with diversified sector allocation
+
+* **33% BLV** Vanguard Long-Term Bond, tracks US government and corporate bonds that have maturities of greater than 10 years
+
+* **33% BSV** Vanguard Short-Term Bond, built 71% off AAA-rated bonds and 13% in bonds rated BBB.   
 
 ```{r 3.3, echo=FALSE, warning = FALSE, message = FALSE}
-mystocks = c("FBND", "BLV", "IECS")
+mystocks = c("FBND", "BLV", "BSV")
 myprices = getSymbols(mystocks, from = "2015-08-10")
 
 # A chunk of code for adjusting all stocks
@@ -876,15 +929,20 @@ for(ticker in mystocks) {
 }
 
 # Combine all the returns in a matrix
-all_returns = cbind(	ClCl(FBNDa),
+all_returns = cbind(ClCl(FBNDa),
 								ClCl(BLVa),
-								ClCl(IECSa))
+								ClCl(BSVa))
 #head(all_returns)
 all_returns = as.matrix(na.omit(all_returns))
 
 # Compute the returns from the closing prices
 pairs(all_returns)
+```
+From the pairs correlation matrix, we see that these Bond ETFs are less correlated than the ETFs in Portfolio 1 and Portfolio 2. 
 
+Then, we simulate the 20-day trading period of this portfolio.
+
+```{r 3.3.a, echo=FALSE, warning = FALSE, message = FALSE}
 # Sample a random return from the empirical joint distribution
 # This simulates a random day
 return.today = resample(all_returns, 1, orig.ids=FALSE)
@@ -892,15 +950,16 @@ return.today = resample(all_returns, 1, orig.ids=FALSE)
 # Update the value of your holdings
 # Assumes an equal allocation to each asset
 total_wealth = 100000
-my_weights = c(0.25,0.25,0.5)
+my_weights = c((1/3),(1/3),(1/3))
 holdings = total_wealth*my_weights
 holdings = holdings*(1 + return.today)
 
+set.seed(1)
 # Now simulate many different possible scenarios  
 initial_wealth = 100000
 sim1 = do(1000)*{
 	total_wealth = initial_wealth
-	weights = c(0.25, 0.25, 0.5)
+	weights = c((1/3),(1/3),(1/3))
 	holdings = weights * total_wealth
 	n_days = 20
 	wealthtracker = rep(0, n_days)
@@ -914,18 +973,27 @@ sim1 = do(1000)*{
 }
 
 #head(sim1)
-hist(sim1[,n_days], 25)
+hist(sim1[,n_days], 25, main = "Portfolio 3 Bootstrapped Portfolio Values")
 
 # Profit/loss
 mean(sim1[,n_days])
-hist(sim1[,n_days]- initial_wealth, breaks=30)
+hist(sim1[,n_days]- initial_wealth, breaks=30, main = "Portfolio 3 Bootstrapped Earnings")
+abline(v = (quantile(sim1[,n_days], 0.05) - initial_wealth), col = "red")
 
 # Calculate 5% value at risk
 quantile(sim1[,n_days], 0.05) - initial_wealth
 ```
+From the histograms of the portfolio values and earnings, we see that negative earnings are **still** a possibility. The 5% value at risk based on a 20-day bootstrapped period is **-\$2,553.16** for this portfolio. This is a much "safer" portfolio compared to **both** Portfolio 1 and Portfolio 2. 
 
+### In summary
 
+* Portfolio 1 is best suited for longer-term investment. (In fact, some of these ETFs are in our team's own IRA portfolios.) The 5% VaR is the lowest at **-\$8279.31**
 
+* Portfolio 2 is a better short-term risk fund. Instead of simply tracking the market, it attempts to hedge against market volatility in other ways. These strategies include focusing on high-value tech firms, dividend funds, consumer staples, and low beta stocks. It increases VaR to **-\$5,047.68**. 
+
+* Portfolio 3 is the best short-term risk fund as it increases VaR further to **-\$2,553.16**. Because it is based on more stable bond indexes, this means that the Value at Risk is higher than the previous two portfolios.
+
+For those most risk-averse investors over a 20-day trading period, Portfolio 3 is the safest choice. Over a longer trading period, investors may be more likely to choose the portfolios that track the S&P 500 or thrive off market volatility in the long run. 
 
 
 ## Market segmentation

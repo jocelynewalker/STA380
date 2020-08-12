@@ -375,38 +375,150 @@ information?**
 Portfolio Modeling
 ------------------
 
+We are building three different ETF-based portfolios, each based on a
+different investment risk strategy. These three portfolios each are
+built on different ideas of tracking market movement. For each
+portfolio, we’ll use the last five years of daily data to calculate the
+5% value at risk using 20 trading day bootstrap resampling on a $100,000
+capital investment. Each of these portfolios is redistributed at the end
+of the day to maintain the stated portfolio weights.
+
 ### Portfolio 1: “In it for the long run”
 
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.1-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.1-2.png)
+Portfolio 1 is built on the idea of tracking the S&P 500 movement. These
+ETFs are indicators of the entire market trends. Here’s a breakdown of
+the portfolio:
 
-    ## [1] 101406.3
+-   **20% VOO** Vanguard 500 Index Fund, built to track the S&P 500
 
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.1-3.png)
+-   **20% VTWO** Vanguard Russell 2000 ETF, the next 2,000 diversified
+    stocks after excluding the largest US public companies
+
+-   **20% MGC** Vanguard Mega Cap ETF, diversified large blend domestic
+    ETF
+
+-   **20% SPYG** SPDR Portfolio S&P 500 Growth ETF, high growth large
+    cap companies
+
+-   **20% VTI** Vanguard Total Stock Market ETF, built to track S&P 500,
+    but more mid-cap exposure than VOO
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.1-1.png)
+
+From the pairs correlation matrix above, you can see that the
+Close-to-Close earnings of each of these ETFs are highly correlated.
+Thus, when one goes up, the others also go up. When one goes down, they
+all go down. This is evidence that all of these ETFs are tracking market
+movement and largely moving in the same direction.
+
+Then, we simulate the 20-day trading period of this portfolio.
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.1.a-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.1.a-2.png)
 
     ##        5% 
-    ## -8431.506
+    ## -8155.048
+
+From the histograms of the portfolio values and earnings, we see that
+negative earnings are a possibility. The 5% value at risk based on a
+20-day bootstrapped period is **-$8279.31** for this portfolio.
 
 ### Portfolio 2: “Thrive on Volatility”
 
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.2-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.2-2.png)
+Portfolio 2 is built on the idea of thriving off market volatility.
+These ETFs are designed to thrive in volatile market conditions by
+increasing their diversity. Here’s a breakdown of the portfolio:
 
-    ## [1] 100971.4
+-   **25% QQQ** Invesco QQQ Trust, tracks the Nasdaq 100 index,
+    dominated by big tech names
 
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.2-3.png)
+-   **25% BTAL** AGFiQ U.S. Market Neutral Anti-Beta Fund, profiting off
+    a spread between high and low beta stocks, performing well when low
+    beta stocks are in favor in stormy market conditions
+
+-   **25% SDY** SPDR S&P Dividend ETF, focusing on dividend growth
+    stocks. Dividends represent a safer return as firms will reduce
+    buybacks before cutting dividends.
+
+-   **25% XLP** SPDR Consumer Staples Select Sector, tracks consumer
+    household stable products like Walmart and Proctor and Gamble that
+    will not fall significantly during volatile markets
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.2-1.png)
+From the pairs plot, we see that these four ETFs are much less strongly
+correlated than the ETFs in Portfolio 1. Thus, I expect this portfolio
+to be “safer” and have a higher Value at Risk.
+
+Then, we simulate the 20-day trading period of this portfolio.
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.2.a-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.2.a-2.png)
 
     ##        5% 
-    ## -4855.049
+    ## -5047.678
 
-### Portfolio 3: “Bonds and Consumer Staples”
+From the histograms of the portfolio values and earnings, we see that
+negative earnings are a possibility. The 5% value at risk based on a
+20-day bootstrapped period is **-$5,047.68** for this portfolio. This is
+a much “safer” portfolio compared to the portfolio that simply tracks
+the S&P 500 above.
 
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3-2.png)
+### Portfolio 3: “Safety and Risk-Aversion with Bonds”
 
-    ## [1] 101024.7
+While Portfolio 2 was built on the idea of thriving off market
+volatility, Portfolio 3 attempts to avoid market volatility altogether.
+These “safe” ETFs are designed to withstand market volatility, but have
+a smaller potential return. Here’s a breakdown of the portfolio:
 
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3-3.png)
+-   **33% FBND** Fidelity Total Bond ETF, tracks Barclays US Universal
+    Bond Index with diversified sector allocation
+
+-   **33% BLV** Vanguard Long-Term Bond, tracks US government and
+    corporate bonds that have maturities of greater than 10 years
+
+-   **33% BSV** Vanguard Short-Term Bond, built 71% off AAA-rated bonds
+    and 13% in bonds rated BBB.
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3-1.png)
+From the pairs correlation matrix, we see that these Bond ETFs are less
+correlated than the ETFs in Portfolio 1 and Portfolio 2.
+
+Then, we simulate the 20-day trading period of this portfolio.
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3.a-1.png)
+
+    ## [1] 100394.5
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3.a-2.png)
 
     ##        5% 
-    ## -4761.049
+    ## -2553.164
+
+From the histograms of the portfolio values and earnings, we see that
+negative earnings are **still** a possibility. The 5% value at risk
+based on a 20-day bootstrapped period is **-$2,553.16** for this
+portfolio. This is a much “safer” portfolio compared to **both**
+Portfolio 1 and Portfolio 2.
+
+### In summary
+
+-   Portfolio 1 is best suited for longer-term investment. (In fact,
+    some of these ETFs are in our team’s own IRA portfolios.) The 5% VaR
+    is the lowest at **-$8279.31**
+
+-   Portfolio 2 is a better short-term risk fund. Instead of simply
+    tracking the market, it attempts to hedge against market volatility
+    in other ways. These strategies include focusing on high-value tech
+    firms, dividend funds, consumer staples, and low beta stocks. It
+    increases VaR to **-$5,047.68**.
+
+-   Portfolio 3 is the best short-term risk fund as it increases VaR
+    further to **-$2,553.16**. Because it is based on more stable bond
+    indexes, this means that the Value at Risk is higher than the
+    previous two portfolios.
+
+For those most risk-averse investors over a 20-day trading period,
+Portfolio 3 is the safest choice. Over a longer trading period,
+investors may be more likely to choose the portfolios that track the S&P
+500 or thrive off market volatility in the long run.
 
 Market segmentation
 -------------------
