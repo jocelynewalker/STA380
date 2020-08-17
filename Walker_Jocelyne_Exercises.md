@@ -523,7 +523,415 @@ investors may be more likely to choose the portfolios that track the S&P
 Market segmentation
 -------------------
 
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/4.1-1.png)
+    ##       X1               chatter       current_events      travel      
+    ##  Length:7882        Min.   : 0.000   Min.   :0.000   Min.   : 0.000  
+    ##  Class :character   1st Qu.: 2.000   1st Qu.:1.000   1st Qu.: 0.000  
+    ##  Mode  :character   Median : 3.000   Median :1.000   Median : 1.000  
+    ##                     Mean   : 4.399   Mean   :1.526   Mean   : 1.585  
+    ##                     3rd Qu.: 6.000   3rd Qu.:2.000   3rd Qu.: 2.000  
+    ##                     Max.   :26.000   Max.   :8.000   Max.   :26.000  
+    ##  photo_sharing    uncategorized      tv_film      sports_fandom   
+    ##  Min.   : 0.000   Min.   :0.000   Min.   : 0.00   Min.   : 0.000  
+    ##  1st Qu.: 1.000   1st Qu.:0.000   1st Qu.: 0.00   1st Qu.: 0.000  
+    ##  Median : 2.000   Median :1.000   Median : 1.00   Median : 1.000  
+    ##  Mean   : 2.697   Mean   :0.813   Mean   : 1.07   Mean   : 1.594  
+    ##  3rd Qu.: 4.000   3rd Qu.:1.000   3rd Qu.: 1.00   3rd Qu.: 2.000  
+    ##  Max.   :21.000   Max.   :9.000   Max.   :17.00   Max.   :20.000  
+    ##     politics           food            family        home_and_garden 
+    ##  Min.   : 0.000   Min.   : 0.000   Min.   : 0.0000   Min.   :0.0000  
+    ##  1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.: 0.0000   1st Qu.:0.0000  
+    ##  Median : 1.000   Median : 1.000   Median : 1.0000   Median :0.0000  
+    ##  Mean   : 1.789   Mean   : 1.397   Mean   : 0.8639   Mean   :0.5207  
+    ##  3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 1.0000   3rd Qu.:1.0000  
+    ##  Max.   :37.000   Max.   :16.000   Max.   :10.0000   Max.   :5.0000  
+    ##      music              news        online_gaming       shopping     
+    ##  Min.   : 0.0000   Min.   : 0.000   Min.   : 0.000   Min.   : 0.000  
+    ##  1st Qu.: 0.0000   1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.: 0.000  
+    ##  Median : 0.0000   Median : 0.000   Median : 0.000   Median : 1.000  
+    ##  Mean   : 0.6793   Mean   : 1.206   Mean   : 1.209   Mean   : 1.389  
+    ##  3rd Qu.: 1.0000   3rd Qu.: 1.000   3rd Qu.: 1.000   3rd Qu.: 2.000  
+    ##  Max.   :13.0000   Max.   :20.000   Max.   :27.000   Max.   :12.000  
+    ##  health_nutrition  college_uni     sports_playing      cooking      
+    ##  Min.   : 0.000   Min.   : 0.000   Min.   :0.0000   Min.   : 0.000  
+    ##  1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.:0.0000   1st Qu.: 0.000  
+    ##  Median : 1.000   Median : 1.000   Median :0.0000   Median : 1.000  
+    ##  Mean   : 2.567   Mean   : 1.549   Mean   :0.6392   Mean   : 1.998  
+    ##  3rd Qu.: 3.000   3rd Qu.: 2.000   3rd Qu.:1.0000   3rd Qu.: 2.000  
+    ##  Max.   :41.000   Max.   :30.000   Max.   :8.0000   Max.   :33.000  
+    ##       eco           computers          business         outdoors      
+    ##  Min.   :0.0000   Min.   : 0.0000   Min.   :0.0000   Min.   : 0.0000  
+    ##  1st Qu.:0.0000   1st Qu.: 0.0000   1st Qu.:0.0000   1st Qu.: 0.0000  
+    ##  Median :0.0000   Median : 0.0000   Median :0.0000   Median : 0.0000  
+    ##  Mean   :0.5123   Mean   : 0.6491   Mean   :0.4232   Mean   : 0.7827  
+    ##  3rd Qu.:1.0000   3rd Qu.: 1.0000   3rd Qu.:1.0000   3rd Qu.: 1.0000  
+    ##  Max.   :6.0000   Max.   :16.0000   Max.   :6.0000   Max.   :12.0000  
+    ##      crafts         automotive           art             religion     
+    ##  Min.   :0.0000   Min.   : 0.0000   Min.   : 0.0000   Min.   : 0.000  
+    ##  1st Qu.:0.0000   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.: 0.000  
+    ##  Median :0.0000   Median : 0.0000   Median : 0.0000   Median : 0.000  
+    ##  Mean   :0.5159   Mean   : 0.8299   Mean   : 0.7248   Mean   : 1.095  
+    ##  3rd Qu.:1.0000   3rd Qu.: 1.0000   3rd Qu.: 1.0000   3rd Qu.: 1.000  
+    ##  Max.   :7.0000   Max.   :13.0000   Max.   :18.0000   Max.   :20.000  
+    ##      beauty          parenting           dating            school       
+    ##  Min.   : 0.0000   Min.   : 0.0000   Min.   : 0.0000   Min.   : 0.0000  
+    ##  1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.: 0.0000  
+    ##  Median : 0.0000   Median : 0.0000   Median : 0.0000   Median : 0.0000  
+    ##  Mean   : 0.7052   Mean   : 0.9213   Mean   : 0.7109   Mean   : 0.7677  
+    ##  3rd Qu.: 1.0000   3rd Qu.: 1.0000   3rd Qu.: 1.0000   3rd Qu.: 1.0000  
+    ##  Max.   :14.0000   Max.   :14.0000   Max.   :24.0000   Max.   :11.0000  
+    ##  personal_fitness    fashion        small_business        spam        
+    ##  Min.   : 0.000   Min.   : 0.0000   Min.   :0.0000   Min.   :0.00000  
+    ##  1st Qu.: 0.000   1st Qu.: 0.0000   1st Qu.:0.0000   1st Qu.:0.00000  
+    ##  Median : 0.000   Median : 0.0000   Median :0.0000   Median :0.00000  
+    ##  Mean   : 1.462   Mean   : 0.9966   Mean   :0.3363   Mean   :0.00647  
+    ##  3rd Qu.: 2.000   3rd Qu.: 1.0000   3rd Qu.:1.0000   3rd Qu.:0.00000  
+    ##  Max.   :19.000   Max.   :18.0000   Max.   :6.0000   Max.   :2.00000  
+    ##      adult        
+    ##  Min.   : 0.0000  
+    ##  1st Qu.: 0.0000  
+    ##  Median : 0.0000  
+    ##  Mean   : 0.4033  
+    ##  3rd Qu.: 0.0000  
+    ##  Max.   :26.0000
+
+    ## # A tibble: 6 x 37
+    ##   X1    chatter current_events travel photo_sharing uncategorized tv_film
+    ##   <chr>   <dbl>          <dbl>  <dbl>         <dbl>         <dbl>   <dbl>
+    ## 1 hmjo~       2              0      2             2             2       1
+    ## 2 clk1~       3              3      2             1             1       1
+    ## 3 jcso~       6              3      4             3             1       5
+    ## 4 3oeb~       1              5      2             2             0       1
+    ## 5 fd75~       5              2      0             6             1       0
+    ## 6 h6nv~       6              4      2             7             0       1
+    ## # ... with 30 more variables: sports_fandom <dbl>, politics <dbl>, food <dbl>,
+    ## #   family <dbl>, home_and_garden <dbl>, music <dbl>, news <dbl>,
+    ## #   online_gaming <dbl>, shopping <dbl>, health_nutrition <dbl>,
+    ## #   college_uni <dbl>, sports_playing <dbl>, cooking <dbl>, eco <dbl>,
+    ## #   computers <dbl>, business <dbl>, outdoors <dbl>, crafts <dbl>,
+    ## #   automotive <dbl>, art <dbl>, religion <dbl>, beauty <dbl>, parenting <dbl>,
+    ## #   dating <dbl>, school <dbl>, personal_fitness <dbl>, fashion <dbl>,
+    ## #   small_business <dbl>, spam <dbl>, adult <dbl>
+
+    ##       chatter current_events       travel photo_sharing uncategorized
+    ## 1  0.04239873     0.11103642  1.762348461   -0.05700940   -0.03989065
+    ## 2  0.16937879     0.19897957 -0.039478942    1.25267323    0.51629414
+    ## 3  0.02373416    -0.03080083 -0.005065449    0.04444587    0.10766781
+    ## 4 -0.01247531     0.02633980 -0.149039614   -0.01555850    0.16372713
+    ## 5 -0.04548911     0.12062271 -0.103051553   -0.02460043   -0.06451206
+    ## 6 -0.01990969    -0.06430650 -0.212543256   -0.14666901   -0.09052572
+    ##        tv_film sports_fandom   politics        food      family home_and_garden
+    ## 1  0.077844260     0.1946632  2.3660540  0.02470268  0.04381456       0.1231953
+    ## 2  0.009090473    -0.1942673 -0.1141903 -0.17775062  0.04790152       0.1611161
+    ## 3  0.379202009    -0.1195545 -0.1586678 -0.08470676  0.19017685       0.1253898
+    ## 4 -0.051876875    -0.1993243 -0.1758435  0.41227425 -0.07965869       0.1568924
+    ## 5  0.012073552     1.9874575 -0.2053377  1.78420435  1.43769597       0.1673687
+    ## 6 -0.040515491    -0.2885324 -0.2567675 -0.35373176 -0.25668332      -0.1094570
+    ##         music        news online_gaming     shopping health_nutrition
+    ## 1 -0.03738467  1.95767757   -0.14154027 -0.005308791      -0.20638699
+    ## 2  0.56509367 -0.06963991   -0.05307164  0.380921908      -0.06377776
+    ## 3  0.26838619 -0.19437007    3.15755141 -0.012936876      -0.17437721
+    ## 4  0.05882988 -0.04691096   -0.13678840  0.038126605       2.10022041
+    ## 5  0.06358664 -0.07852115   -0.07527010  0.044518501      -0.15847575
+    ## 6 -0.11327310 -0.24425323   -0.23071980 -0.061022491      -0.32821740
+    ##    college_uni sports_playing    cooking         eco   computers     business
+    ## 1 -0.079836272    -0.01040025 -0.2153661  0.10592762  1.54693130  0.356517390
+    ## 2 -0.003849398     0.18236003  2.5696137  0.08586275  0.07153792  0.286993677
+    ## 3  3.111543754     2.02341516 -0.1503543 -0.02961582 -0.05425586 -0.008656263
+    ## 4 -0.212595250    -0.03531271  0.3741487  0.52825680 -0.07387906  0.068572112
+    ## 5 -0.110598950     0.10689474 -0.1196894  0.19147016  0.07003376  0.114640929
+    ## 6 -0.221102794    -0.22352842 -0.3309962 -0.15933947 -0.23337631 -0.121593707
+    ##      outdoors      crafts  automotive          art    religion     beauty
+    ## 1  0.11058686  0.15290925  1.11088881 -0.003891175 -0.03374476 -0.1743681
+    ## 2  0.03420672  0.15120803  0.05439785  0.136795837 -0.11806235  2.3894052
+    ## 3 -0.10169281  0.10757293  0.05799168  0.311912012 -0.14843016 -0.1974998
+    ## 4  1.61913953  0.08949656 -0.12193179  0.009925869 -0.17391620 -0.2113117
+    ## 5 -0.07570995  0.69684928  0.16094320  0.089350144  2.17106043  0.2900537
+    ## 6 -0.31493557 -0.18681894 -0.18226934 -0.063092401 -0.29698445 -0.2644287
+    ##     parenting      dating      school personal_fitness      fashion
+    ## 1  0.01707471  0.20088949 -0.03525502      -0.19210751 -0.179364771
+    ## 2 -0.06535754  0.15733694  0.19696343      -0.04579539  2.498279621
+    ## 3 -0.16190828  0.02097883 -0.21449701      -0.18144704 -0.052946246
+    ## 4 -0.10563738  0.18370615 -0.14378320       2.06881183 -0.107141473
+    ## 5  2.06446092  0.03664709  1.62528036      -0.11265633  0.004736967
+    ## 6 -0.30541545 -0.09404783 -0.24445073      -0.33352933 -0.263465171
+    ##   small_business         spam        adult
+    ## 1     0.23867309 -0.007267965 -0.092230656
+    ## 2     0.27603909 -0.035852804  0.018725972
+    ## 3     0.20254493  0.034261366  0.023103987
+    ## 4    -0.06861968  0.003437672  0.007357688
+    ## 5     0.11019115 -0.014826058  0.003508182
+    ## 6    -0.09490980  0.004205191  0.007266691
+
+    ##          chatter   current_events           travel    photo_sharing 
+    ##      4.548387097      1.667155425      5.612903226      2.541055718 
+    ##    uncategorized          tv_film    sports_fandom         politics 
+    ##      0.775659824      1.199413490      2.014662757      8.960410557 
+    ##             food           family  home_and_garden            music 
+    ##      1.441348974      0.913489736      0.611436950      0.640762463 
+    ##             news    online_gaming         shopping health_nutrition 
+    ##      5.318181818      0.828445748      1.379765396      1.639296188 
+    ##      college_uni   sports_playing          cooking              eco 
+    ##      1.318181818      0.629032258      1.259530792      0.593841642 
+    ##        computers         business         outdoors           crafts 
+    ##      2.473607038      0.670087977      0.916422287      0.640762463 
+    ##       automotive              art         religion           beauty 
+    ##      2.347507331      0.718475073      1.030791789      0.473607038 
+    ##        parenting           dating           school personal_fitness 
+    ##      0.947214076      1.068914956      0.725806452      1.000000000 
+    ##          fashion   small_business             spam            adult 
+    ##      0.668621701      0.483870968      0.005865103      0.236070381
+
+    ##          chatter   current_events           travel    photo_sharing 
+    ##      4.996515679      1.778745645      1.494773519      6.118466899 
+    ##    uncategorized          tv_film    sports_fandom         politics 
+    ##      1.296167247      1.085365854      1.174216028      1.442508711 
+    ##             food           family  home_and_garden            music 
+    ##      1.081881533      0.918118467      0.639372822      1.261324042 
+    ##             news    online_gaming         shopping health_nutrition 
+    ##      1.059233449      1.066202091      2.078397213      2.280487805 
+    ##      college_uni   sports_playing          cooking              eco 
+    ##      1.538327526      0.817073171     10.811846690      0.578397213 
+    ##        computers         business         outdoors           crafts 
+    ##      0.733449477      0.621951220      0.824041812      0.639372822 
+    ##       automotive              art         religion           beauty 
+    ##      0.904181185      0.947735192      0.869337979      3.878048780 
+    ##        parenting           dating           school personal_fitness 
+    ##      0.822299652      0.991289199      1.001742160      1.351916376 
+    ##          fashion   small_business             spam            adult 
+    ##      5.564459930      0.506968641      0.003484321      0.437282230
+
+    ##          chatter   current_events           travel    photo_sharing 
+    ##      4.482517483      1.487179487      1.573426573      2.818181818 
+    ##    uncategorized          tv_film    sports_fandom         politics 
+    ##      0.913752914      1.699300699      1.335664336      1.307692308 
+    ##             food           family  home_and_garden            music 
+    ##      1.247086247      1.079254079      0.613053613      0.955710956 
+    ##             news    online_gaming         shopping health_nutrition 
+    ##      0.797202797      9.694638695      1.365967366      1.783216783 
+    ##      college_uni   sports_playing          cooking              eco 
+    ##     10.564102564      2.613053613      1.482517483      0.489510490 
+    ##        computers         business         outdoors           crafts 
+    ##      0.585081585      0.417249417      0.659673660      0.603729604 
+    ##       automotive              art         religion           beauty 
+    ##      0.909090909      1.233100233      0.811188811      0.442890443 
+    ##        parenting           dating           school personal_fitness 
+    ##      0.675990676      0.748251748      0.512820513      1.025641026 
+    ##          fashion   small_business             spam            adult 
+    ##      0.899766900      0.461538462      0.009324009      0.445221445
+
+    ##          chatter   current_events           travel    photo_sharing 
+    ##      4.354729730      1.559684685      1.244369369      2.654279279 
+    ##    uncategorized          tv_film    sports_fandom         politics 
+    ##      0.966216216      0.984234234      1.163288288      1.255630631 
+    ##             food           family  home_and_garden            music 
+    ##      2.129504505      0.773648649      0.636261261      0.739864865 
+    ##             news    online_gaming         shopping health_nutrition 
+    ##      1.106981982      0.841216216      1.458333333     12.010135135 
+    ##      college_uni   sports_playing          cooking              eco 
+    ##      0.933558559      0.604729730      3.281531532      0.918918919 
+    ##        computers         business         outdoors           crafts 
+    ##      0.561936937      0.470720721      2.740990991      0.588963964 
+    ##       automotive              art         religion           beauty 
+    ##      0.663288288      0.740990991      0.762387387      0.424549550 
+    ##        parenting           dating           school personal_fitness 
+    ##      0.761261261      1.038288288      0.596846847      6.438063063 
+    ##          fashion   small_business             spam            adult 
+    ##      0.800675676      0.293918919      0.006756757      0.416666667
+
+    ##          chatter   current_events           travel    photo_sharing 
+    ##      4.238219895      1.679319372      1.349476440      2.629581152 
+    ##    uncategorized          tv_film    sports_fandom         politics 
+    ##      0.752617801      1.090314136      5.888743455      1.166230366 
+    ##             food           family  home_and_garden            music 
+    ##      4.565445026      2.492146597      0.643979058      0.744764398 
+    ##             news    online_gaming         shopping health_nutrition 
+    ##      1.040575916      1.006544503      1.469895288      1.854712042 
+    ##      college_uni   sports_playing          cooking              eco 
+    ##      1.229057592      0.743455497      1.587696335      0.659685864 
+    ##        computers         business         outdoors           crafts 
+    ##      0.731675393      0.502617801      0.691099476      1.085078534 
+    ##       automotive              art         religion           beauty 
+    ##      1.049738220      0.870418848      5.252617801      1.090314136 
+    ##        parenting           dating           school personal_fitness 
+    ##      4.049738220      0.776178010      2.698952880      1.191099476 
+    ##          fashion   small_business             spam            adult 
+    ##      1.005235602      0.404450262      0.005235602      0.409685864
+
+    ##          chatter   current_events           travel    photo_sharing 
+    ##      4.328492849      1.444664466      1.099229923      2.296149615 
+    ##    uncategorized          tv_film    sports_fandom         politics 
+    ##      0.728272827      1.003080308      0.970517052      1.010341034 
+    ##             food           family  home_and_garden            music 
+    ##      0.769416942      0.573157316      0.440044004      0.562596260 
+    ##             news    online_gaming         shopping health_nutrition 
+    ##      0.692409241      0.588778878      1.278987899      1.091529153 
+    ##      college_uni   sports_playing          cooking              eco 
+    ##      0.908910891      0.421122112      0.862926293      0.389658966 
+    ##        computers         business         outdoors           crafts 
+    ##      0.373817382      0.339053905      0.401760176      0.363256326 
+    ##       automotive              art         religion           beauty 
+    ##      0.580858086      0.622002200      0.526732673      0.354015402 
+    ##        parenting           dating           school personal_fitness 
+    ##      0.458525853      0.543234323      0.477227723      0.659845985 
+    ##          fashion   small_business             spam            adult 
+    ##      0.514851485      0.277667767      0.006820682      0.416501650
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/4.1-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/4.1-2.png)
+
+    ##          chatter   current_events           travel    photo_sharing 
+    ##      4.354729730      1.559684685      1.244369369      2.654279279 
+    ##    uncategorized          tv_film    sports_fandom         politics 
+    ##      0.966216216      0.984234234      1.163288288      1.255630631 
+    ##             food           family  home_and_garden            music 
+    ##      2.129504505      0.773648649      0.636261261      0.739864865 
+    ##             news    online_gaming         shopping health_nutrition 
+    ##      1.106981982      0.841216216      1.458333333     12.010135135 
+    ##      college_uni   sports_playing          cooking              eco 
+    ##      0.933558559      0.604729730      3.281531532      0.918918919 
+    ##        computers         business         outdoors           crafts 
+    ##      0.561936937      0.470720721      2.740990991      0.588963964 
+    ##       automotive              art         religion           beauty 
+    ##      0.663288288      0.740990991      0.762387387      0.424549550 
+    ##        parenting           dating           school personal_fitness 
+    ##      0.761261261      1.038288288      0.596846847      6.438063063 
+    ##          fashion   small_business             spam            adult 
+    ##      0.800675676      0.293918919      0.006756757      0.416666667
+
+    ##          chatter   current_events           travel    photo_sharing 
+    ##      4.996515679      1.778745645      1.494773519      6.118466899 
+    ##    uncategorized          tv_film    sports_fandom         politics 
+    ##      1.296167247      1.085365854      1.174216028      1.442508711 
+    ##             food           family  home_and_garden            music 
+    ##      1.081881533      0.918118467      0.639372822      1.261324042 
+    ##             news    online_gaming         shopping health_nutrition 
+    ##      1.059233449      1.066202091      2.078397213      2.280487805 
+    ##      college_uni   sports_playing          cooking              eco 
+    ##      1.538327526      0.817073171     10.811846690      0.578397213 
+    ##        computers         business         outdoors           crafts 
+    ##      0.733449477      0.621951220      0.824041812      0.639372822 
+    ##       automotive              art         religion           beauty 
+    ##      0.904181185      0.947735192      0.869337979      3.878048780 
+    ##        parenting           dating           school personal_fitness 
+    ##      0.822299652      0.991289199      1.001742160      1.351916376 
+    ##          fashion   small_business             spam            adult 
+    ##      5.564459930      0.506968641      0.003484321      0.437282230
+
+    ##          chatter   current_events           travel    photo_sharing 
+    ##      4.548387097      1.667155425      5.612903226      2.541055718 
+    ##    uncategorized          tv_film    sports_fandom         politics 
+    ##      0.775659824      1.199413490      2.014662757      8.960410557 
+    ##             food           family  home_and_garden            music 
+    ##      1.441348974      0.913489736      0.611436950      0.640762463 
+    ##             news    online_gaming         shopping health_nutrition 
+    ##      5.318181818      0.828445748      1.379765396      1.639296188 
+    ##      college_uni   sports_playing          cooking              eco 
+    ##      1.318181818      0.629032258      1.259530792      0.593841642 
+    ##        computers         business         outdoors           crafts 
+    ##      2.473607038      0.670087977      0.916422287      0.640762463 
+    ##       automotive              art         religion           beauty 
+    ##      2.347507331      0.718475073      1.030791789      0.473607038 
+    ##        parenting           dating           school personal_fitness 
+    ##      0.947214076      1.068914956      0.725806452      1.000000000 
+    ##          fashion   small_business             spam            adult 
+    ##      0.668621701      0.483870968      0.005865103      0.236070381
+
+    ##          chatter   current_events           travel    photo_sharing 
+    ##      4.482517483      1.487179487      1.573426573      2.818181818 
+    ##    uncategorized          tv_film    sports_fandom         politics 
+    ##      0.913752914      1.699300699      1.335664336      1.307692308 
+    ##             food           family  home_and_garden            music 
+    ##      1.247086247      1.079254079      0.613053613      0.955710956 
+    ##             news    online_gaming         shopping health_nutrition 
+    ##      0.797202797      9.694638695      1.365967366      1.783216783 
+    ##      college_uni   sports_playing          cooking              eco 
+    ##     10.564102564      2.613053613      1.482517483      0.489510490 
+    ##        computers         business         outdoors           crafts 
+    ##      0.585081585      0.417249417      0.659673660      0.603729604 
+    ##       automotive              art         religion           beauty 
+    ##      0.909090909      1.233100233      0.811188811      0.442890443 
+    ##        parenting           dating           school personal_fitness 
+    ##      0.675990676      0.748251748      0.512820513      1.025641026 
+    ##          fashion   small_business             spam            adult 
+    ##      0.899766900      0.461538462      0.009324009      0.445221445
+
+    ##          chatter   current_events           travel    photo_sharing 
+    ##      4.238219895      1.679319372      1.349476440      2.629581152 
+    ##    uncategorized          tv_film    sports_fandom         politics 
+    ##      0.752617801      1.090314136      5.888743455      1.166230366 
+    ##             food           family  home_and_garden            music 
+    ##      4.565445026      2.492146597      0.643979058      0.744764398 
+    ##             news    online_gaming         shopping health_nutrition 
+    ##      1.040575916      1.006544503      1.469895288      1.854712042 
+    ##      college_uni   sports_playing          cooking              eco 
+    ##      1.229057592      0.743455497      1.587696335      0.659685864 
+    ##        computers         business         outdoors           crafts 
+    ##      0.731675393      0.502617801      0.691099476      1.085078534 
+    ##       automotive              art         religion           beauty 
+    ##      1.049738220      0.870418848      5.252617801      1.090314136 
+    ##        parenting           dating           school personal_fitness 
+    ##      4.049738220      0.776178010      2.698952880      1.191099476 
+    ##          fashion   small_business             spam            adult 
+    ##      1.005235602      0.404450262      0.005235602      0.409685864
+
+    ##          chatter   current_events           travel    photo_sharing 
+    ##      4.328492849      1.444664466      1.099229923      2.296149615 
+    ##    uncategorized          tv_film    sports_fandom         politics 
+    ##      0.728272827      1.003080308      0.970517052      1.010341034 
+    ##             food           family  home_and_garden            music 
+    ##      0.769416942      0.573157316      0.440044004      0.562596260 
+    ##             news    online_gaming         shopping health_nutrition 
+    ##      0.692409241      0.588778878      1.278987899      1.091529153 
+    ##      college_uni   sports_playing          cooking              eco 
+    ##      0.908910891      0.421122112      0.862926293      0.389658966 
+    ##        computers         business         outdoors           crafts 
+    ##      0.373817382      0.339053905      0.401760176      0.363256326 
+    ##       automotive              art         religion           beauty 
+    ##      0.580858086      0.622002200      0.526732673      0.354015402 
+    ##        parenting           dating           school personal_fitness 
+    ##      0.458525853      0.543234323      0.477227723      0.659845985 
+    ##          fashion   small_business             spam            adult 
+    ##      0.514851485      0.277667767      0.006820682      0.416501650
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/4.1-3.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/4.1-4.png)
+
+    ## [1] 29195.01 22721.60 15814.06 27150.23 29962.14 89638.32
+
+    ## [1] 27150.23 22721.60 29195.01 15814.06 29962.14 89638.32
+
+    ## [1] 214481.4
+
+    ## [1] 214481.4
+
+    ## [1] 214481.4
+
+    ## [1] 214481.4
+
+    ## [1] 69234.64
+
+    ## [1] 69234.64
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/4.1-5.png)
+
+    ## Clustering Gap statistic ["clusGap"] from call:
+    ## clusGap(x = X, FUNcluster = kmeans, K.max = 15, B = 10, nstart = 25)
+    ## B=10 simulated reference sets, k = 1..15; spaceH0="scaledPCA"
+    ##  --> Number of clusters (method 'firstSEmax', SE.factor=1): 14
+    ##           logW   E.logW      gap       SE.sim
+    ##  [1,] 9.666055 10.98953 1.323477 0.0010964973
+    ##  [2,] 9.611718 10.95230 1.340587 0.0010656634
+    ##  [3,] 9.583704 10.93365 1.349945 0.0008984931
+    ##  [4,] 9.561457 10.92005 1.358596 0.0009202950
+    ##  [5,] 9.538065 10.91001 1.371943 0.0009194475
+    ##  [6,] 9.522873 10.90141 1.378537 0.0008870354
+    ##  [7,] 9.498126 10.89435 1.396226 0.0009616641
+    ##  [8,] 9.485155 10.88740 1.402244 0.0009961392
+    ##  [9,] 9.469593 10.88191 1.412316 0.0011018269
+    ## [10,] 9.454228 10.87687 1.422641 0.0010986192
+    ## [11,] 9.442634 10.87259 1.429951 0.0010367443
+    ## [12,] 9.434156 10.86851 1.434355 0.0011173010
+    ## [13,] 9.423228 10.86477 1.441538 0.0010769217
+    ## [14,] 9.413621 10.86111 1.447487 0.0010891438
+    ## [15,] 9.409520 10.85749 1.447973 0.0009709040
 
 Author attribution
 ------------------
@@ -646,5 +1054,185 @@ authors.
 
 ### Logistic Regression
 
+    ## # weights:  1000 (931 variable)
+    ## initial  value 9780.057514 
+    ## iter  10 value 3978.610720
+    ## iter  20 value 3027.473914
+    ## iter  30 value 2744.784042
+    ## iter  40 value 2654.854912
+    ## iter  50 value 2552.955018
+    ## iter  60 value 2433.970187
+    ## iter  70 value 2345.527733
+    ## iter  80 value 2305.565551
+    ## iter  90 value 2285.592449
+    ## iter 100 value 2269.532712
+    ## final  value 2269.532712 
+    ## stopped after 100 iterations
+
+    ## [1] 0.4652
+
 Association rule mining
 -----------------------
+
+    ## [[1]]
+    ## [1] "V1" "V2" "V3" "V4"
+
+    ## 'data.frame':    43367 obs. of  2 variables:
+    ##  $ User : int  1 1 1 1 2 2 2 3 4 4 ...
+    ##  $ value: chr  "citrus fruit" "semi-finished bread" "margarine" "ready soups" ...
+
+    ##       User          value          
+    ##  Min.   :    1   Length:43367      
+    ##  1st Qu.: 3814   Class :character  
+    ##  Median : 7620   Mode  :character  
+    ##  Mean   : 7650                     
+    ##  3rd Qu.:11482                     
+    ##  Max.   :15296
+
+    ##    Length     Class      Mode 
+    ##     43367 character character
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/6.1-1.png)
+
+    ## transactions as itemMatrix in sparse format with
+    ##  15296 rows (elements/itemsets/transactions) and
+    ##  169 columns (items) and a density of 0.01677625 
+    ## 
+    ## most frequent items:
+    ##       whole milk other vegetables       rolls/buns             soda 
+    ##             2513             1903             1809             1715 
+    ##           yogurt          (Other) 
+    ##             1372            34055 
+    ## 
+    ## element (itemset/transaction) length distribution:
+    ## sizes
+    ##    1    2    3    4 
+    ## 3485 2630 2102 7079 
+    ## 
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##   1.000   2.000   3.000   2.835   4.000   4.000 
+    ## 
+    ## includes extended item information - examples:
+    ##             labels
+    ## 1 abrasive cleaner
+    ## 2 artif. sweetener
+    ## 3   baby cosmetics
+    ## 
+    ## includes extended transaction information - examples:
+    ##   transactionID
+    ## 1             1
+    ## 2             2
+    ## 3             3
+
+    ## Apriori
+    ## 
+    ## Parameter specification:
+    ##  confidence minval smax arem  aval originalSupport maxtime support minlen
+    ##         0.1    0.1    1 none FALSE            TRUE       5   0.005      1
+    ##  maxlen target  ext
+    ##       5  rules TRUE
+    ## 
+    ## Algorithmic control:
+    ##  filter tree heap memopt load sort verbose
+    ##     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+    ## 
+    ## Absolute minimum support count: 76 
+    ## 
+    ## set item appearances ...[0 item(s)] done [0.00s].
+    ## set transactions ...[169 item(s), 15296 transaction(s)] done [0.00s].
+    ## sorting and recoding items ... [101 item(s)] done [0.00s].
+    ## creating transaction tree ... done [0.00s].
+    ## checking subsets of size 1 2 3 done [0.00s].
+    ## writing ... [118 rule(s)] done [0.00s].
+    ## creating S4 object  ... done [0.00s].
+
+    ##     lhs                  rhs               support     confidence coverage  
+    ## [1] {onions}          => {root vegetables} 0.005295502 0.2655738  0.01993985
+    ## [2] {beef}            => {root vegetables} 0.008695084 0.2577519  0.03373431
+    ## [3] {root vegetables} => {beef}            0.008695084 0.1240672  0.07008368
+    ## [4] {pip fruit}       => {tropical fruit}  0.012683054 0.2607527  0.04864017
+    ## [5] {tropical fruit}  => {pip fruit}       0.012683054 0.1879845  0.06746862
+    ##     lift     count
+    ## [1] 3.789381  81  
+    ## [2] 3.677774 133  
+    ## [3] 3.677774 133  
+    ## [4] 3.864800 194  
+    ## [5] 3.864800 194
+
+    ##     lhs                                   rhs                support    
+    ## [1] {onions}                           => {other vegetables} 0.007452929
+    ## [2] {curd}                             => {whole milk}       0.012617678
+    ## [3] {butter}                           => {whole milk}       0.014382845
+    ## [4] {root vegetables}                  => {other vegetables} 0.025366109
+    ## [5] {root vegetables}                  => {whole milk}       0.022620293
+    ## [6] {other vegetables}                 => {whole milk}       0.040860356
+    ## [7] {other vegetables,root vegetables} => {whole milk}       0.008172071
+    ## [8] {root vegetables,whole milk}       => {other vegetables} 0.008172071
+    ## [9] {other vegetables,yogurt}          => {whole milk}       0.006341527
+    ##     confidence coverage   lift     count
+    ## [1] 0.3737705  0.01993985 3.004306 114  
+    ## [2] 0.3683206  0.03425732 2.241875 193  
+    ## [3] 0.4036697  0.03563023 2.457036 220  
+    ## [4] 0.3619403  0.07008368 2.909216 388  
+    ## [5] 0.3227612  0.07008368 1.964566 346  
+    ## [6] 0.3284288  0.12441161 1.999064 625  
+    ## [7] 0.3221649  0.02536611 1.960937 125  
+    ## [8] 0.3612717  0.02262029 2.903842 125  
+    ## [9] 0.3991770  0.01588651 2.429690  97
+
+    ##     lhs                             rhs                support     confidence
+    ## [1] {onions}                     => {other vegetables} 0.007452929 0.3737705 
+    ## [2] {root vegetables}            => {other vegetables} 0.025366109 0.3619403 
+    ## [3] {root vegetables,whole milk} => {other vegetables} 0.008172071 0.3612717 
+    ##     coverage   lift     count
+    ## [1] 0.01993985 3.004306 114  
+    ## [2] 0.07008368 2.909216 388  
+    ## [3] 0.02262029 2.903842 125
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/6.1.1-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/6.1.1-2.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/6.1.1-3.png)
+
+    ##     lhs                   rhs                support    confidence coverage 
+    ## [1] {}                 => {soda}             0.11212082 0.1121208  1.0000000
+    ## [2] {}                 => {rolls/buns}       0.11826621 0.1182662  1.0000000
+    ## [3] {}                 => {other vegetables} 0.12441161 0.1244116  1.0000000
+    ## [4] {}                 => {whole milk}       0.16429132 0.1642913  1.0000000
+    ## [5] {other vegetables} => {whole milk}       0.04086036 0.3284288  0.1244116
+    ## [6] {whole milk}       => {other vegetables} 0.04086036 0.2487067  0.1642913
+    ##     lift     count
+    ## [1] 1.000000 1715 
+    ## [2] 1.000000 1809 
+    ## [3] 1.000000 1903 
+    ## [4] 1.000000 2513 
+    ## [5] 1.999064  625 
+    ## [6] 1.999064  625
+
+    ## set of 118 rules
+    ## 
+    ## rule length distribution (lhs + rhs):sizes
+    ##   1   2   3 
+    ##   4 108   6 
+    ## 
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##   1.000   2.000   2.000   2.017   2.000   3.000 
+    ## 
+    ## summary of quality measures:
+    ##     support           confidence        coverage            lift      
+    ##  Min.   :0.005034   Min.   :0.1006   Min.   :0.01589   Min.   :0.902  
+    ##  1st Qu.:0.006636   1st Qu.:0.1277   1st Qu.:0.03707   1st Qu.:1.428  
+    ##  Median :0.008270   Median :0.1757   Median :0.05250   Median :1.821  
+    ##  Mean   :0.014550   Mean   :0.1912   Mean   :0.09165   Mean   :1.918  
+    ##  3rd Qu.:0.012667   3rd Qu.:0.2408   3rd Qu.:0.07008   3rd Qu.:2.323  
+    ##  Max.   :0.164291   Max.   :0.4037   Max.   :1.00000   Max.   :3.865  
+    ##      count       
+    ##  Min.   :  77.0  
+    ##  1st Qu.: 101.5  
+    ##  Median : 126.5  
+    ##  Mean   : 222.6  
+    ##  3rd Qu.: 193.8  
+    ##  Max.   :2513.0  
+    ## 
+    ## mining info:
+    ##        data ntransactions support confidence
+    ##  grocstrans         15296   0.005        0.1
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/6.1.1-4.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/6.1.1-5.png)

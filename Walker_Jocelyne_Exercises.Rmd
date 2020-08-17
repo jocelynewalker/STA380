@@ -1001,16 +1001,77 @@ For those most risk-averse investors over a 20-day trading period, Portfolio 3 i
 ## Market segmentation
 
 ```{r 4.1, echo=FALSE, warning = FALSE, message = FALSE}
-library(readr)
-file <- "https://raw.githubusercontent.com/jgscott/STA380/master/data/social_marketing.csv"
-social <- read_csv(file)
-
-pairs(social[,2:5])
-
 
 # clustering
 # principal component analysis
 
+library(readr)
+urlfile="https://raw.githubusercontent.com/jgscott/STA380/master/data/social_marketing.csv"
+twitter <- read_csv(url(urlfile))
+library(ggplot2)
+library(LICORS)  # for kmeans++
+library(foreach)
+library(mosaic)
+library(tidyverse)
+
+summary(twitter)
+head(twitter)
+# Center and scale the data
+X = twitter[ ,-(1)]
+X = scale(X, center = TRUE, scale = TRUE)
+
+mu = attr(X,"scaled:center")
+sigma = attr(X,"scaled:scale")
+
+# Run k-means with 6 clusters and 25 starts
+clust1 = kmeans(X, 6, nstart=25)
+
+# What are the clusters?
+clust1$center  # not super helpful
+clust1$center[1,]*sigma + mu #politics, news, travel
+clust1$center[2,]*sigma + mu #colleges, online gaming
+clust1$center[3,]*sigma + mu #religion, food, sports_fandom, parenting
+clust1$center[4,]*sigma + mu # ? 
+clust1$center[5,]*sigma + mu #photo_sharing, fashion, cooking, beauty
+clust1$center[6,]*sigma + mu #health_nutrition, personal_fitness
+
+# A few plots with cluster membership shown
+# qplot is in the ggplot2 library
+qplot(religion, sports_fandom, data=twitter, color=factor(clust1$cluster))
+qplot(politics, news, data=twitter, color=factor(clust1$cluster))
+
+
+# Using kmeans++ initialization
+clust2 = kmeanspp(X, k=6, nstart=25)
+
+clust2$center[1,]*sigma + mu #health_nutrition, personal_fitness, cooking
+clust2$center[2,]*sigma + mu #college_uni, online_gaming
+clust2$center[3,]*sigma + mu #cooking, photo_sharing, fashion, beauty
+clust2$center[4,]*sigma + mu #religion, sports_fandom, parenting, food
+clust2$center[5,]*sigma + mu #photo_sharing
+clust2$center[6,]*sigma + mu #politics, travel, news
+
+
+qplot(religion, sports_fandom, data=twitter, color=factor(clust2$cluster))
+qplot(politics, news, data=twitter, color=factor(clust2$cluster))
+
+# Compare versus within-cluster average distances from the first run
+clust1$withinss
+clust2$withinss
+sum(clust1$withinss)
+sum(clust2$withinss)
+clust1$tot.withinss
+clust2$tot.withinss
+clust1$betweenss
+clust2$betweenss
+
+library(cluster)
+
+set.seed(123)
+twitter_gap <- clusGap(X, FUN = kmeans, nstart = 25,
+                    K.max = 15, B = 10)
+plot(twitter_gap)
+twitter_gap
 ```
 
 ## Author attribution
@@ -1209,7 +1270,7 @@ set.seed(1234)
 xtrain = subset(train, select = c(1:1000))
 ytrain = as.factor(train[,1001])
 xtest = subset(test, select = c(1:1000))
-ytest = as.factor(test[,1001])
+ytest = as.numeric(factor(test[,1001]))
 
 knn = knn(xtrain, xtest, ytrain, k = 1)
 
@@ -1241,6 +1302,7 @@ sum(temp$flag)/nrow(temp)
 
 
 ### Naive Bayes
+
 ```{r 5.5.3, echo=FALSE, warning = FALSE, message = FALSE}
 library('e1071')
 mod_naive=naiveBayes(as.factor(author)~.,data=train)
@@ -1261,33 +1323,123 @@ sum(temp_nb$flag)/nrow(temp_nb)
 ### Logistic Regression 
 
 ```{r 5.5.4, echo=FALSE, warning = FALSE, message = FALSE}
-library(glmnet)
-# Lasso cross validation
-X <- as.matrix(xtrain)
-Y <- as.matrix(ytrain)
-out1 = cv.glmnet(X,Y, family='multinomial', type.multinomial = "grouped")
+##other package
+library(nnet)
 
-# Choose lambda to minimize CV error
-plot(out1$lambda, out1$cvm, log='x')
-lambda_hat = out1$lambda.min
-lambda_hat
-# refit to the full data set with the "optimal" lambda
-#glm1 = glmnet(X, y, family='multinomial', lambda = lambda_hat)
+subTrain <- train[,c(1:18,1001)]
 
-# The fit
-#glm1$beta
-#plot(glm1$beta)
+multinomModel <- multinom(author ~., data=subTrain)
 
-# degrees of freedom and cross-validated misclassification rate
-#glm1$df
-#min(out1$cvm)  
+predicted_scores <- predict(multinomModel, test, "probs")
+predicted_class <- predict(multinomModel, test)
 
+train = data.frame(pca$x[,1:1000])
+train['author']=labels
+train_load = pca$rotation[,1:1000]
+test <- scale(DTM_test) %*% train_load
+test <- as.data.frame(test)
+test['author']=labels_test
+
+#table(predicted_class, test$author)
+
+1-mean(as.character(predicted_class) != as.character(test$author))
+#46.52% accuracy
 ```
+
+
+
 
 ## Association rule mining
 
 ```{r 6.1, echo=FALSE, warning = FALSE, message = FALSE}
-#file <- "https://raw.githubusercontent.com/jgscott/STA380/master/data/groceries.txt"
+file <- "https://raw.githubusercontent.com/jgscott/STA380/master/data/groceries.txt"
+
+library(tidyverse)
+library(arules)  # has a big ecosystem of packages built around it
+library(arulesViz)
+df <- read.table(file, sep = ',', header = FALSE, fill = TRUE)
+list(names(df))
+
+# Preprocessing data
+library(reshape2)
+dfid <- tibble::rowid_to_column(df, "User")
+df2 <- melt(dfid, id.vars = c("User"))
+df2$variable <- NULL
+attach(df2)
+df2 <- df2[order(User),]
+detach(df2)
+df2 <- df2[!apply(df2 == "", 1, any),]
+
+str(df2)
+summary(df2)
+
+# Barplot of top 20 items
+# the dot (.) means "plug in the argument coming from the left"
+summary(df2$value, maxsum=Inf)
+#sort(df2$value, decreasing=TRUE)
+#head(df2$value, 20)
+
+frq = table(df2$value)
+dffrq = as.data.frame(frq)
+dffrq <- dffrq[-c(1),]
+# sort
+attach(dffrq)
+dffrq <- dffrq[order(-Freq),]
+barplot(dffrq$Freq[1:20], names=dffrq$Var1[1:20], las=2, cex.names=0.6)
+detach(dffrq)
+```
 
 
+
+
+```{r 6.1.1, echo=FALSE, warning = FALSE, message = FALSE}
+# Turn user into a factor
+df2$User = factor(df2$User)
+
+# Split
+grocs = split(x=df2$value, f=df2$User)
+
+# Remove dupes
+grocs = lapply(grocs, unique)
+
+# Cast as "transactions"
+grocstrans = as(grocs, "transactions")
+summary(grocstrans)
+
+# Now run the 'apriori' algorithm
+# Look at rules with support > .005 & confidence >.1 & length (# artists) <= 5
+grocrules = apriori(grocstrans, 
+                     parameter=list(support=.005, confidence=.1, maxlen=5))
+
+# Look at the output... so many rules!
+#inspect(grocrules)
+
+## Choose a subset
+inspect(subset(grocrules, subset=lift > 3.5))
+inspect(subset(grocrules, subset=confidence > 0.3))
+inspect(subset(grocrules, subset=lift > 2.5 & confidence > 0.3))
+
+# Plot
+plot(grocrules)
+
+# can swap the axes and color scales
+plot(grocrules, measure = c("support", "lift"), shading = "confidence")
+
+# "two key" plot: coloring is by size (order) of item set
+plot(grocrules, method='two-key plot')
+
+# can now look at subsets driven by the plot
+inspect(subset(grocrules, support > 0.035))
+inspect(subset(grocrules, confidence > 0.7))
+
+# graph-based visualization
+sub1 = subset(grocrules, subset=confidence > 0.01 & support > 0.005)
+summary(sub1)
+plot(sub1, method='graph')
+#?plot.rules
+
+plot(head(sub1, 25, by='lift'), method='graph', cex = 0.7)
+
+# export
+saveAsGraph(head(grocrules, n = 1000, by = "lift"), file = "grocrules.graphml")
 ```
