@@ -1009,7 +1009,7 @@ pairs(social[,2:5])
 
 
 # clustering
-# pricipal component analysis
+# principal component analysis
 
 ```
 
