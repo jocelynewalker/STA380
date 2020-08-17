@@ -1261,15 +1261,16 @@ sum(temp_nb$flag)/nrow(temp_nb)
 ### Logistic Regression 
 
 ```{r 5.5.4, echo=FALSE, warning = FALSE, message = FALSE}
+library(glmnet)
 # Lasso cross validation
 X <- as.matrix(xtrain)
 Y <- as.matrix(ytrain)
 out1 = cv.glmnet(X,Y, family='multinomial', type.multinomial = "grouped")
 
 # Choose lambda to minimize CV error
-#plot(out1$lambda, out1$cvm, log='x')
-#lambda_hat = out1$lambda.min
-
+plot(out1$lambda, out1$cvm, log='x')
+lambda_hat = out1$lambda.min
+lambda_hat
 # refit to the full data set with the "optimal" lambda
 #glm1 = glmnet(X, y, family='multinomial', lambda = lambda_hat)
 

@@ -336,7 +336,9 @@ yellow color*
 ![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/2.5-1.png)
 
 From this chart, we see two **frequently flown routes** with **highest
-room for improvement.**
+room for improvement.** We checked which routes these were by going into
+the data table and viewing the two most frequently flown routes with
+delays &gt;20 minutes.
 
 -   A Mesa Airlines (American Airlines operated) route from IAD to AUS,
     flown 631 times in 2008, with an average delay of 27 minutes.
@@ -416,11 +418,11 @@ Then, we simulate the 20-day trading period of this portfolio.
 ![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.1.a-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.1.a-2.png)
 
     ##        5% 
-    ## -8155.048
+    ## -8453.319
 
 From the histograms of the portfolio values and earnings, we see that
 negative earnings are a possibility. The 5% value at risk based on a
-20-day bootstrapped period is **-$8279.31** for this portfolio.
+20-day bootstrapped period is **-$8155.05** for this portfolio.
 
 ### Portfolio 2: “Thrive on Volatility”
 
@@ -444,6 +446,7 @@ increasing their diversity. Here’s a breakdown of the portfolio:
     will not fall significantly during volatile markets
 
 ![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.2-1.png)
+
 From the pairs plot, we see that these four ETFs are much less strongly
 correlated than the ETFs in Portfolio 1. Thus, I expect this portfolio
 to be “safer” and have a higher Value at Risk.
@@ -453,7 +456,7 @@ Then, we simulate the 20-day trading period of this portfolio.
 ![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.2.a-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.2.a-2.png)
 
     ##        5% 
-    ## -5047.678
+    ## -5012.301
 
 From the histograms of the portfolio values and earnings, we see that
 negative earnings are a possibility. The 5% value at risk based on a
@@ -478,19 +481,16 @@ a smaller potential return. Here’s a breakdown of the portfolio:
     and 13% in bonds rated BBB.
 
 ![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3-1.png)
+
 From the pairs correlation matrix, we see that these Bond ETFs are less
 correlated than the ETFs in Portfolio 1 and Portfolio 2.
 
 Then, we simulate the 20-day trading period of this portfolio.
 
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3.a-1.png)
-
-    ## [1] 100394.5
-
-![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3.a-2.png)
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3.a-1.png)![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/3.3.a-2.png)
 
     ##        5% 
-    ## -2553.164
+    ## -2539.063
 
 From the histograms of the portfolio values and earnings, we see that
 negative earnings are **still** a possibility. The 5% value at risk
@@ -502,7 +502,7 @@ Portfolio 1 and Portfolio 2.
 
 -   Portfolio 1 is best suited for longer-term investment. (In fact,
     some of these ETFs are in our team’s own IRA portfolios.) The 5% VaR
-    is the lowest at **-$8279.31**
+    is the lowest at **-$8155.05**
 
 -   Portfolio 2 is a better short-term risk fund. Instead of simply
     tracking the market, it attempts to hedge against market volatility
@@ -523,8 +523,128 @@ investors may be more likely to choose the portfolios that track the S&P
 Market segmentation
 -------------------
 
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/4.1-1.png)
+
 Author attribution
 ------------------
+
+In order to predict the author of an article on the basis of the
+article’s textual content, we had to first build a training model to
+give a baseline dictionary to predict “new” testing articles.
+
+First, we read in the 50 training articles for each of the 50 different
+authors.
+
+    ## <<DocumentTermMatrix (documents: 2500, terms: 32669)>>
+    ## Non-/sparse entries: 619802/81052698
+    ## Sparsity           : 99%
+    ## Maximal term length: 40
+    ## Weighting          : term frequency (tf)
+
+    ## <<DocumentTermMatrix (documents: 2500, terms: 32570)>>
+    ## Non-/sparse entries: 537861/80887139
+    ## Sparsity           : 99%
+    ## Maximal term length: 40
+    ## Weighting          : term frequency (tf)
+
+    ## <<DocumentTermMatrix (documents: 2500, terms: 3393)>>
+    ## Non-/sparse entries: 422971/8059529
+    ## Sparsity           : 95%
+    ## Maximal term length: 40
+    ## Weighting          : term frequency (tf)
+
+After reading in the data, we pre-processed the text in the articles.
+
+-   Converting all text to lowercase
+
+-   Remove numbers
+
+-   Remove punctuation
+
+-   Remove excess white space
+
+After these four steps, we’re down to **2500 documents** with **32,669
+terms.**
+
+-   Remove stop and filler words, based on the “basic English” stop
+    words
+
+After removing filler words, we’re down to **32,570 terms.**
+
+-   Removed words that have count 0 in &gt; 99% of documents
+
+Thus cuts the long tail significantly to only **3393 terms.**
+
+-   Finally, we converted the raw counts of words in each document to
+    TF-IDF weights.
+
+**Then, we replicated the same process to read in the 50 testing
+articles for the authors. There are 3448 terms in the testing data,
+compared to only 3393 terms in the training data.**
+
+    ## <<DocumentTermMatrix (documents: 2500, terms: 33472)>>
+    ## Non-/sparse entries: 628611/83051389
+    ## Sparsity           : 99%
+    ## Maximal term length: 45
+    ## Weighting          : term frequency (tf)
+
+    ## <<DocumentTermMatrix (documents: 2500, terms: 33373)>>
+    ## Non-/sparse entries: 545286/82887214
+    ## Sparsity           : 99%
+    ## Maximal term length: 45
+    ## Weighting          : term frequency (tf)
+
+    ## <<DocumentTermMatrix (documents: 2500, terms: 3448)>>
+    ## Non-/sparse entries: 428509/8191491
+    ## Sparsity           : 95%
+    ## Maximal term length: 39
+    ## Weighting          : term frequency (tf)
+
+**Now, we have to ensure the words in the training set are identical to
+the words in the testing set. We’ve chosen to ignore words that are in
+the testing set and not found in the training set. This removes the 55
+“new” terms from the training data, less than 2% of the training terms.
+Now, both the training and testing groups have 3393 terms.**
+
+    ## <<DocumentTermMatrix (documents: 2500, terms: 3393)>>
+    ## Non-/sparse entries: 379314/8103186
+    ## Sparsity           : 96%
+    ## Maximal term length: 40
+    ## Weighting          : term frequency - inverse document frequency (normalized) (tf-idf)
+
+### At this point, we have a training set with 3393 predictors. In order to simplify our predictors, we perform a Principal Component Analysis (PCA) to reduce the number of predictors.
+
+First, this requires us to eliminate columns that have 0 entries. This
+reduces us to eliminate columns where the term is not found in any data
+in the test or train set. Then, we ensure the term lists are identical
+by using only the intersecting columns of the train and test data,
+leaving us with 8,317,500 elements in both the train and test matrices.
+
+Once the data is in the same format, we use PCA analysis to choose the
+number of principal components.
+
+![](Walker_Jocelyne_Exercises_files/figure-markdown_strict/5.4.1-1.png)
+
+We’ve chosen to stop at 1000 principal components that explain ~80% of
+the variance. After these components were chosen, the data cleaning and
+pre-processing is complete and we are ready to run models to predict
+authors.
+
+### KNN
+
+    ## [1] 815
+
+    ## [1] 0.326
+
+### Random Forest
+
+    ## [1] 0.7192
+
+### Naive Bayes
+
+    ## [1] 0.3144
+
+### Logistic Regression
 
 Association rule mining
 -----------------------
