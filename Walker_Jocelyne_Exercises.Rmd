@@ -553,7 +553,7 @@ worldmap = map_data("world")
 wrld<-c(geom_polygon(aes(long,lat,group=group), size = 0.1, colour= "#090D2A",
 fill="#090D2A", alpha=0.8, data=worldmap))
 # urban layer
-urbanareasin <- readShapePoly("C:/Users/jocel/OneDrive/2020_2_Summer/STA380.17 - Predictive Modeling/ne_10m_urban_areas.shp")
+urbanareasin <- readShapePoly("C:/Users/Katherine Bigunac/Documents/GitHub/STA380/ne_10m_urban_areas.shp")
 urb <- c(geom_polygon(aes(long, lat, group = group),
 size = 0.3,
 color = "#ffffff",
@@ -1016,6 +1016,16 @@ pairs(social[,2:5])
 ## Author attribution
 
 ```{r 5.1, echo=FALSE, warning = FALSE, message = FALSE}
+library(tm) 
+library(tidyverse)
+library(slam)
+library(proxy)
+
+readerPlain = function(fname){
+				readPlain(elem=list(content=readLines(fname)), 
+							id=fname, language='en') }
+
+
 
 ```
 
