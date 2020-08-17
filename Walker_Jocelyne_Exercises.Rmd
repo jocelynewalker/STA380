@@ -1015,17 +1015,271 @@ pairs(social[,2:5])
 
 ## Author attribution
 
-```{r 5.1, echo=FALSE, warning = FALSE, message = FALSE}
+In order to predict the author of an article on the basis of the article's textual content, we had to first build a training model to give a baseline dictionary to predict "new" testing articles. 
+
+First, we read in the 50 training articles for each of the 50 different authors.
+
+```{r 5.1.0, echo=FALSE, warning = FALSE, message = FALSE}
 library(tm) 
 library(tidyverse)
 library(slam)
 library(proxy)
 
+# reader function used in class
 readerPlain = function(fname){
 				readPlain(elem=list(content=readLines(fname)), 
 							id=fname, language='en') }
+```
+
+```{r 5.1.1, echo=FALSE, warning = FALSE, message = FALSE}
+# expand all file paths in training data
+train = Sys.glob('ReutersC50/C50train/*')
+
+# initiate empty lists to be used in for loop
+trainingArticles = NULL
+labels = NULL
+
+# read in all training articles
+for (name in train) {
+  author = substring(name, first=21) # set author name
+  #print(author)
+  article = Sys.glob(paste0(name,'/*.txt')) # expand articles for each name
+  trainingArticles = append(trainingArticles,article) # append articles to list
+  labels = append(labels, rep(author, length(article))) # append labels to list
+}
+
+# read all the plain text files in the list
+combined = lapply(trainingArticles,readerPlain)
+
+# set article names
+names(combined) = trainingArticles
+names(combined) = sub('.txt','',names(combined))
+
+# creates the corpus
+trainCorpus = Corpus(VectorSource(combined))
+```
+
+```{r 5.1.2, echo=FALSE, warning = FALSE, message = FALSE}
+## Some pre-processing/tokenization steps.
+## tm_map just maps some function to every document in the corpus
+trainArticles = trainCorpus %>%
+  tm_map(content_transformer(tolower))  %>%             # make everything lowercase
+  tm_map(content_transformer(removeNumbers)) %>%        # remove numbers
+  tm_map(content_transformer(removePunctuation)) %>%    # remove punctuation
+  tm_map(content_transformer(stripWhitespace))          # remove excess white-space
+
+DTM_train = DocumentTermMatrix(trainArticles)
+DTM_train
+
+trainArticles = tm_map(trainArticles, content_transformer(removeWords), stopwords("en"))
+
+DTM_train = DocumentTermMatrix(trainArticles)
+DTM_train
+DTM_train = removeSparseTerms(DTM_train, .99)
+DTM_train
+
+DTM_train = weightTfIdf(DTM_train)
+DTM_train <- as.matrix(DTM_train)
+```
+
+After reading in the data, we pre-processed the text in the articles. 
+
+* Converting all text to lowercase
+
+* Remove numbers
+
+* Remove punctuation
+
+* Remove excess white space
+
+After these four steps, we're down to **2500 documents** with **32,669 terms.** 
+
+* Remove stop and filler words, based on the "basic English" stop words
+
+After removing filler words, we're down to **32,570 terms.** 
+
+* Removed words that have count 0 in > 99% of documents
+
+Thus cuts the long tail significantly to only **3393 terms.**
+
+* Finally, we converted the raw counts of words in each document to TF-IDF weights.
+
+**Then, we replicated the same process to read in the 50 testing articles for the authors. There are 3448 terms in the testing data, compared to only 3393 terms in the training data.**
+
+```{r 5.2.1, echo=FALSE, warning = FALSE, message = FALSE}
+# expand all file paths in training data
+test = Sys.glob('ReutersC50/C50test/*')
+
+# initiate empty lists to be used in for loop
+testingArticles = NULL
+labels_test = NULL
+
+# read in all training articles
+for (name in test) {
+  author = substring(name, first=20) # set author name
+  article = Sys.glob(paste0(name,'/*.txt')) # expand articles for each name
+  testingArticles = append(testingArticles,article) # append articles to list
+  labels_test = append(labels_test, rep(author, length(article))) # append labels to list
+}
+
+# read all the plain text files in the list
+combined = lapply(testingArticles,readerPlain)
+
+# set article names
+names(combined) = testingArticles
+names(combined) = sub('.txt','',names(combined))
+
+# creates the corpus
+testCorpus = Corpus(VectorSource(combined))
+```
+
+```{r 5.2.2, echo=FALSE, warning = FALSE, message = FALSE}
+## Some pre-processing/tokenization steps.
+## tm_map just maps some function to every document in the corpus
+testArticles = testCorpus %>%
+  tm_map(content_transformer(tolower))  %>%             # make everything lowercase
+  tm_map(content_transformer(removeNumbers)) %>%        # remove numbers
+  tm_map(content_transformer(removePunctuation)) %>%    # remove punctuation
+  tm_map(content_transformer(stripWhitespace))          # remove excess white-space
+
+DTM_test = DocumentTermMatrix(testArticles)
+DTM_test
+
+testArticles = tm_map(testArticles, content_transformer(removeWords), stopwords("en"))
+
+DTM_test = DocumentTermMatrix(testArticles)
+DTM_test
+DTM_test = removeSparseTerms(DTM_test, .99)
+DTM_test
+
+DTM_test = weightTfIdf(DTM_test)
+DTM_test <- as.matrix(DTM_test)
+```
 
 
+**Now, we have to ensure the words in the training set are identical to the words in the testing set. We've chosen to ignore words that are in the testing set and not found in the training set. This removes the 55 "new" terms from the training data, less than 2% of the training terms. Now, both the training and testing groups have 3393 terms.** 
+
+```{r 5.3.0, echo=FALSE, warning = FALSE, message = FALSE}
+#forces test to take only identical col names as train
+DTM_test = DocumentTermMatrix(testArticles, list(dictionary=colnames(DTM_train)))
+DTM_test = weightTfIdf(DTM_test)
+DTM_test
+DTM_test <- as.matrix(DTM_test)
+```
+
+### At this point, we have a training set with 3393 predictors. In order to simplify our predictors, we perform a Principal Component Analysis (PCA) to reduce the number of predictors. 
+
+First, this requires us to eliminate columns that have 0 entries. This reduces us to eliminate columns where the term is not found in any data in the test or train set. Then, we ensure the term lists are identical by using only the intersecting columns of the train and test data, leaving us with 8,317,500 elements in both the train and test matrices. 
+
+```{r 5.4.0, echo=FALSE, warning = FALSE, message = FALSE}
+DTM_train <- DTM_train[,which(colSums(DTM_train) != 0)]
+DTM_test <- DTM_test[,which(colSums(DTM_test) != 0)]
+
+DTM_train = DTM_train[,intersect(colnames(DTM_test),colnames(DTM_train))]
+DTM_test = DTM_test[,intersect(colnames(DTM_test),colnames(DTM_train))]
+```
+
+Once the data is in the same format, we use PCA analysis to choose the number of principal components. 
+
+```{r 5.4.1, echo=FALSE, warning = FALSE, message = FALSE}
+pca = prcomp(DTM_train, scale =TRUE) #remember to scale the data
+predictions = predict(pca, newdata = DTM_test)
+
+plot(cumsum(pca$sdev^2/sum(pca$sdev^2)), ylab = 'Cumulative variance explained', xlab = 'Number of principal components', main = 'Summary of Principal Component Variance Analysis')
+#lets stop at 1000 principal components
+
+#reformat the data
+train = data.frame(pca$x[,1:1000])
+train['author']=labels
+train_load = pca$rotation[,1:1000]
+test <- scale(DTM_test) %*% train_load
+test <- as.data.frame(test)
+test['author']=labels_test
+
+```
+
+We've chosen to stop at 1000 principal components that explain ~80% of the variance. After these components were chosen, the data cleaning and pre-processing is complete and we are ready to run models to predict authors. 
+
+### KNN
+
+```{r 5.5.1, echo=FALSE, warning = FALSE, message = FALSE}
+library(class)
+set.seed(1234)
+
+xtrain = subset(train, select = c(1:1000))
+ytrain = as.factor(train[,1001])
+xtest = subset(test, select = c(1:1000))
+ytest = as.factor(test[,1001])
+
+knn = knn(xtrain, xtest, ytrain, k = 1)
+
+checkKNN = as.data.frame(cbind(knn,ytest))
+accuracy = ifelse(as.integer(knn)==as.integer(ytest),1,0)
+sum(accuracy)
+sum(accuracy)/nrow(checkKNN)
+#32.6% accuracy
+```
+
+
+### Random Forest
+
+```{r 5.5.2, echo=FALSE, warning = FALSE, message = FALSE}
+library(randomForest)
+set.seed(1234)
+mod_rand<-randomForest(as.factor(author)~.,data=train, mtry=6,importance=TRUE)
+
+pre_rand<-predict(mod_rand,data=test)
+tab_rand<-as.data.frame(table(pre_rand,as.factor(test$author)))
+predicted<-pre_rand
+actual<-as.factor(test$author)
+temp<-as.data.frame(cbind(actual,predicted))
+temp$flag<-ifelse(temp$actual==temp$predicted,1,0)
+
+sum(temp$flag)/nrow(temp)
+#71.9% accuracy
+```
+
+
+### Naive Bayes
+```{r 5.5.3, echo=FALSE, warning = FALSE, message = FALSE}
+library('e1071')
+mod_naive=naiveBayes(as.factor(author)~.,data=train)
+pred_naive=predict(mod_naive,test)
+
+library(caret)
+predicted_nb=pred_naive
+actual_nb=as.factor(test$author)
+temp_nb<-as.data.frame(cbind(actual_nb,predicted_nb))
+temp_nb$flag<-ifelse(temp_nb$actual_nb==temp_nb$predicted_nb,1,0)
+
+sum(temp_nb$flag)/nrow(temp_nb)
+#31.4% accuracy
+
+```
+
+
+### Logistic Regression 
+
+```{r 5.5.4, echo=FALSE, warning = FALSE, message = FALSE}
+# Lasso cross validation
+X <- as.matrix(xtrain)
+Y <- as.matrix(ytrain)
+out1 = cv.glmnet(X,Y, family='multinomial', type.multinomial = "grouped")
+
+# Choose lambda to minimize CV error
+#plot(out1$lambda, out1$cvm, log='x')
+#lambda_hat = out1$lambda.min
+
+# refit to the full data set with the "optimal" lambda
+#glm1 = glmnet(X, y, family='multinomial', lambda = lambda_hat)
+
+# The fit
+#glm1$beta
+#plot(glm1$beta)
+
+# degrees of freedom and cross-validated misclassification rate
+#glm1$df
+#min(out1$cvm)  
 
 ```
 
