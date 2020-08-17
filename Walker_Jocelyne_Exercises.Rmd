@@ -700,7 +700,7 @@ annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
 label=paste("Flight routes from top 8 countries","Created by Your name","Data From OpenFlights.org", sep="\n"),color="white")
 ```
 
-From this chart, we see two **frequently flown routes** with **highest room for improvement.** 
+From this chart, we see two **frequently flown routes** with **highest room for improvement.** We checked which routes these were by going into the data table and viewing the two most frequently flown routes with delays >20 minutes. 
 
 * A Mesa Airlines (American Airlines operated) route from IAD to AUS, flown 631 times in 2008, with an average delay of 27 minutes.
 
