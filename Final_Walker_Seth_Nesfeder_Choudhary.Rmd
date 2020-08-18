@@ -5,7 +5,7 @@ date: "08/18/2020"
 output: md_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup0, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -57,7 +57,7 @@ First, instead of dropping all buildings with leasing rates less than 10%, we ch
 
 **What variables appear to be confounding?** 
 
-First, I built a correlation matrix to identify how each of the building predictors are related. 
+First, we built a correlation matrix to identify how each of the building predictors are related. 
 
 * We see that a building's Green Rating is slightly positively correlated with Class A, more desirable buildings and negatively correlated with Age. 
 
@@ -428,7 +428,6 @@ ggplot(green_matched, aes(x = as.factor(green_rating), y = RevPSF), fill = green
   scale_x_discrete(labels = c("Not Green", "Green")) +
   coord_flip() +
   stat_summary(aes(label=round(..y..,2)), fun.y = "mean", geom = "point", shape = 8, size = 2, color = "red")
-
 ```
 
 Balancing the data allows me to compare like with like. This eliminates the effect of the confounding variables because now the confounders are equal between the two different groups. It is now reasonable to compare the Revenue per Square Foot of Green and Non-Green buildings and make a conclusion about the impact of green rating because green rating is the only thing that is different between the two groups. 
@@ -641,7 +640,7 @@ label=paste("Flight routes from top 8 countries","Created by Your name","Data Fr
 
 ```
 
-The rotues with the **shortest average delays** are to every West-Coast hub (Los Angeles, San Francisco, Seattle), and also include short routes in the southern half of the United States.
+The routes with the **shortest average delays** are to every West-Coast hub (Los Angeles, San Francisco, Seattle), and also include short routes in the southern half of the United States.
 
 Next, we'll examine the routes with medium average delays, between 5 and 30 minutes on average. 
 
@@ -700,7 +699,7 @@ annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
 label=paste("Flight routes from top 8 countries","Created by Your name","Data From OpenFlights.org", sep="\n"),color="white")
 ```
 
-From this chart, we see two **frequently flown routes** with **highest room for improvement.** We checked which routes these were by going into the data table and viewing the two most frequently flown routes with delays >20 minutes. 
+From this chart, we see two **frequently flown routes** with **highest room for improvement.** We checked which routes these were by going into the data table and viewing the two most frequently flown routes with delays >20 minutes. These are: 
 
 * A Mesa Airlines (American Airlines operated) route from IAD to AUS, flown 631 times in 2008, with an average delay of 27 minutes.
 
@@ -818,7 +817,7 @@ abline(v = (quantile(sim1[,n_days], 0.05) - initial_wealth), col = "red")
 quantile(sim1[,n_days], 0.05) - initial_wealth
 ```
 
-From the histograms of the portfolio values and earnings, we see that negative earnings are a possibility. The 5% value at risk based on a 20-day bootstrapped period is **-\$8155.05** for this portfolio. 
+From the histograms of the portfolio values and earnings, we see that negative earnings are a possibility. The 5% value at risk based on a 20-day bootstrapped period is **about -\$8155.05** for this portfolio. 
 
 ### Portfolio 2: "Thrive on Volatility" 
 
@@ -905,7 +904,7 @@ abline(v = (quantile(sim1[,n_days], 0.05) - initial_wealth), col = "red")
 quantile(sim1[,n_days], 0.05) - initial_wealth
 ```
 
-From the histograms of the portfolio values and earnings, we see that negative earnings are a possibility. The 5% value at risk based on a 20-day bootstrapped period is **-\$5,047.68** for this portfolio. This is a much "safer" portfolio compared to the portfolio that simply tracks the S&P 500 above.  
+From the histograms of the portfolio values and earnings, we see that negative earnings are a possibility. The 5% value at risk based on a 20-day bootstrapped period is **about -\$5,047.68** for this portfolio. This is a much "safer" portfolio compared to the portfolio that simply tracks the S&P 500 above.  
 
 ### Portfolio 3: "Safety and Risk-Aversion with Bonds" 
 
@@ -985,100 +984,184 @@ abline(v = (quantile(sim1[,n_days], 0.05) - initial_wealth), col = "red")
 # Calculate 5% value at risk
 quantile(sim1[,n_days], 0.05) - initial_wealth
 ```
-From the histograms of the portfolio values and earnings, we see that negative earnings are **still** a possibility. The 5% value at risk based on a 20-day bootstrapped period is **-\$2,553.16** for this portfolio. This is a much "safer" portfolio compared to **both** Portfolio 1 and Portfolio 2. 
+From the histograms of the portfolio values and earnings, we see that negative earnings are **still** a possibility. The 5% value at risk based on a 20-day bootstrapped period is **about -\$2,553.16** for this portfolio. This is a much "safer" portfolio compared to **both** Portfolio 1 and Portfolio 2. 
 
 ### In summary
 
-* Portfolio 1 is best suited for longer-term investment. (In fact, some of these ETFs are in our team's own IRA portfolios.) The 5% VaR is the lowest at **-\$8155.05**
+* Portfolio 1 is best suited for longer-term investment. (In fact, some of these ETFs are in our team's own IRA portfolios.) The 5% VaR is the lowest at **about -\$8155.05**
 
-* Portfolio 2 is a better short-term risk fund. Instead of simply tracking the market, it attempts to hedge against market volatility in other ways. These strategies include focusing on high-value tech firms, dividend funds, consumer staples, and low beta stocks. It increases VaR to **-\$5,047.68**. 
+* Portfolio 2 is a better short-term risk fund. Instead of simply tracking the market, it attempts to hedge against market volatility in other ways. These strategies include focusing on high-value tech firms, dividend funds, consumer staples, and low beta stocks. It increases VaR to **about -\$5,047.68**. 
 
-* Portfolio 3 is the best short-term risk fund as it increases VaR further to **-\$2,553.16**. Because it is based on more stable bond indexes, this means that the Value at Risk is higher than the previous two portfolios.
+* Portfolio 3 is the best short-term risk fund as it increases VaR further to **about -\$2,553.16**. Because it is based on more stable bond indexes, this means that the Value at Risk is higher than the previous two portfolios.
 
 For those most risk-averse investors over a 20-day trading period, Portfolio 3 is the safest choice. Over a longer trading period, investors may be more likely to choose the portfolios that track the S&P 500 or thrive off market volatility in the long run. 
 
-
 ## Market segmentation
 
-```{r 4.1, echo=FALSE, warning = FALSE, message = FALSE}
+Understanding a company's market is crucial to being successful and innovative in an ever-changing society. In this case, the company, NutrientH20, is attempting to understand their social-media audience a little bit better. 
 
-# clustering
-# principal component analysis
+### Models
 
-library(readr)
+* K-Means with K-means++ Initialization
+
+* Hierarchical Clustering 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r 4.1, echo=FALSE, include=FALSE}
 urlfile="https://raw.githubusercontent.com/jgscott/STA380/master/data/social_marketing.csv"
-twitter <- read_csv(url(urlfile))
+twitter <- read.csv(urlfile)
+library(readr)
 library(ggplot2)
 library(LICORS)  # for kmeans++
 library(foreach)
 library(mosaic)
 library(tidyverse)
+library(fpc)
+library(cluster)
+# Remove chatter, spam and adult variables
+twitter$chatter<- NULL
+twitter$spam <- NULL
+twitter$adult <- NULL
 
-summary(twitter)
-head(twitter)
 # Center and scale the data
-X = twitter[ ,-(1)]
-X = scale(X, center = TRUE, scale = TRUE)
-
+X = twitter[,(2:34)]
+X = scale(X, center=TRUE, scale=TRUE)
 mu = attr(X,"scaled:center")
 sigma = attr(X,"scaled:scale")
-
-# Run k-means with 6 clusters and 25 starts
-clust1 = kmeans(X, 6, nstart=25)
-
-# What are the clusters?
-clust1$center  # not super helpful
-clust1$center[1,]*sigma + mu #politics, news, travel
-clust1$center[2,]*sigma + mu #colleges, online gaming
-clust1$center[3,]*sigma + mu #religion, food, sports_fandom, parenting
-clust1$center[4,]*sigma + mu # ? 
-clust1$center[5,]*sigma + mu #photo_sharing, fashion, cooking, beauty
-clust1$center[6,]*sigma + mu #health_nutrition, personal_fitness
-
-# A few plots with cluster membership shown
-# qplot is in the ggplot2 library
-qplot(religion, sports_fandom, data=twitter, color=factor(clust1$cluster))
-qplot(politics, news, data=twitter, color=factor(clust1$cluster))
-
-
-# Using kmeans++ initialization
-clust2 = kmeanspp(X, k=6, nstart=25)
-
-clust2$center[1,]*sigma + mu #health_nutrition, personal_fitness, cooking
-clust2$center[2,]*sigma + mu #college_uni, online_gaming
-clust2$center[3,]*sigma + mu #cooking, photo_sharing, fashion, beauty
-clust2$center[4,]*sigma + mu #religion, sports_fandom, parenting, food
-clust2$center[5,]*sigma + mu #photo_sharing
-clust2$center[6,]*sigma + mu #politics, travel, news
-
-
-qplot(religion, sports_fandom, data=twitter, color=factor(clust2$cluster))
-qplot(politics, news, data=twitter, color=factor(clust2$cluster))
-
-# Compare versus within-cluster average distances from the first run
-clust1$withinss
-clust2$withinss
-sum(clust1$withinss)
-sum(clust2$withinss)
-clust1$tot.withinss
-clust2$tot.withinss
-clust1$betweenss
-clust2$betweenss
-
-library(cluster)
-
+#Create elbow plot
 set.seed(123)
-twitter_gap <- clusGap(X, FUN = kmeans, nstart = 25,
-                    K.max = 15, B = 10)
-plot(twitter_gap)
-twitter_gap
+k.max <- 15
+data <- X
+wss <- sapply(1:k.max, 
+              function(k){kmeans(X, k, nstart=50,iter.max = 15 )$tot.withinss})
 ```
+
+In order to run K-means clustering, it is important to try and find an optimal number of clusters to maximize the value of these models and increase the interpretability of the model.
+
+```{r 4.2, fig.align='center', echo=FALSE}
+plot(1:k.max, wss,
+     type="b", pch = 19, frame = FALSE, 
+     xlab="Number of clusters K")
+```
+
+Although this elbow plot does not provide us with too much information, by testing various values for K, we have decided 4 clusters will have the most benefit for us. Also, the variables spam, chatter, and adult have been removed from the data as NutrientH20 does not care about appealing to "spam" or "bot" accounts. 
+
+#### **K-Means Clusters**
+
+```{r 4.3, echo=FALSE, include=FALSE}
+# Run k-means with 4 clusters and 25 starts
+clust1 = kmeanspp(X, 4, nstart=25)
+```
+
+Let's first look at the clusters broken into their 4 groups.
+
+```{r 4.4, echo=FALSE}
+#plot clusters
+plotcluster(twitter[,2:34], clust1$cluster)
+```
+
+#### **K-Means with K++ Initialization**
+
+Next, let's dive into the four clusters and which characteristics stand out the most in each. 
+
+```{r 4.5, echo = FALSE}
+#Bind clusters into dataframe
+cluster_frame <- as.data.frame(cbind(clust1$center[1,]*sigma + mu, 
+                                          clust1$center[2,]*sigma + mu,
+                                          clust1$center[3,]*sigma + mu,
+                                          clust1$center[4,]*sigma + mu))
+#Change column names
+names(cluster_frame) <- c('Cluster_1','Cluster_2','Cluster_3','Cluster_4')
+
+#Assign proper category names
+cluster_frame$type <- row.names(cluster_frame)
+```
+
+```{r 4.6, out.width=c('50%', '50%'), fig.show='hold', echo=FALSE}
+#Cluster 1
+ggplot(cluster_frame, aes(x =reorder(type, -Cluster_1) , y=Cluster_1)) +
+  geom_bar(stat="identity", fill = 'gray0') + 
+  coord_flip() + 
+  labs(title="Cluster 1",
+       x ="Category", y = "Cluster Values")
+
+#Cluster 2 
+ggplot(cluster_frame, aes(x =reorder(type, -Cluster_2) , y=Cluster_2)) +
+  geom_bar(stat="identity", fill = 'red') + 
+  coord_flip() + 
+  labs(title="Cluster 2",
+       x ="Category", y = "Cluster Values")
+
+#Cluster 3 
+ggplot(cluster_frame, aes(x =reorder(type, -Cluster_3) , y=Cluster_3)) +
+  geom_bar(stat="identity", fill = 'green') + 
+  coord_flip() + 
+  labs(title="Cluster 3",
+       x ="Category", y = "Cluster Values")
+
+#Cluster 4
+ggplot(cluster_frame, aes(x =reorder(type, -Cluster_4) , y=Cluster_4)) +
+  geom_bar(stat="identity", fill = 'blue') + 
+  coord_flip() + 
+  labs(title="Cluster 4",
+       x ="Category", y = "Cluster Values")
+```
+
+**Our Identified Market Segments**
+
+1. Health Nutrition, Cooking, Photo Sharing, and Personal Fitness
+
+2. Sports Fandom, Religion, and Food
+
+3. Politics, Travel, and News
+
+4. Photo Sharing, Current Events, Health Nutrition, and College Universities
+
+Through K-Means Clustering with K-Means++ Initialization, we have been able to define some market segments for NutrientH20. Cluster 1 is filled with people who love to cook and live healthy...and share it through photos! Cluster 2 appears to be filled with sports fanatics who love food and might be saying a prayer or two for their teams to win. Cluster 3 is full of people who enjoy talking about politics and the news while loving to travel as well. Finally, Cluster 4 seems like a younger demographic - college kids who like to discuss and share pictures about current events.
+
+#### **Hierarchical Clustering Results**
+
+```{r 4.7, echo=FALSE, warning=FALSE, message=FALSE}
+#transpose X into dataframe
+X_transpose <- as.data.frame(t(X))
+# Form a pairwise distance matrix using the dist function
+twitter_distance_matrix = dist(X_transpose, method='euclidean')
+# Now run hierarchical clustering
+twitter_protein = hclust(twitter_distance_matrix, method='average')
+# Cut the tree into 4 clusters
+cluster1 = cutree(twitter_protein, k=4)
+```
+
+```{r 4.8, out.width=c('80%', '80%'), fig.align='center', echo=FALSE}
+plot(twitter_protein, hang = -1, cex = 0.8)
+rect.hclust(twitter_protein, k = 4, border = 2:5)
+```
+
+**Our Identified Market Segments**
+
+1. College Kids
+
+2. Parents 
+
+3. Current Events
+
+4. Active / Self-Care
+
+While Hierarchical Clustering does not show specific sizes of characteristics within each cluster, it still gives us a good idea of what kind of people each cluster is filled with. For example, Cluster 1, is populated by sports playing, online gaming, college universities and TV film among others and seems to be college kids. In contrast, Cluster 2 appears to be more mature people such as parents as news, parenting, family, and politics are some of the characteristics within the cluster. Cluster 3 does not give us much as the only characteristic in it is current events, but that doesn't necessarily hurt our clustering either. Finally, Cluster 4 appears to be active people who take good care of themselves with characteristics ranging from health nutrition to beauty to outdoors. 
+
+Market segmentation is important in order to specifically appeal to different types of audiences. Performing segmentation often like this can help immensely as people's opinions are always changing, especially on social media! 
+
+Additionally, it's important to check which clusters are responding to targeted messages. For example, if NutrientH20 were to post something on twitter targeting the young, college student cluster, we would expect the users in that cluster to interact with the tweet. This both checks our understanding of the clustering *and* the changing interests of NutrientH20's twitter following.
 
 ## Author attribution
 
 In order to predict the author of an article on the basis of the article's textual content, we had to first build a training model to give a baseline dictionary to predict "new" testing articles. 
 
-First, we read in the 50 training articles for each of the 50 different authors.
+First, we read in the Reuters 50 training articles using a for loop for each of the 50 different authors. We combined these 2500 training articles into a single text analysis training corpus. 
 
 ```{r 5.1.0, echo=FALSE, warning = FALSE, message = FALSE}
 library(tm) 
@@ -1143,29 +1226,29 @@ DTM_train = weightTfIdf(DTM_train)
 DTM_train <- as.matrix(DTM_train)
 ```
 
-After reading in the data, we pre-processed the text in the articles. 
+After reading in the data, we pre-processed the text in the articles. This included: 
 
 * Converting all text to lowercase
 
-* Remove numbers
+* Removing numbers
 
-* Remove punctuation
+* Removing punctuation
 
-* Remove excess white space
+* Removing excess white space
 
 After these four steps, we're down to **2500 documents** with **32,669 terms.** 
 
-* Remove stop and filler words, based on the "basic English" stop words
+* Removing stop and filler words, based on the "basic English" stop words
 
 After removing filler words, we're down to **32,570 terms.** 
 
-* Removed words that have count 0 in > 99% of documents
+* Removing words that have count = 0 in > 99% of documents
 
-Thus cuts the long tail significantly to only **3393 terms.**
+This cuts the long tail significantly to only **3393 terms.**
 
 * Finally, we converted the raw counts of words in each document to TF-IDF weights.
 
-**Then, we replicated the same process to read in the 50 testing articles for the authors. There are 3448 terms in the testing data, compared to only 3393 terms in the training data.**
+**Then, we replicated the same process to read in the 50 testing articles for the 50 authors. There are 3448 terms in the testing data, compared to only 3393 terms in the training data. We must consider how to treat these "new" words.**
 
 ```{r 5.2.1, echo=FALSE, warning = FALSE, message = FALSE}
 # expand all file paths in training data
@@ -1218,7 +1301,7 @@ DTM_test <- as.matrix(DTM_test)
 ```
 
 
-**Now, we have to ensure the words in the training set are identical to the words in the testing set. We've chosen to ignore words that are in the testing set and not found in the training set. This removes the 55 "new" terms from the training data, less than 2% of the training terms. Now, both the training and testing groups have 3393 terms.** 
+**Now, we have to ensure the words in the training set are identical to the words in the testing set. We've chosen to *ignore new words* that are in the testing set and not found in the training set. This removes the 55 "new" terms from the training data, less than 2% of the training terms. Now, both the training and testing groups have 3393 terms.** 
 
 ```{r 5.3.0, echo=FALSE, warning = FALSE, message = FALSE}
 #forces test to take only identical col names as train
@@ -1230,7 +1313,7 @@ DTM_test <- as.matrix(DTM_test)
 
 ### At this point, we have a training set with 3393 predictors. In order to simplify our predictors, we perform a Principal Component Analysis (PCA) to reduce the number of predictors. 
 
-First, this requires us to eliminate columns that have 0 entries. This reduces us to eliminate columns where the term is not found in any data in the test or train set. Then, we ensure the term lists are identical by using only the intersecting columns of the train and test data, leaving us with 8,317,500 elements in both the train and test matrices. 
+First, this requires us to eliminate columns that have 0 entries. This eliminates columns where the term is not found in any data in the test or train set. Then, we ensure the term lists are identical by using only the intersecting columns of the train and test data, leaving us with 8,317,500 elements in both the train and test matrices. 
 
 ```{r 5.4.0, echo=FALSE, warning = FALSE, message = FALSE}
 DTM_train <- DTM_train[,which(colSums(DTM_train) != 0)]
@@ -1256,7 +1339,6 @@ train_load = pca$rotation[,1:1000]
 test <- scale(DTM_test) %*% train_load
 test <- as.data.frame(test)
 test['author']=labels_test
-
 ```
 
 We've chosen to stop at 1000 principal components that explain ~80% of the variance. After these components were chosen, the data cleaning and pre-processing is complete and we are ready to run models to predict authors. 
@@ -1297,12 +1379,12 @@ The KNN-model has only 32.6% accuracy on the testing set.
 
 ### Random Forest
 
-The random forest model was ran with the maximum number of tries equal to six. 
+The random forest model was ran with the maximum number of tries equal to 31 (this is the square root of 1000, the number of variables). 
 
 ```{r 5.5.2, echo=FALSE, warning = FALSE, message = FALSE}
 library(randomForest)
 set.seed(1234)
-mod_rand<-randomForest(as.factor(author)~.,data=train, mtry=6,importance=TRUE)
+mod_rand<-randomForest(as.factor(author)~.,data=train, mtry=31,importance=TRUE)
 
 pre_rand<-predict(mod_rand,data=test)
 tab_rand<-as.data.frame(table(pre_rand,as.factor(test$author)))
@@ -1312,14 +1394,14 @@ temp<-as.data.frame(cbind(actual,predicted))
 temp$flag<-ifelse(temp$actual==temp$predicted,1,0)
 
 sum(temp$flag)/nrow(temp)
-#71.9% accuracy
+#78.4% accuracy
 ```
 
-This model shows a high degree of improvement over KNN, with an accuracy rate of 71.9%. 
+This model shows a high degree of improvement over KNN, with an accuracy rate of 78.4%. 
 
 ### Naive Bayes
 
-We then used a Naive Bayes model to predict the testing data from a traning model. 
+We then used a Naive Bayes model to predict the testing data from a training model. 
 
 ```{r 5.5.3, echo=FALSE, warning = FALSE, message = FALSE}
 library('e1071')
@@ -1374,7 +1456,7 @@ From the table below, we see the four models accuracy compared.
 library(ggplot2)
 
 models <- c('Random Forest','Logistic Regression','KNN','Naive Bayes')
-accuracy <- c(71.92,46.52,32.6,31.4)
+accuracy <- c(78.4,46.52,32.6,31.4)
 table <- data.frame(models, accuracy)
 table
 
@@ -1382,20 +1464,28 @@ ggplot(table, aes(x=models,y=accuracy))+geom_col()+ ggtitle("Summary of Attribut
 
 ```
 
-**In summary, the random forest model has the highest classification accuracy of about ~72% on the testing dataset.**
+**In summary, the random forest model has the highest classification accuracy of about ~78.4% on the testing dataset.**
 
 ## Association rule mining
 
+In this question, we're discovering relationships among commonly purchased together grocery items. 
+
 ```{r 6.1, echo=FALSE, warning = FALSE, message = FALSE}
-file <- "https://raw.githubusercontent.com/jgscott/STA380/master/data/groceries.txt"
-
 library(tidyverse)
-library(arules)  # has a big ecosystem of packages built around it
+library(arules)
 library(arulesViz)
-df <- read.table(file, sep = ',', header = FALSE, fill = TRUE)
-list(names(df))
+df <- read.table("groceries.txt", sep = ',', header = FALSE, fill = TRUE)
+#list(names(df))
+```
+As it is the analysis of grocery transaction items, we use the arules package. The data is provided in comma separated values. To refine the data we follow the below steps:
 
-# Preprocessing data
+1. We convert the txt format to a data frame
+
+2. We remove the blank values
+
+3. Convert the shape to two columns, with the second columns containing items in the basket of the user
+
+```{r 6.2, echo=FALSE, warning = FALSE, message = FALSE}
 library(reshape2)
 dfid <- tibble::rowid_to_column(df, "User")
 df2 <- melt(dfid, id.vars = c("User"))
@@ -1407,53 +1497,89 @@ df2 <- df2[!apply(df2 == "", 1, any),]
 
 str(df2)
 summary(df2)
+```
+We further plot the bar graph of 20 most frequent items in the overall dataset. We find out that **whole milk, other vegetables, rolls/buns, soda, and yogurt** are the top 5 frequently occurring shopping items. We should find out if these items occur frequently together as well or on their own which might help us identify some shopping patterns among customers.
 
-# Barplot of top 20 items
-# the dot (.) means "plug in the argument coming from the left"
+```{r 6.3, echo=FALSE, warning = FALSE, message = FALSE}
 summary(df2$value, maxsum=Inf)
-#sort(df2$value, decreasing=TRUE)
-#head(df2$value, 20)
+head(df2$value, 20)
 
 frq = table(df2$value)
 dffrq = as.data.frame(frq)
 dffrq <- dffrq[-c(1),]
-# sort
 attach(dffrq)
 dffrq <- dffrq[order(-Freq),]
-barplot(dffrq$Freq[1:20], names=dffrq$Var1[1:20], las=2, cex.names=0.6)
+barplot(dffrq$Freq[1:20], names=dffrq$Var1[1:20], las=2, cex.names=0.6, main = 'Most frequently purchased items')
 detach(dffrq)
 ```
 
+To apply the apriori method, we first split the dataset into items that can be plugged into the algorithm. User is turned into a factor for this approach, and the data set is split into X and Y (between which the rule parameters are compared)
+
+We begin with observing results for few combinations of support and confidence. We start with support > 0.01, confidence > 0.1 and maxlen = 4 (max items per list). As expected, we see that the top frequency standalone items(whole milk, soda, other vegetables, roll/buns) are featured in our list. We see 45 combinations that match the criteria. 
+
+We can further tune the parameters to reduce the combinations. We will generate many more rules if we lower the support and confidence thresholds.
+
+```{r 6.4.0, results = "hide", echo=FALSE, warning = FALSE, message = FALSE}
+#library(arules)
+#search() 
+#unloadNamespace("arulesViz")
+#unloadNamespace("arules")
+#update.packages("arules") 
+library(arules)
+library(arulesViz)
+```
 
 
-
-```{r 6.1.1, echo=FALSE, warning = FALSE, message = FALSE}
-# Turn user into a factor
+```{r 6.4, echo=FALSE, warning = FALSE, message = FALSE}
 df2$User = factor(df2$User)
-
-# Split
 grocs = split(x=df2$value, f=df2$User)
-
-# Remove dupes
 grocs = lapply(grocs, unique)
-
-# Cast as "transactions"
 grocstrans = as(grocs, "transactions")
 summary(grocstrans)
 
-# Now run the 'apriori' algorithm
-# Look at rules with support > .005 & confidence >.1 & length (# artists) <= 5
 grocrules = apriori(grocstrans, 
-                     parameter=list(support=.005, confidence=.1, maxlen=5))
+                     parameter=list(support=.01, confidence=.1, maxlen=4))
+inspect(grocrules)
+```
 
-# Look at the output... so many rules!
-#inspect(grocrules)
+Upon increasing the support to 0.015, we see 20 pairs in our output.
+Some combinations which show high co-occurrence are root vegetables and 
+other vegetables and root vegetables and whole milk. Other vegetables and whole milk also make one such pair.
 
+```{r 6.5, echo=FALSE, warning = FALSE, message = FALSE}
+grocrules = apriori(grocstrans, parameter=list(support=.015, confidence=.1, maxlen=4))
+inspect(grocrules)
+```
+
+We further tweak the parameters to get a more fine tuned set of pairs.
+The confidence is kept at 0.2 while the support is 0.015. Now we get 8 items in our list. Co-occurrences among vegetables, whole milk and tropical fruit (pairs of 2) seem to be showing high support and confidence. This makes us observe that people who buy whole milk, buy vegetables (other/root) too. Similarly, when people buy tropical fruit, there is high occurrence of other vegetables and whole milk but not vice verse. This makes sense as milk and vegetables are more staple purchases.
+
+```{r 6.6, echo=FALSE, warning = FALSE, message = FALSE}
+grocrules = apriori(grocstrans, 
+                     parameter=list(support=.015, confidence=.2, maxlen=4))
+inspect(grocrules)
+```
+
+We further do a detailed analysis of our previous set (support = 0.015 and confidence = 0.2). We keep the lift threshold at 2.5 and confidence at 0.3. From this, we see: 
+
+1. Lift > 2.5: Vegetables (root and others) co-occur frequently
+
+2. Confidence > 0.3: Whole milk co-occurs more vegetable purchases depicting that it is a staple purchase of many customers.
+
+3. Both: Root and other vegetables clear both the thresholds.
+
+High association of vegetables shows that customers look for these items highly and increasing the vegetable options available in stock might be beneficial. Similarly placing high co-occurring items together in store (vegetables, fruits, milk, yogurt etc) might help in higher sales.
+
+```{r 6.7, echo=FALSE, warning = FALSE, message = FALSE}
 ## Choose a subset
-inspect(subset(grocrules, subset=lift > 3.5))
+inspect(subset(grocrules, subset=lift > 2.5))
 inspect(subset(grocrules, subset=confidence > 0.3))
 inspect(subset(grocrules, subset=lift > 2.5 & confidence > 0.3))
+```
 
+We can then plot support versus confidence for the rules. We also get the graph for the 8 rules.
+
+```{r 6.8, echo=FALSE, warning = FALSE, message = FALSE}
 # Plot
 plot(grocrules)
 
@@ -1464,8 +1590,8 @@ plot(grocrules, measure = c("support", "lift"), shading = "confidence")
 plot(grocrules, method='two-key plot')
 
 # can now look at subsets driven by the plot
-inspect(subset(grocrules, support > 0.035))
-inspect(subset(grocrules, confidence > 0.7))
+inspect(subset(grocrules, support > 0.015))
+inspect(subset(grocrules, confidence > 0.3))
 
 # graph-based visualization
 sub1 = subset(grocrules, subset=confidence > 0.01 & support > 0.005)
@@ -1473,8 +1599,34 @@ summary(sub1)
 plot(sub1, method='graph')
 #?plot.rules
 
-plot(head(sub1, 25, by='lift'), method='graph', cex = 0.7)
-
+plot(head(sub1, 25, by='lift'), method='graph')
 # export
 saveAsGraph(head(grocrules, n = 1000, by = "lift"), file = "grocrules.graphml")
 ```
+
+We see that while we expect Bread to be a common occurance in a shopping cart, we do not see it in our top purchased items. Lets do a specific analysis on co-occurrence of bread.
+
+```{r 6.9, echo=FALSE, warning = FALSE, message = FALSE}
+bread.grocrules <- apriori(grocstrans, parameter = list(supp=0.001, conf=0.01),
+                           appearance = list(default="lhs",rhs="brown bread"))
+
+inspect(bread.grocrules)
+```
+
+We further tweak the subset parameters and find that bread has higher co-
+occurrence with other items like eggs, cheese and pastry.
+
+```{r 6.10, echo=FALSE, warning = FALSE, message = FALSE}
+inspect(subset(bread.grocrules, subset=lift > 2))
+inspect(subset(bread.grocrules, subset=confidence > 0.07))
+inspect(subset(bread.grocrules, subset=lift > 1.5 & confidence > 0.05))
+```
+
+### Summary
+
+Upon inspection of the shopping carts we find the associations between the specific cart items. We find that milk, vegetables, and fruits seem to be high purchase high association items. Upon close placement of pairs that see high confidence and support, we can expect to see positive results in sales as they give ease of access to shoppers while filling their cart. For items that see high confidence in X,Y pairs, we must try to place Y close to X if we are not doing so for a similar reason. Complementary items of high association pairs can be placed at checkout counter as well to drive impulse purchase behavior. 
+
+Also, adding complementary offers of pairs with medium range confidence can increase shopping tendency. We also see that an item like bread which is expected to be a high frequency purchase does not feature in our top list. The reasons can vary from: (1) people buying bread from their specific bakers and not a grocery store, (2) poor product placement, or that (3) bread of this store isn't of great quality. 
+
+Checking association rules for shopping baskets gives a deeper insight into purchase patterns. If the shopkeeper can also try to get user information while checkout, we can cluster the users based on their purchase behavior and try to increase our sales and customer retention.
+

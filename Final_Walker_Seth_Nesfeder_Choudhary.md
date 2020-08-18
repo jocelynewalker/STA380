@@ -43,8 +43,8 @@ consider more of the outliers.
 
 **What variables appear to be confounding?**
 
-First, I built a correlation matrix to identify how each of the building
-predictors are related.
+First, we built a correlation matrix to identify how each of the
+building predictors are related.
 
 -   We see that a building’s Green Rating is slightly positively
     correlated with Class A, more desirable buildings and negatively
@@ -303,7 +303,7 @@ yellow color*
 
 ![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/2.3-1.png)
 
-The rotues with the **shortest average delays** are to every West-Coast
+The routes with the **shortest average delays** are to every West-Coast
 hub (Los Angeles, San Francisco, Seattle), and also include short routes
 in the southern half of the United States.
 
@@ -338,7 +338,7 @@ yellow color*
 From this chart, we see two **frequently flown routes** with **highest
 room for improvement.** We checked which routes these were by going into
 the data table and viewing the two most frequently flown routes with
-delays &gt;20 minutes.
+delays &gt;20 minutes. These are:
 
 -   A Mesa Airlines (American Airlines operated) route from IAD to AUS,
     flown 631 times in 2008, with an average delay of 27 minutes.
@@ -422,7 +422,7 @@ Then, we simulate the 20-day trading period of this portfolio.
 
 From the histograms of the portfolio values and earnings, we see that
 negative earnings are a possibility. The 5% value at risk based on a
-20-day bootstrapped period is **-$8155.05** for this portfolio.
+20-day bootstrapped period is **about -$8155.05** for this portfolio.
 
 ### Portfolio 2: “Thrive on Volatility”
 
@@ -460,9 +460,9 @@ Then, we simulate the 20-day trading period of this portfolio.
 
 From the histograms of the portfolio values and earnings, we see that
 negative earnings are a possibility. The 5% value at risk based on a
-20-day bootstrapped period is **-$5,047.68** for this portfolio. This is
-a much “safer” portfolio compared to the portfolio that simply tracks
-the S&P 500 above.
+20-day bootstrapped period is **about -$5,047.68** for this portfolio.
+This is a much “safer” portfolio compared to the portfolio that simply
+tracks the S&P 500 above.
 
 ### Portfolio 3: “Safety and Risk-Aversion with Bonds”
 
@@ -494,7 +494,7 @@ Then, we simulate the 20-day trading period of this portfolio.
 
 From the histograms of the portfolio values and earnings, we see that
 negative earnings are **still** a possibility. The 5% value at risk
-based on a 20-day bootstrapped period is **-$2,553.16** for this
+based on a 20-day bootstrapped period is **about -$2,553.16** for this
 portfolio. This is a much “safer” portfolio compared to **both**
 Portfolio 1 and Portfolio 2.
 
@@ -502,17 +502,17 @@ Portfolio 1 and Portfolio 2.
 
 -   Portfolio 1 is best suited for longer-term investment. (In fact,
     some of these ETFs are in our team’s own IRA portfolios.) The 5% VaR
-    is the lowest at **-$8155.05**
+    is the lowest at **about -$8155.05**
 
 -   Portfolio 2 is a better short-term risk fund. Instead of simply
     tracking the market, it attempts to hedge against market volatility
     in other ways. These strategies include focusing on high-value tech
     firms, dividend funds, consumer staples, and low beta stocks. It
-    increases VaR to **-$5,047.68**.
+    increases VaR to **about -$5,047.68**.
 
 -   Portfolio 3 is the best short-term risk fund as it increases VaR
-    further to **-$2,553.16**. Because it is based on more stable bond
-    indexes, this means that the Value at Risk is higher than the
+    further to **about -$2,553.16**. Because it is based on more stable
+    bond indexes, this means that the Value at Risk is higher than the
     previous two portfolios.
 
 For those most risk-averse investors over a 20-day trading period,
@@ -523,415 +523,101 @@ investors may be more likely to choose the portfolios that track the S&P
 Market segmentation
 -------------------
 
-    ##       X1               chatter       current_events      travel      
-    ##  Length:7882        Min.   : 0.000   Min.   :0.000   Min.   : 0.000  
-    ##  Class :character   1st Qu.: 2.000   1st Qu.:1.000   1st Qu.: 0.000  
-    ##  Mode  :character   Median : 3.000   Median :1.000   Median : 1.000  
-    ##                     Mean   : 4.399   Mean   :1.526   Mean   : 1.585  
-    ##                     3rd Qu.: 6.000   3rd Qu.:2.000   3rd Qu.: 2.000  
-    ##                     Max.   :26.000   Max.   :8.000   Max.   :26.000  
-    ##  photo_sharing    uncategorized      tv_film      sports_fandom   
-    ##  Min.   : 0.000   Min.   :0.000   Min.   : 0.00   Min.   : 0.000  
-    ##  1st Qu.: 1.000   1st Qu.:0.000   1st Qu.: 0.00   1st Qu.: 0.000  
-    ##  Median : 2.000   Median :1.000   Median : 1.00   Median : 1.000  
-    ##  Mean   : 2.697   Mean   :0.813   Mean   : 1.07   Mean   : 1.594  
-    ##  3rd Qu.: 4.000   3rd Qu.:1.000   3rd Qu.: 1.00   3rd Qu.: 2.000  
-    ##  Max.   :21.000   Max.   :9.000   Max.   :17.00   Max.   :20.000  
-    ##     politics           food            family        home_and_garden 
-    ##  Min.   : 0.000   Min.   : 0.000   Min.   : 0.0000   Min.   :0.0000  
-    ##  1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.: 0.0000   1st Qu.:0.0000  
-    ##  Median : 1.000   Median : 1.000   Median : 1.0000   Median :0.0000  
-    ##  Mean   : 1.789   Mean   : 1.397   Mean   : 0.8639   Mean   :0.5207  
-    ##  3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 1.0000   3rd Qu.:1.0000  
-    ##  Max.   :37.000   Max.   :16.000   Max.   :10.0000   Max.   :5.0000  
-    ##      music              news        online_gaming       shopping     
-    ##  Min.   : 0.0000   Min.   : 0.000   Min.   : 0.000   Min.   : 0.000  
-    ##  1st Qu.: 0.0000   1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.: 0.000  
-    ##  Median : 0.0000   Median : 0.000   Median : 0.000   Median : 1.000  
-    ##  Mean   : 0.6793   Mean   : 1.206   Mean   : 1.209   Mean   : 1.389  
-    ##  3rd Qu.: 1.0000   3rd Qu.: 1.000   3rd Qu.: 1.000   3rd Qu.: 2.000  
-    ##  Max.   :13.0000   Max.   :20.000   Max.   :27.000   Max.   :12.000  
-    ##  health_nutrition  college_uni     sports_playing      cooking      
-    ##  Min.   : 0.000   Min.   : 0.000   Min.   :0.0000   Min.   : 0.000  
-    ##  1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.:0.0000   1st Qu.: 0.000  
-    ##  Median : 1.000   Median : 1.000   Median :0.0000   Median : 1.000  
-    ##  Mean   : 2.567   Mean   : 1.549   Mean   :0.6392   Mean   : 1.998  
-    ##  3rd Qu.: 3.000   3rd Qu.: 2.000   3rd Qu.:1.0000   3rd Qu.: 2.000  
-    ##  Max.   :41.000   Max.   :30.000   Max.   :8.0000   Max.   :33.000  
-    ##       eco           computers          business         outdoors      
-    ##  Min.   :0.0000   Min.   : 0.0000   Min.   :0.0000   Min.   : 0.0000  
-    ##  1st Qu.:0.0000   1st Qu.: 0.0000   1st Qu.:0.0000   1st Qu.: 0.0000  
-    ##  Median :0.0000   Median : 0.0000   Median :0.0000   Median : 0.0000  
-    ##  Mean   :0.5123   Mean   : 0.6491   Mean   :0.4232   Mean   : 0.7827  
-    ##  3rd Qu.:1.0000   3rd Qu.: 1.0000   3rd Qu.:1.0000   3rd Qu.: 1.0000  
-    ##  Max.   :6.0000   Max.   :16.0000   Max.   :6.0000   Max.   :12.0000  
-    ##      crafts         automotive           art             religion     
-    ##  Min.   :0.0000   Min.   : 0.0000   Min.   : 0.0000   Min.   : 0.000  
-    ##  1st Qu.:0.0000   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.: 0.000  
-    ##  Median :0.0000   Median : 0.0000   Median : 0.0000   Median : 0.000  
-    ##  Mean   :0.5159   Mean   : 0.8299   Mean   : 0.7248   Mean   : 1.095  
-    ##  3rd Qu.:1.0000   3rd Qu.: 1.0000   3rd Qu.: 1.0000   3rd Qu.: 1.000  
-    ##  Max.   :7.0000   Max.   :13.0000   Max.   :18.0000   Max.   :20.000  
-    ##      beauty          parenting           dating            school       
-    ##  Min.   : 0.0000   Min.   : 0.0000   Min.   : 0.0000   Min.   : 0.0000  
-    ##  1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.: 0.0000  
-    ##  Median : 0.0000   Median : 0.0000   Median : 0.0000   Median : 0.0000  
-    ##  Mean   : 0.7052   Mean   : 0.9213   Mean   : 0.7109   Mean   : 0.7677  
-    ##  3rd Qu.: 1.0000   3rd Qu.: 1.0000   3rd Qu.: 1.0000   3rd Qu.: 1.0000  
-    ##  Max.   :14.0000   Max.   :14.0000   Max.   :24.0000   Max.   :11.0000  
-    ##  personal_fitness    fashion        small_business        spam        
-    ##  Min.   : 0.000   Min.   : 0.0000   Min.   :0.0000   Min.   :0.00000  
-    ##  1st Qu.: 0.000   1st Qu.: 0.0000   1st Qu.:0.0000   1st Qu.:0.00000  
-    ##  Median : 0.000   Median : 0.0000   Median :0.0000   Median :0.00000  
-    ##  Mean   : 1.462   Mean   : 0.9966   Mean   :0.3363   Mean   :0.00647  
-    ##  3rd Qu.: 2.000   3rd Qu.: 1.0000   3rd Qu.:1.0000   3rd Qu.:0.00000  
-    ##  Max.   :19.000   Max.   :18.0000   Max.   :6.0000   Max.   :2.00000  
-    ##      adult        
-    ##  Min.   : 0.0000  
-    ##  1st Qu.: 0.0000  
-    ##  Median : 0.0000  
-    ##  Mean   : 0.4033  
-    ##  3rd Qu.: 0.0000  
-    ##  Max.   :26.0000
+Understanding a company’s market is crucial to being successful and
+innovative in an ever-changing society. In this case, the company,
+NutrientH20, is attempting to understand their social-media audience a
+little bit better.
 
-    ## # A tibble: 6 x 37
-    ##   X1    chatter current_events travel photo_sharing uncategorized tv_film
-    ##   <chr>   <dbl>          <dbl>  <dbl>         <dbl>         <dbl>   <dbl>
-    ## 1 hmjo~       2              0      2             2             2       1
-    ## 2 clk1~       3              3      2             1             1       1
-    ## 3 jcso~       6              3      4             3             1       5
-    ## 4 3oeb~       1              5      2             2             0       1
-    ## 5 fd75~       5              2      0             6             1       0
-    ## 6 h6nv~       6              4      2             7             0       1
-    ## # ... with 30 more variables: sports_fandom <dbl>, politics <dbl>, food <dbl>,
-    ## #   family <dbl>, home_and_garden <dbl>, music <dbl>, news <dbl>,
-    ## #   online_gaming <dbl>, shopping <dbl>, health_nutrition <dbl>,
-    ## #   college_uni <dbl>, sports_playing <dbl>, cooking <dbl>, eco <dbl>,
-    ## #   computers <dbl>, business <dbl>, outdoors <dbl>, crafts <dbl>,
-    ## #   automotive <dbl>, art <dbl>, religion <dbl>, beauty <dbl>, parenting <dbl>,
-    ## #   dating <dbl>, school <dbl>, personal_fitness <dbl>, fashion <dbl>,
-    ## #   small_business <dbl>, spam <dbl>, adult <dbl>
+### Models
 
-    ##       chatter current_events       travel photo_sharing uncategorized
-    ## 1  0.04239873     0.11103642  1.762348461   -0.05700940   -0.03989065
-    ## 2  0.16937879     0.19897957 -0.039478942    1.25267323    0.51629414
-    ## 3  0.02373416    -0.03080083 -0.005065449    0.04444587    0.10766781
-    ## 4 -0.01247531     0.02633980 -0.149039614   -0.01555850    0.16372713
-    ## 5 -0.04548911     0.12062271 -0.103051553   -0.02460043   -0.06451206
-    ## 6 -0.01990969    -0.06430650 -0.212543256   -0.14666901   -0.09052572
-    ##        tv_film sports_fandom   politics        food      family home_and_garden
-    ## 1  0.077844260     0.1946632  2.3660540  0.02470268  0.04381456       0.1231953
-    ## 2  0.009090473    -0.1942673 -0.1141903 -0.17775062  0.04790152       0.1611161
-    ## 3  0.379202009    -0.1195545 -0.1586678 -0.08470676  0.19017685       0.1253898
-    ## 4 -0.051876875    -0.1993243 -0.1758435  0.41227425 -0.07965869       0.1568924
-    ## 5  0.012073552     1.9874575 -0.2053377  1.78420435  1.43769597       0.1673687
-    ## 6 -0.040515491    -0.2885324 -0.2567675 -0.35373176 -0.25668332      -0.1094570
-    ##         music        news online_gaming     shopping health_nutrition
-    ## 1 -0.03738467  1.95767757   -0.14154027 -0.005308791      -0.20638699
-    ## 2  0.56509367 -0.06963991   -0.05307164  0.380921908      -0.06377776
-    ## 3  0.26838619 -0.19437007    3.15755141 -0.012936876      -0.17437721
-    ## 4  0.05882988 -0.04691096   -0.13678840  0.038126605       2.10022041
-    ## 5  0.06358664 -0.07852115   -0.07527010  0.044518501      -0.15847575
-    ## 6 -0.11327310 -0.24425323   -0.23071980 -0.061022491      -0.32821740
-    ##    college_uni sports_playing    cooking         eco   computers     business
-    ## 1 -0.079836272    -0.01040025 -0.2153661  0.10592762  1.54693130  0.356517390
-    ## 2 -0.003849398     0.18236003  2.5696137  0.08586275  0.07153792  0.286993677
-    ## 3  3.111543754     2.02341516 -0.1503543 -0.02961582 -0.05425586 -0.008656263
-    ## 4 -0.212595250    -0.03531271  0.3741487  0.52825680 -0.07387906  0.068572112
-    ## 5 -0.110598950     0.10689474 -0.1196894  0.19147016  0.07003376  0.114640929
-    ## 6 -0.221102794    -0.22352842 -0.3309962 -0.15933947 -0.23337631 -0.121593707
-    ##      outdoors      crafts  automotive          art    religion     beauty
-    ## 1  0.11058686  0.15290925  1.11088881 -0.003891175 -0.03374476 -0.1743681
-    ## 2  0.03420672  0.15120803  0.05439785  0.136795837 -0.11806235  2.3894052
-    ## 3 -0.10169281  0.10757293  0.05799168  0.311912012 -0.14843016 -0.1974998
-    ## 4  1.61913953  0.08949656 -0.12193179  0.009925869 -0.17391620 -0.2113117
-    ## 5 -0.07570995  0.69684928  0.16094320  0.089350144  2.17106043  0.2900537
-    ## 6 -0.31493557 -0.18681894 -0.18226934 -0.063092401 -0.29698445 -0.2644287
-    ##     parenting      dating      school personal_fitness      fashion
-    ## 1  0.01707471  0.20088949 -0.03525502      -0.19210751 -0.179364771
-    ## 2 -0.06535754  0.15733694  0.19696343      -0.04579539  2.498279621
-    ## 3 -0.16190828  0.02097883 -0.21449701      -0.18144704 -0.052946246
-    ## 4 -0.10563738  0.18370615 -0.14378320       2.06881183 -0.107141473
-    ## 5  2.06446092  0.03664709  1.62528036      -0.11265633  0.004736967
-    ## 6 -0.30541545 -0.09404783 -0.24445073      -0.33352933 -0.263465171
-    ##   small_business         spam        adult
-    ## 1     0.23867309 -0.007267965 -0.092230656
-    ## 2     0.27603909 -0.035852804  0.018725972
-    ## 3     0.20254493  0.034261366  0.023103987
-    ## 4    -0.06861968  0.003437672  0.007357688
-    ## 5     0.11019115 -0.014826058  0.003508182
-    ## 6    -0.09490980  0.004205191  0.007266691
+-   K-Means with K-means++ Initialization
 
-    ##          chatter   current_events           travel    photo_sharing 
-    ##      4.548387097      1.667155425      5.612903226      2.541055718 
-    ##    uncategorized          tv_film    sports_fandom         politics 
-    ##      0.775659824      1.199413490      2.014662757      8.960410557 
-    ##             food           family  home_and_garden            music 
-    ##      1.441348974      0.913489736      0.611436950      0.640762463 
-    ##             news    online_gaming         shopping health_nutrition 
-    ##      5.318181818      0.828445748      1.379765396      1.639296188 
-    ##      college_uni   sports_playing          cooking              eco 
-    ##      1.318181818      0.629032258      1.259530792      0.593841642 
-    ##        computers         business         outdoors           crafts 
-    ##      2.473607038      0.670087977      0.916422287      0.640762463 
-    ##       automotive              art         religion           beauty 
-    ##      2.347507331      0.718475073      1.030791789      0.473607038 
-    ##        parenting           dating           school personal_fitness 
-    ##      0.947214076      1.068914956      0.725806452      1.000000000 
-    ##          fashion   small_business             spam            adult 
-    ##      0.668621701      0.483870968      0.005865103      0.236070381
+-   Hierarchical Clustering
 
-    ##          chatter   current_events           travel    photo_sharing 
-    ##      4.996515679      1.778745645      1.494773519      6.118466899 
-    ##    uncategorized          tv_film    sports_fandom         politics 
-    ##      1.296167247      1.085365854      1.174216028      1.442508711 
-    ##             food           family  home_and_garden            music 
-    ##      1.081881533      0.918118467      0.639372822      1.261324042 
-    ##             news    online_gaming         shopping health_nutrition 
-    ##      1.059233449      1.066202091      2.078397213      2.280487805 
-    ##      college_uni   sports_playing          cooking              eco 
-    ##      1.538327526      0.817073171     10.811846690      0.578397213 
-    ##        computers         business         outdoors           crafts 
-    ##      0.733449477      0.621951220      0.824041812      0.639372822 
-    ##       automotive              art         religion           beauty 
-    ##      0.904181185      0.947735192      0.869337979      3.878048780 
-    ##        parenting           dating           school personal_fitness 
-    ##      0.822299652      0.991289199      1.001742160      1.351916376 
-    ##          fashion   small_business             spam            adult 
-    ##      5.564459930      0.506968641      0.003484321      0.437282230
+In order to run K-means clustering, it is important to try and find an
+optimal number of clusters to maximize the value of these models and
+increase the interpretability of the model.
 
-    ##          chatter   current_events           travel    photo_sharing 
-    ##      4.482517483      1.487179487      1.573426573      2.818181818 
-    ##    uncategorized          tv_film    sports_fandom         politics 
-    ##      0.913752914      1.699300699      1.335664336      1.307692308 
-    ##             food           family  home_and_garden            music 
-    ##      1.247086247      1.079254079      0.613053613      0.955710956 
-    ##             news    online_gaming         shopping health_nutrition 
-    ##      0.797202797      9.694638695      1.365967366      1.783216783 
-    ##      college_uni   sports_playing          cooking              eco 
-    ##     10.564102564      2.613053613      1.482517483      0.489510490 
-    ##        computers         business         outdoors           crafts 
-    ##      0.585081585      0.417249417      0.659673660      0.603729604 
-    ##       automotive              art         religion           beauty 
-    ##      0.909090909      1.233100233      0.811188811      0.442890443 
-    ##        parenting           dating           school personal_fitness 
-    ##      0.675990676      0.748251748      0.512820513      1.025641026 
-    ##          fashion   small_business             spam            adult 
-    ##      0.899766900      0.461538462      0.009324009      0.445221445
+<img src="Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/4.2-1.png" style="display: block; margin: auto;" />
 
-    ##          chatter   current_events           travel    photo_sharing 
-    ##      4.354729730      1.559684685      1.244369369      2.654279279 
-    ##    uncategorized          tv_film    sports_fandom         politics 
-    ##      0.966216216      0.984234234      1.163288288      1.255630631 
-    ##             food           family  home_and_garden            music 
-    ##      2.129504505      0.773648649      0.636261261      0.739864865 
-    ##             news    online_gaming         shopping health_nutrition 
-    ##      1.106981982      0.841216216      1.458333333     12.010135135 
-    ##      college_uni   sports_playing          cooking              eco 
-    ##      0.933558559      0.604729730      3.281531532      0.918918919 
-    ##        computers         business         outdoors           crafts 
-    ##      0.561936937      0.470720721      2.740990991      0.588963964 
-    ##       automotive              art         religion           beauty 
-    ##      0.663288288      0.740990991      0.762387387      0.424549550 
-    ##        parenting           dating           school personal_fitness 
-    ##      0.761261261      1.038288288      0.596846847      6.438063063 
-    ##          fashion   small_business             spam            adult 
-    ##      0.800675676      0.293918919      0.006756757      0.416666667
+Although this elbow plot does not provide us with too much information,
+by testing various values for K, we have decided 4 clusters will have
+the most benefit for us. Also, the variables spam, chatter, and adult
+have been removed from the data as NutrientH20 does not care about
+appealing to “spam” or “bot” accounts.
 
-    ##          chatter   current_events           travel    photo_sharing 
-    ##      4.238219895      1.679319372      1.349476440      2.629581152 
-    ##    uncategorized          tv_film    sports_fandom         politics 
-    ##      0.752617801      1.090314136      5.888743455      1.166230366 
-    ##             food           family  home_and_garden            music 
-    ##      4.565445026      2.492146597      0.643979058      0.744764398 
-    ##             news    online_gaming         shopping health_nutrition 
-    ##      1.040575916      1.006544503      1.469895288      1.854712042 
-    ##      college_uni   sports_playing          cooking              eco 
-    ##      1.229057592      0.743455497      1.587696335      0.659685864 
-    ##        computers         business         outdoors           crafts 
-    ##      0.731675393      0.502617801      0.691099476      1.085078534 
-    ##       automotive              art         religion           beauty 
-    ##      1.049738220      0.870418848      5.252617801      1.090314136 
-    ##        parenting           dating           school personal_fitness 
-    ##      4.049738220      0.776178010      2.698952880      1.191099476 
-    ##          fashion   small_business             spam            adult 
-    ##      1.005235602      0.404450262      0.005235602      0.409685864
+#### **K-Means Clusters**
 
-    ##          chatter   current_events           travel    photo_sharing 
-    ##      4.328492849      1.444664466      1.099229923      2.296149615 
-    ##    uncategorized          tv_film    sports_fandom         politics 
-    ##      0.728272827      1.003080308      0.970517052      1.010341034 
-    ##             food           family  home_and_garden            music 
-    ##      0.769416942      0.573157316      0.440044004      0.562596260 
-    ##             news    online_gaming         shopping health_nutrition 
-    ##      0.692409241      0.588778878      1.278987899      1.091529153 
-    ##      college_uni   sports_playing          cooking              eco 
-    ##      0.908910891      0.421122112      0.862926293      0.389658966 
-    ##        computers         business         outdoors           crafts 
-    ##      0.373817382      0.339053905      0.401760176      0.363256326 
-    ##       automotive              art         religion           beauty 
-    ##      0.580858086      0.622002200      0.526732673      0.354015402 
-    ##        parenting           dating           school personal_fitness 
-    ##      0.458525853      0.543234323      0.477227723      0.659845985 
-    ##          fashion   small_business             spam            adult 
-    ##      0.514851485      0.277667767      0.006820682      0.416501650
+Let’s first look at the clusters broken into their 4 groups.
 
-![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/4.1-1.png)![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/4.1-2.png)
+![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/4.4-1.png)
 
-    ##          chatter   current_events           travel    photo_sharing 
-    ##      4.354729730      1.559684685      1.244369369      2.654279279 
-    ##    uncategorized          tv_film    sports_fandom         politics 
-    ##      0.966216216      0.984234234      1.163288288      1.255630631 
-    ##             food           family  home_and_garden            music 
-    ##      2.129504505      0.773648649      0.636261261      0.739864865 
-    ##             news    online_gaming         shopping health_nutrition 
-    ##      1.106981982      0.841216216      1.458333333     12.010135135 
-    ##      college_uni   sports_playing          cooking              eco 
-    ##      0.933558559      0.604729730      3.281531532      0.918918919 
-    ##        computers         business         outdoors           crafts 
-    ##      0.561936937      0.470720721      2.740990991      0.588963964 
-    ##       automotive              art         religion           beauty 
-    ##      0.663288288      0.740990991      0.762387387      0.424549550 
-    ##        parenting           dating           school personal_fitness 
-    ##      0.761261261      1.038288288      0.596846847      6.438063063 
-    ##          fashion   small_business             spam            adult 
-    ##      0.800675676      0.293918919      0.006756757      0.416666667
+#### **K-Means with K++ Initialization**
 
-    ##          chatter   current_events           travel    photo_sharing 
-    ##      4.996515679      1.778745645      1.494773519      6.118466899 
-    ##    uncategorized          tv_film    sports_fandom         politics 
-    ##      1.296167247      1.085365854      1.174216028      1.442508711 
-    ##             food           family  home_and_garden            music 
-    ##      1.081881533      0.918118467      0.639372822      1.261324042 
-    ##             news    online_gaming         shopping health_nutrition 
-    ##      1.059233449      1.066202091      2.078397213      2.280487805 
-    ##      college_uni   sports_playing          cooking              eco 
-    ##      1.538327526      0.817073171     10.811846690      0.578397213 
-    ##        computers         business         outdoors           crafts 
-    ##      0.733449477      0.621951220      0.824041812      0.639372822 
-    ##       automotive              art         religion           beauty 
-    ##      0.904181185      0.947735192      0.869337979      3.878048780 
-    ##        parenting           dating           school personal_fitness 
-    ##      0.822299652      0.991289199      1.001742160      1.351916376 
-    ##          fashion   small_business             spam            adult 
-    ##      5.564459930      0.506968641      0.003484321      0.437282230
+Next, let’s dive into the four clusters and which characteristics stand
+out the most in each.
 
-    ##          chatter   current_events           travel    photo_sharing 
-    ##      4.548387097      1.667155425      5.612903226      2.541055718 
-    ##    uncategorized          tv_film    sports_fandom         politics 
-    ##      0.775659824      1.199413490      2.014662757      8.960410557 
-    ##             food           family  home_and_garden            music 
-    ##      1.441348974      0.913489736      0.611436950      0.640762463 
-    ##             news    online_gaming         shopping health_nutrition 
-    ##      5.318181818      0.828445748      1.379765396      1.639296188 
-    ##      college_uni   sports_playing          cooking              eco 
-    ##      1.318181818      0.629032258      1.259530792      0.593841642 
-    ##        computers         business         outdoors           crafts 
-    ##      2.473607038      0.670087977      0.916422287      0.640762463 
-    ##       automotive              art         religion           beauty 
-    ##      2.347507331      0.718475073      1.030791789      0.473607038 
-    ##        parenting           dating           school personal_fitness 
-    ##      0.947214076      1.068914956      0.725806452      1.000000000 
-    ##          fashion   small_business             spam            adult 
-    ##      0.668621701      0.483870968      0.005865103      0.236070381
+<img src="Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/4.6-1.png" width="50%" /><img src="Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/4.6-2.png" width="50%" /><img src="Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/4.6-3.png" width="50%" /><img src="Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/4.6-4.png" width="50%" />
 
-    ##          chatter   current_events           travel    photo_sharing 
-    ##      4.482517483      1.487179487      1.573426573      2.818181818 
-    ##    uncategorized          tv_film    sports_fandom         politics 
-    ##      0.913752914      1.699300699      1.335664336      1.307692308 
-    ##             food           family  home_and_garden            music 
-    ##      1.247086247      1.079254079      0.613053613      0.955710956 
-    ##             news    online_gaming         shopping health_nutrition 
-    ##      0.797202797      9.694638695      1.365967366      1.783216783 
-    ##      college_uni   sports_playing          cooking              eco 
-    ##     10.564102564      2.613053613      1.482517483      0.489510490 
-    ##        computers         business         outdoors           crafts 
-    ##      0.585081585      0.417249417      0.659673660      0.603729604 
-    ##       automotive              art         religion           beauty 
-    ##      0.909090909      1.233100233      0.811188811      0.442890443 
-    ##        parenting           dating           school personal_fitness 
-    ##      0.675990676      0.748251748      0.512820513      1.025641026 
-    ##          fashion   small_business             spam            adult 
-    ##      0.899766900      0.461538462      0.009324009      0.445221445
+**Our Identified Market Segments**
 
-    ##          chatter   current_events           travel    photo_sharing 
-    ##      4.238219895      1.679319372      1.349476440      2.629581152 
-    ##    uncategorized          tv_film    sports_fandom         politics 
-    ##      0.752617801      1.090314136      5.888743455      1.166230366 
-    ##             food           family  home_and_garden            music 
-    ##      4.565445026      2.492146597      0.643979058      0.744764398 
-    ##             news    online_gaming         shopping health_nutrition 
-    ##      1.040575916      1.006544503      1.469895288      1.854712042 
-    ##      college_uni   sports_playing          cooking              eco 
-    ##      1.229057592      0.743455497      1.587696335      0.659685864 
-    ##        computers         business         outdoors           crafts 
-    ##      0.731675393      0.502617801      0.691099476      1.085078534 
-    ##       automotive              art         religion           beauty 
-    ##      1.049738220      0.870418848      5.252617801      1.090314136 
-    ##        parenting           dating           school personal_fitness 
-    ##      4.049738220      0.776178010      2.698952880      1.191099476 
-    ##          fashion   small_business             spam            adult 
-    ##      1.005235602      0.404450262      0.005235602      0.409685864
+1.  Health Nutrition, Cooking, Photo Sharing, and Personal Fitness
 
-    ##          chatter   current_events           travel    photo_sharing 
-    ##      4.328492849      1.444664466      1.099229923      2.296149615 
-    ##    uncategorized          tv_film    sports_fandom         politics 
-    ##      0.728272827      1.003080308      0.970517052      1.010341034 
-    ##             food           family  home_and_garden            music 
-    ##      0.769416942      0.573157316      0.440044004      0.562596260 
-    ##             news    online_gaming         shopping health_nutrition 
-    ##      0.692409241      0.588778878      1.278987899      1.091529153 
-    ##      college_uni   sports_playing          cooking              eco 
-    ##      0.908910891      0.421122112      0.862926293      0.389658966 
-    ##        computers         business         outdoors           crafts 
-    ##      0.373817382      0.339053905      0.401760176      0.363256326 
-    ##       automotive              art         religion           beauty 
-    ##      0.580858086      0.622002200      0.526732673      0.354015402 
-    ##        parenting           dating           school personal_fitness 
-    ##      0.458525853      0.543234323      0.477227723      0.659845985 
-    ##          fashion   small_business             spam            adult 
-    ##      0.514851485      0.277667767      0.006820682      0.416501650
+2.  Sports Fandom, Religion, and Food
 
-![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/4.1-3.png)![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/4.1-4.png)
+3.  Politics, Travel, and News
 
-    ## [1] 29195.01 22721.60 15814.06 27150.23 29962.14 89638.32
+4.  Photo Sharing, Current Events, Health Nutrition, and College
+    Universities
 
-    ## [1] 27150.23 22721.60 29195.01 15814.06 29962.14 89638.32
+Through K-Means Clustering with K-Means++ Initialization, we have been
+able to define some market segments for NutrientH20. Cluster 1 is filled
+with people who love to cook and live healthy…and share it through
+photos! Cluster 2 appears to be filled with sports fanatics who love
+food and might be saying a prayer or two for their teams to win. Cluster
+3 is full of people who enjoy talking about politics and the news while
+loving to travel as well. Finally, Cluster 4 seems like a younger
+demographic - college kids who like to discuss and share pictures about
+current events.
 
-    ## [1] 214481.4
+#### **Hierarchical Clustering Results**
 
-    ## [1] 214481.4
+<img src="Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/4.8-1.png" width="80%" style="display: block; margin: auto;" />
 
-    ## [1] 214481.4
+**Our Identified Market Segments**
 
-    ## [1] 214481.4
+1.  College Kids
 
-    ## [1] 69234.64
+2.  Parents
 
-    ## [1] 69234.64
+3.  Current Events
 
-![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/4.1-5.png)
+4.  Active / Self-Care
 
-    ## Clustering Gap statistic ["clusGap"] from call:
-    ## clusGap(x = X, FUNcluster = kmeans, K.max = 15, B = 10, nstart = 25)
-    ## B=10 simulated reference sets, k = 1..15; spaceH0="scaledPCA"
-    ##  --> Number of clusters (method 'firstSEmax', SE.factor=1): 14
-    ##           logW   E.logW      gap       SE.sim
-    ##  [1,] 9.666055 10.98953 1.323477 0.0010964973
-    ##  [2,] 9.611718 10.95230 1.340587 0.0010656634
-    ##  [3,] 9.583704 10.93365 1.349945 0.0008984931
-    ##  [4,] 9.561457 10.92005 1.358596 0.0009202950
-    ##  [5,] 9.538065 10.91001 1.371943 0.0009194475
-    ##  [6,] 9.522873 10.90141 1.378537 0.0008870354
-    ##  [7,] 9.498126 10.89435 1.396226 0.0009616641
-    ##  [8,] 9.485155 10.88740 1.402244 0.0009961392
-    ##  [9,] 9.469593 10.88191 1.412316 0.0011018269
-    ## [10,] 9.454228 10.87687 1.422641 0.0010986192
-    ## [11,] 9.442634 10.87259 1.429951 0.0010367443
-    ## [12,] 9.434156 10.86851 1.434355 0.0011173010
-    ## [13,] 9.423228 10.86477 1.441538 0.0010769217
-    ## [14,] 9.413621 10.86111 1.447487 0.0010891438
-    ## [15,] 9.409520 10.85749 1.447973 0.0009709040
+While Hierarchical Clustering does not show specific sizes of
+characteristics within each cluster, it still gives us a good idea of
+what kind of people each cluster is filled with. For example, Cluster 1,
+is populated by sports playing, online gaming, college universities and
+TV film among others and seems to be college kids. In contrast, Cluster
+2 appears to be more mature people such as parents as news, parenting,
+family, and politics are some of the characteristics within the cluster.
+Cluster 3 does not give us much as the only characteristic in it is
+current events, but that doesn’t necessarily hurt our clustering either.
+Finally, Cluster 4 appears to be active people who take good care of
+themselves with characteristics ranging from health nutrition to beauty
+to outdoors.
+
+Market segmentation is important in order to specifically appeal to
+different types of audiences. Performing segmentation often like this
+can help immensely as people’s opinions are always changing, especially
+on social media!
+
+Additionally, it’s important to check which clusters are responding to
+targeted messages. For example, if NutrientH20 were to post something on
+twitter targeting the young, college student cluster, we would expect
+the users in that cluster to interact with the tweet. This both checks
+our understanding of the clustering *and* the changing interests of
+NutrientH20’s twitter following.
 
 Author attribution
 ------------------
@@ -940,8 +626,9 @@ In order to predict the author of an article on the basis of the
 article’s textual content, we had to first build a training model to
 give a baseline dictionary to predict “new” testing articles.
 
-First, we read in the 50 training articles for each of the 50 different
-authors.
+First, we read in the Reuters 50 training articles using a for loop for
+each of the 50 different authors. We combined these 2500 training
+articles into a single text analysis training corpus.
 
     ## <<DocumentTermMatrix (documents: 2500, terms: 32669)>>
     ## Non-/sparse entries: 619802/81052698
@@ -962,33 +649,35 @@ authors.
     ## Weighting          : term frequency (tf)
 
 After reading in the data, we pre-processed the text in the articles.
+This included:
 
 -   Converting all text to lowercase
 
--   Remove numbers
+-   Removing numbers
 
--   Remove punctuation
+-   Removing punctuation
 
--   Remove excess white space
+-   Removing excess white space
 
 After these four steps, we’re down to **2500 documents** with **32,669
 terms.**
 
--   Remove stop and filler words, based on the “basic English” stop
+-   Removing stop and filler words, based on the “basic English” stop
     words
 
 After removing filler words, we’re down to **32,570 terms.**
 
--   Removed words that have count 0 in &gt; 99% of documents
+-   Removing words that have count = 0 in &gt; 99% of documents
 
-Thus cuts the long tail significantly to only **3393 terms.**
+This cuts the long tail significantly to only **3393 terms.**
 
 -   Finally, we converted the raw counts of words in each document to
     TF-IDF weights.
 
 **Then, we replicated the same process to read in the 50 testing
-articles for the authors. There are 3448 terms in the testing data,
-compared to only 3393 terms in the training data.**
+articles for the 50 authors. There are 3448 terms in the testing data,
+compared to only 3393 terms in the training data. We must consider how
+to treat these “new” words.**
 
     ## <<DocumentTermMatrix (documents: 2500, terms: 33472)>>
     ## Non-/sparse entries: 628611/83051389
@@ -1009,10 +698,10 @@ compared to only 3393 terms in the training data.**
     ## Weighting          : term frequency (tf)
 
 **Now, we have to ensure the words in the training set are identical to
-the words in the testing set. We’ve chosen to ignore words that are in
-the testing set and not found in the training set. This removes the 55
-“new” terms from the training data, less than 2% of the training terms.
-Now, both the training and testing groups have 3393 terms.**
+the words in the testing set. We’ve chosen to *ignore new words* that
+are in the testing set and not found in the training set. This removes
+the 55 “new” terms from the training data, less than 2% of the training
+terms. Now, both the training and testing groups have 3393 terms.**
 
     ## <<DocumentTermMatrix (documents: 2500, terms: 3393)>>
     ## Non-/sparse entries: 379314/8103186
@@ -1023,10 +712,10 @@ Now, both the training and testing groups have 3393 terms.**
 ### At this point, we have a training set with 3393 predictors. In order to simplify our predictors, we perform a Principal Component Analysis (PCA) to reduce the number of predictors.
 
 First, this requires us to eliminate columns that have 0 entries. This
-reduces us to eliminate columns where the term is not found in any data
-in the test or train set. Then, we ensure the term lists are identical
-by using only the intersecting columns of the train and test data,
-leaving us with 8,317,500 elements in both the train and test matrices.
+eliminates columns where the term is not found in any data in the test
+or train set. Then, we ensure the term lists are identical by using only
+the intersecting columns of the train and test data, leaving us with
+8,317,500 elements in both the train and test matrices.
 
 Once the data is in the same format, we use PCA analysis to choose the
 number of principal components.
@@ -1060,17 +749,17 @@ The KNN-model has only 32.6% accuracy on the testing set.
 ### Random Forest
 
 The random forest model was ran with the maximum number of tries equal
-to six.
+to 31 (this is the square root of 1000, the number of variables).
 
-    ## [1] 0.7192
+    ## [1] 0.784
 
 This model shows a high degree of improvement over KNN, with an accuracy
-rate of 71.9%.
+rate of 78.4%.
 
 ### Naive Bayes
 
 We then used a Naive Bayes model to predict the testing data from a
-traning model.
+training model.
 
     ## [1] 0.3144
 
@@ -1107,7 +796,7 @@ model still has the highest accuracy.
 From the table below, we see the four models accuracy compared.
 
     ##                models accuracy
-    ## 1       Random Forest    71.92
+    ## 1       Random Forest    78.40
     ## 2 Logistic Regression    46.52
     ## 3                 KNN    32.60
     ## 4         Naive Bayes    31.40
@@ -1115,13 +804,26 @@ From the table below, we see the four models accuracy compared.
 ![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/5.6-1.png)
 
 **In summary, the random forest model has the highest classification
-accuracy of about ~72% on the testing dataset.**
+accuracy of about ~78.4% on the testing dataset.**
 
 Association rule mining
 -----------------------
 
-    ## [[1]]
-    ## [1] "V1" "V2" "V3" "V4"
+In this question, we’re discovering relationships among commonly
+purchased together grocery items.
+
+As it is the analysis of grocery transaction items, we use the arules
+package. The data is provided in comma separated values. To refine the
+data we follow the below steps:
+
+1.  We convert the txt format to a data frame
+
+2.  We remove the blank values
+
+3.  Convert the shape to two columns, with the second columns containing
+    items in the basket of the user
+
+<!-- -->
 
     ## 'data.frame':    43367 obs. of  2 variables:
     ##  $ User : int  1 1 1 1 2 2 2 3 4 4 ...
@@ -1135,10 +837,44 @@ Association rule mining
     ##  3rd Qu.:11482                     
     ##  Max.   :15296
 
+We further plot the bar graph of 20 most frequent items in the overall
+dataset. We find out that **whole milk, other vegetables, rolls/buns,
+soda, and yogurt** are the top 5 frequently occurring shopping items. We
+should find out if these items occur frequently together as well or on
+their own which might help us identify some shopping patterns among
+customers.
+
     ##    Length     Class      Mode 
     ##     43367 character character
 
-![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/6.1-1.png)
+    ##  [1] "citrus fruit"             "semi-finished bread"     
+    ##  [3] "margarine"                "ready soups"             
+    ##  [5] "tropical fruit"           "yogurt"                  
+    ##  [7] "coffee"                   "whole milk"              
+    ##  [9] "pip fruit"                "yogurt"                  
+    ## [11] "cream cheese "            "meat spreads"            
+    ## [13] "other vegetables"         "whole milk"              
+    ## [15] "condensed milk"           "long life bakery product"
+    ## [17] "whole milk"               "butter"                  
+    ## [19] "yogurt"                   "rice"
+
+![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/6.3-1.png)
+
+To apply the apriori method, we first split the dataset into items that
+can be plugged into the algorithm. User is turned into a factor for this
+approach, and the data set is split into X and Y (between which the rule
+parameters are compared)
+
+We begin with observing results for few combinations of support and
+confidence. We start with support &gt; 0.01, confidence &gt; 0.1 and
+maxlen = 4 (max items per list). As expected, we see that the top
+frequency standalone items(whole milk, soda, other vegetables,
+roll/buns) are featured in our list. We see 45 combinations that match
+the criteria.
+
+We can further tune the parameters to reduce the combinations. We will
+generate many more rules if we lower the support and confidence
+thresholds.
 
     ## transactions as itemMatrix in sparse format with
     ##  15296 rows (elements/itemsets/transactions) and
@@ -1174,111 +910,486 @@ Association rule mining
     ## 
     ## Parameter specification:
     ##  confidence minval smax arem  aval originalSupport maxtime support minlen
-    ##         0.1    0.1    1 none FALSE            TRUE       5   0.005      1
+    ##         0.1    0.1    1 none FALSE            TRUE       5    0.01      1
     ##  maxlen target  ext
-    ##       5  rules TRUE
+    ##       4  rules TRUE
     ## 
     ## Algorithmic control:
     ##  filter tree heap memopt load sort verbose
     ##     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
     ## 
-    ## Absolute minimum support count: 76 
+    ## Absolute minimum support count: 152 
     ## 
     ## set item appearances ...[0 item(s)] done [0.00s].
     ## set transactions ...[169 item(s), 15296 transaction(s)] done [0.00s].
-    ## sorting and recoding items ... [101 item(s)] done [0.00s].
+    ## sorting and recoding items ... [71 item(s)] done [0.00s].
     ## creating transaction tree ... done [0.00s].
     ## checking subsets of size 1 2 3 done [0.00s].
-    ## writing ... [118 rule(s)] done [0.00s].
+    ## writing ... [45 rule(s)] done [0.00s].
     ## creating S4 object  ... done [0.00s].
 
-    ##     lhs                  rhs               support     confidence coverage  
-    ## [1] {onions}          => {root vegetables} 0.005295502 0.2655738  0.01993985
-    ## [2] {beef}            => {root vegetables} 0.008695084 0.2577519  0.03373431
-    ## [3] {root vegetables} => {beef}            0.008695084 0.1240672  0.07008368
-    ## [4] {pip fruit}       => {tropical fruit}  0.012683054 0.2607527  0.04864017
-    ## [5] {tropical fruit}  => {pip fruit}       0.012683054 0.1879845  0.06746862
+    ##      lhs                     rhs                support    confidence
+    ## [1]  {}                   => {soda}             0.11212082 0.1121208 
+    ## [2]  {}                   => {rolls/buns}       0.11826621 0.1182662 
+    ## [3]  {}                   => {other vegetables} 0.12441161 0.1244116 
+    ## [4]  {}                   => {whole milk}       0.16429132 0.1642913 
+    ## [5]  {curd}               => {whole milk}       0.01261768 0.3683206 
+    ## [6]  {butter}             => {whole milk}       0.01438285 0.4036697 
+    ## [7]  {whipped/sour cream} => {whole milk}       0.01144090 0.2482270 
+    ## [8]  {pip fruit}          => {tropical fruit}   0.01268305 0.2607527 
+    ## [9]  {tropical fruit}     => {pip fruit}        0.01268305 0.1879845 
+    ## [10] {pip fruit}          => {other vegetables} 0.01091789 0.2244624 
+    ## [11] {pip fruit}          => {whole milk}       0.01255230 0.2580645 
+    ## [12] {pastry}             => {rolls/buns}       0.01019874 0.1782857 
+    ## [13] {citrus fruit}       => {tropical fruit}   0.01248692 0.2346437 
+    ## [14] {tropical fruit}     => {citrus fruit}     0.01248692 0.1850775 
+    ## [15] {citrus fruit}       => {other vegetables} 0.01281381 0.2407862 
+    ## [16] {other vegetables}   => {citrus fruit}     0.01281381 0.1029953 
+    ## [17] {citrus fruit}       => {whole milk}       0.01281381 0.2407862 
+    ## [18] {sausage}            => {rolls/buns}       0.01078713 0.1785714 
+    ## [19] {sausage}            => {other vegetables} 0.01261768 0.2088745 
+    ## [20] {other vegetables}   => {sausage}          0.01261768 0.1014188 
+    ## [21] {sausage}            => {whole milk}       0.01255230 0.2077922 
+    ## [22] {bottled water}      => {soda}             0.01464435 0.2060718 
+    ## [23] {soda}               => {bottled water}    0.01464435 0.1306122 
+    ## [24] {tropical fruit}     => {root vegetables}  0.01098326 0.1627907 
+    ## [25] {root vegetables}    => {tropical fruit}   0.01098326 0.1567164 
+    ## [26] {tropical fruit}     => {other vegetables} 0.01549425 0.2296512 
+    ## [27] {other vegetables}   => {tropical fruit}   0.01549425 0.1245402 
+    ## [28] {tropical fruit}     => {whole milk}       0.01830544 0.2713178 
+    ## [29] {whole milk}         => {tropical fruit}   0.01830544 0.1114206 
+    ## [30] {root vegetables}    => {other vegetables} 0.02536611 0.3619403 
+    ## [31] {other vegetables}   => {root vegetables}  0.02536611 0.2038886 
+    ## [32] {root vegetables}    => {whole milk}       0.02262029 0.3227612 
+    ## [33] {whole milk}         => {root vegetables}  0.02262029 0.1376840 
+    ## [34] {yogurt}             => {rolls/buns}       0.01189854 0.1326531 
+    ## [35] {rolls/buns}         => {yogurt}           0.01189854 0.1006081 
+    ## [36] {yogurt}             => {other vegetables} 0.01588651 0.1771137 
+    ## [37] {other vegetables}   => {yogurt}           0.01588651 0.1276931 
+    ## [38] {yogurt}             => {whole milk}       0.02425471 0.2704082 
+    ## [39] {whole milk}         => {yogurt}           0.02425471 0.1476323 
+    ## [40] {soda}               => {rolls/buns}       0.01425209 0.1271137 
+    ## [41] {rolls/buns}         => {soda}             0.01425209 0.1205086 
+    ## [42] {rolls/buns}         => {whole milk}       0.01830544 0.1547816 
+    ## [43] {whole milk}         => {rolls/buns}       0.01830544 0.1114206 
+    ## [44] {other vegetables}   => {whole milk}       0.04086036 0.3284288 
+    ## [45] {whole milk}         => {other vegetables} 0.04086036 0.2487067 
+    ##      coverage   lift     count
+    ## [1]  1.00000000 1.000000 1715 
+    ## [2]  1.00000000 1.000000 1809 
+    ## [3]  1.00000000 1.000000 1903 
+    ## [4]  1.00000000 1.000000 2513 
+    ## [5]  0.03425732 2.241875  193 
+    ## [6]  0.03563023 2.457036  220 
+    ## [7]  0.04609048 1.510895  175 
+    ## [8]  0.04864017 3.864800  194 
+    ## [9]  0.06746862 3.864800  194 
+    ## [10] 0.04864017 1.804191  167 
+    ## [11] 0.04864017 1.570774  192 
+    ## [12] 0.05720450 1.507495  156 
+    ## [13] 0.05321653 3.477820  191 
+    ## [14] 0.06746862 3.477820  191 
+    ## [15] 0.05321653 1.935400  196 
+    ## [16] 0.12441161 1.935400  196 
+    ## [17] 0.05321653 1.465605  196 
+    ## [18] 0.06040795 1.509911  165 
+    ## [19] 0.06040795 1.678898  193 
+    ## [20] 0.12441161 1.678898  193 
+    ## [21] 0.06040795 1.264779  192 
+    ## [22] 0.07106433 1.837944  224 
+    ## [23] 0.11212082 1.837944  224 
+    ## [24] 0.06746862 2.322805  168 
+    ## [25] 0.07008368 2.322805  168 
+    ## [26] 0.06746862 1.845898  237 
+    ## [27] 0.12441161 1.845898  237 
+    ## [28] 0.06746862 1.651444  280 
+    ## [29] 0.16429132 1.651444  280 
+    ## [30] 0.07008368 2.909216  388 
+    ## [31] 0.12441161 2.909216  388 
+    ## [32] 0.07008368 1.964566  346 
+    ## [33] 0.16429132 1.964566  346 
+    ## [34] 0.08969665 1.121648  182 
+    ## [35] 0.11826621 1.121648  182 
+    ## [36] 0.08969665 1.423611  243 
+    ## [37] 0.12441161 1.423611  243 
+    ## [38] 0.08969665 1.645907  371 
+    ## [39] 0.16429132 1.645907  371 
+    ## [40] 0.11212082 1.074810  218 
+    ## [41] 0.11826621 1.074810  218 
+    ## [42] 0.11826621 0.942117  280 
+    ## [43] 0.16429132 0.942117  280 
+    ## [44] 0.12441161 1.999064  625 
+    ## [45] 0.16429132 1.999064  625
+
+Upon increasing the support to 0.015, we see 20 pairs in our output.
+Some combinations which show high co-occurrence are root vegetables and
+other vegetables and root vegetables and whole milk. Other vegetables
+and whole milk also make one such pair.
+
+    ## Apriori
+    ## 
+    ## Parameter specification:
+    ##  confidence minval smax arem  aval originalSupport maxtime support minlen
+    ##         0.1    0.1    1 none FALSE            TRUE       5   0.015      1
+    ##  maxlen target  ext
+    ##       4  rules TRUE
+    ## 
+    ## Algorithmic control:
+    ##  filter tree heap memopt load sort verbose
+    ##     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+    ## 
+    ## Absolute minimum support count: 229 
+    ## 
+    ## set item appearances ...[0 item(s)] done [0.00s].
+    ## set transactions ...[169 item(s), 15296 transaction(s)] done [0.00s].
+    ## sorting and recoding items ... [56 item(s)] done [0.00s].
+    ## creating transaction tree ... done [0.00s].
+    ## checking subsets of size 1 2 3 done [0.00s].
+    ## writing ... [20 rule(s)] done [0.00s].
+    ## creating S4 object  ... done [0.00s].
+
+    ##      lhs                   rhs                support    confidence coverage  
+    ## [1]  {}                 => {soda}             0.11212082 0.1121208  1.00000000
+    ## [2]  {}                 => {rolls/buns}       0.11826621 0.1182662  1.00000000
+    ## [3]  {}                 => {other vegetables} 0.12441161 0.1244116  1.00000000
+    ## [4]  {}                 => {whole milk}       0.16429132 0.1642913  1.00000000
+    ## [5]  {tropical fruit}   => {other vegetables} 0.01549425 0.2296512  0.06746862
+    ## [6]  {other vegetables} => {tropical fruit}   0.01549425 0.1245402  0.12441161
+    ## [7]  {tropical fruit}   => {whole milk}       0.01830544 0.2713178  0.06746862
+    ## [8]  {whole milk}       => {tropical fruit}   0.01830544 0.1114206  0.16429132
+    ## [9]  {root vegetables}  => {other vegetables} 0.02536611 0.3619403  0.07008368
+    ## [10] {other vegetables} => {root vegetables}  0.02536611 0.2038886  0.12441161
+    ## [11] {root vegetables}  => {whole milk}       0.02262029 0.3227612  0.07008368
+    ## [12] {whole milk}       => {root vegetables}  0.02262029 0.1376840  0.16429132
+    ## [13] {yogurt}           => {other vegetables} 0.01588651 0.1771137  0.08969665
+    ## [14] {other vegetables} => {yogurt}           0.01588651 0.1276931  0.12441161
+    ## [15] {yogurt}           => {whole milk}       0.02425471 0.2704082  0.08969665
+    ## [16] {whole milk}       => {yogurt}           0.02425471 0.1476323  0.16429132
+    ## [17] {rolls/buns}       => {whole milk}       0.01830544 0.1547816  0.11826621
+    ## [18] {whole milk}       => {rolls/buns}       0.01830544 0.1114206  0.16429132
+    ## [19] {other vegetables} => {whole milk}       0.04086036 0.3284288  0.12441161
+    ## [20] {whole milk}       => {other vegetables} 0.04086036 0.2487067  0.16429132
+    ##      lift     count
+    ## [1]  1.000000 1715 
+    ## [2]  1.000000 1809 
+    ## [3]  1.000000 1903 
+    ## [4]  1.000000 2513 
+    ## [5]  1.845898  237 
+    ## [6]  1.845898  237 
+    ## [7]  1.651444  280 
+    ## [8]  1.651444  280 
+    ## [9]  2.909216  388 
+    ## [10] 2.909216  388 
+    ## [11] 1.964566  346 
+    ## [12] 1.964566  346 
+    ## [13] 1.423611  243 
+    ## [14] 1.423611  243 
+    ## [15] 1.645907  371 
+    ## [16] 1.645907  371 
+    ## [17] 0.942117  280 
+    ## [18] 0.942117  280 
+    ## [19] 1.999064  625 
+    ## [20] 1.999064  625
+
+We further tweak the parameters to get a more fine tuned set of pairs.
+The confidence is kept at 0.2 while the support is 0.015. Now we get 8
+items in our list. Co-occurrences among vegetables, whole milk and
+tropical fruit (pairs of 2) seem to be showing high support and
+confidence. This makes us observe that people who buy whole milk, buy
+vegetables (other/root) too. Similarly, when people buy tropical fruit,
+there is high occurrence of other vegetables and whole milk but not vice
+verse. This makes sense as milk and vegetables are more staple
+purchases.
+
+    ## Apriori
+    ## 
+    ## Parameter specification:
+    ##  confidence minval smax arem  aval originalSupport maxtime support minlen
+    ##         0.2    0.1    1 none FALSE            TRUE       5   0.015      1
+    ##  maxlen target  ext
+    ##       4  rules TRUE
+    ## 
+    ## Algorithmic control:
+    ##  filter tree heap memopt load sort verbose
+    ##     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+    ## 
+    ## Absolute minimum support count: 229 
+    ## 
+    ## set item appearances ...[0 item(s)] done [0.00s].
+    ## set transactions ...[169 item(s), 15296 transaction(s)] done [0.00s].
+    ## sorting and recoding items ... [56 item(s)] done [0.00s].
+    ## creating transaction tree ... done [0.00s].
+    ## checking subsets of size 1 2 3 done [0.00s].
+    ## writing ... [8 rule(s)] done [0.00s].
+    ## creating S4 object  ... done [0.00s].
+
+    ##     lhs                   rhs                support    confidence coverage  
+    ## [1] {tropical fruit}   => {other vegetables} 0.01549425 0.2296512  0.06746862
+    ## [2] {tropical fruit}   => {whole milk}       0.01830544 0.2713178  0.06746862
+    ## [3] {root vegetables}  => {other vegetables} 0.02536611 0.3619403  0.07008368
+    ## [4] {other vegetables} => {root vegetables}  0.02536611 0.2038886  0.12441161
+    ## [5] {root vegetables}  => {whole milk}       0.02262029 0.3227612  0.07008368
+    ## [6] {yogurt}           => {whole milk}       0.02425471 0.2704082  0.08969665
+    ## [7] {other vegetables} => {whole milk}       0.04086036 0.3284288  0.12441161
+    ## [8] {whole milk}       => {other vegetables} 0.04086036 0.2487067  0.16429132
     ##     lift     count
-    ## [1] 3.789381  81  
-    ## [2] 3.677774 133  
-    ## [3] 3.677774 133  
-    ## [4] 3.864800 194  
-    ## [5] 3.864800 194
+    ## [1] 1.845898 237  
+    ## [2] 1.651444 280  
+    ## [3] 2.909216 388  
+    ## [4] 2.909216 388  
+    ## [5] 1.964566 346  
+    ## [6] 1.645907 371  
+    ## [7] 1.999064 625  
+    ## [8] 1.999064 625
 
-    ##     lhs                                   rhs                support    
-    ## [1] {onions}                           => {other vegetables} 0.007452929
-    ## [2] {curd}                             => {whole milk}       0.012617678
-    ## [3] {butter}                           => {whole milk}       0.014382845
-    ## [4] {root vegetables}                  => {other vegetables} 0.025366109
-    ## [5] {root vegetables}                  => {whole milk}       0.022620293
-    ## [6] {other vegetables}                 => {whole milk}       0.040860356
-    ## [7] {other vegetables,root vegetables} => {whole milk}       0.008172071
-    ## [8] {root vegetables,whole milk}       => {other vegetables} 0.008172071
-    ## [9] {other vegetables,yogurt}          => {whole milk}       0.006341527
-    ##     confidence coverage   lift     count
-    ## [1] 0.3737705  0.01993985 3.004306 114  
-    ## [2] 0.3683206  0.03425732 2.241875 193  
-    ## [3] 0.4036697  0.03563023 2.457036 220  
-    ## [4] 0.3619403  0.07008368 2.909216 388  
-    ## [5] 0.3227612  0.07008368 1.964566 346  
-    ## [6] 0.3284288  0.12441161 1.999064 625  
-    ## [7] 0.3221649  0.02536611 1.960937 125  
-    ## [8] 0.3612717  0.02262029 2.903842 125  
-    ## [9] 0.3991770  0.01588651 2.429690  97
+We further do a detailed analysis of our previous set (support = 0.015
+and confidence = 0.2). We keep the lift threshold at 2.5 and confidence
+at 0.3. From this, we see:
 
-    ##     lhs                             rhs                support     confidence
-    ## [1] {onions}                     => {other vegetables} 0.007452929 0.3737705 
-    ## [2] {root vegetables}            => {other vegetables} 0.025366109 0.3619403 
-    ## [3] {root vegetables,whole milk} => {other vegetables} 0.008172071 0.3612717 
-    ##     coverage   lift     count
-    ## [1] 0.01993985 3.004306 114  
-    ## [2] 0.07008368 2.909216 388  
-    ## [3] 0.02262029 2.903842 125
+1.  Lift &gt; 2.5: Vegetables (root and others) co-occur frequently
 
-![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/6.1.1-1.png)![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/6.1.1-2.png)![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/6.1.1-3.png)
+2.  Confidence &gt; 0.3: Whole milk co-occurs more vegetable purchases
+    depicting that it is a staple purchase of many customers.
 
-    ##     lhs                   rhs                support    confidence coverage 
-    ## [1] {}                 => {soda}             0.11212082 0.1121208  1.0000000
-    ## [2] {}                 => {rolls/buns}       0.11826621 0.1182662  1.0000000
-    ## [3] {}                 => {other vegetables} 0.12441161 0.1244116  1.0000000
-    ## [4] {}                 => {whole milk}       0.16429132 0.1642913  1.0000000
-    ## [5] {other vegetables} => {whole milk}       0.04086036 0.3284288  0.1244116
-    ## [6] {whole milk}       => {other vegetables} 0.04086036 0.2487067  0.1642913
+3.  Both: Root and other vegetables clear both the thresholds.
+
+High association of vegetables shows that customers look for these items
+highly and increasing the vegetable options available in stock might be
+beneficial. Similarly placing high co-occurring items together in store
+(vegetables, fruits, milk, yogurt etc) might help in higher sales.
+
+    ##     lhs                   rhs                support    confidence coverage  
+    ## [1] {root vegetables}  => {other vegetables} 0.02536611 0.3619403  0.07008368
+    ## [2] {other vegetables} => {root vegetables}  0.02536611 0.2038886  0.12441161
     ##     lift     count
-    ## [1] 1.000000 1715 
-    ## [2] 1.000000 1809 
-    ## [3] 1.000000 1903 
-    ## [4] 1.000000 2513 
-    ## [5] 1.999064  625 
-    ## [6] 1.999064  625
+    ## [1] 2.909216 388  
+    ## [2] 2.909216 388
 
-    ## set of 118 rules
+    ##     lhs                   rhs                support    confidence coverage  
+    ## [1] {root vegetables}  => {other vegetables} 0.02536611 0.3619403  0.07008368
+    ## [2] {root vegetables}  => {whole milk}       0.02262029 0.3227612  0.07008368
+    ## [3] {other vegetables} => {whole milk}       0.04086036 0.3284288  0.12441161
+    ##     lift     count
+    ## [1] 2.909216 388  
+    ## [2] 1.964566 346  
+    ## [3] 1.999064 625
+
+    ##     lhs                  rhs                support    confidence coverage  
+    ## [1] {root vegetables} => {other vegetables} 0.02536611 0.3619403  0.07008368
+    ##     lift     count
+    ## [1] 2.909216 388
+
+We can then plot support versus confidence for the rules. We also get
+the graph for the 8 rules.
+
+![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/6.8-1.png)![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/6.8-2.png)![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/6.8-3.png)
+
+    ##     lhs                   rhs                support    confidence coverage  
+    ## [1] {tropical fruit}   => {other vegetables} 0.01549425 0.2296512  0.06746862
+    ## [2] {tropical fruit}   => {whole milk}       0.01830544 0.2713178  0.06746862
+    ## [3] {root vegetables}  => {other vegetables} 0.02536611 0.3619403  0.07008368
+    ## [4] {other vegetables} => {root vegetables}  0.02536611 0.2038886  0.12441161
+    ## [5] {root vegetables}  => {whole milk}       0.02262029 0.3227612  0.07008368
+    ## [6] {yogurt}           => {whole milk}       0.02425471 0.2704082  0.08969665
+    ## [7] {other vegetables} => {whole milk}       0.04086036 0.3284288  0.12441161
+    ## [8] {whole milk}       => {other vegetables} 0.04086036 0.2487067  0.16429132
+    ##     lift     count
+    ## [1] 1.845898 237  
+    ## [2] 1.651444 280  
+    ## [3] 2.909216 388  
+    ## [4] 2.909216 388  
+    ## [5] 1.964566 346  
+    ## [6] 1.645907 371  
+    ## [7] 1.999064 625  
+    ## [8] 1.999064 625
+
+    ##     lhs                   rhs                support    confidence coverage  
+    ## [1] {root vegetables}  => {other vegetables} 0.02536611 0.3619403  0.07008368
+    ## [2] {root vegetables}  => {whole milk}       0.02262029 0.3227612  0.07008368
+    ## [3] {other vegetables} => {whole milk}       0.04086036 0.3284288  0.12441161
+    ##     lift     count
+    ## [1] 2.909216 388  
+    ## [2] 1.964566 346  
+    ## [3] 1.999064 625
+
+    ## set of 8 rules
     ## 
     ## rule length distribution (lhs + rhs):sizes
-    ##   1   2   3 
-    ##   4 108   6 
+    ## 2 
+    ## 8 
     ## 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   1.000   2.000   2.000   2.017   2.000   3.000 
+    ##       2       2       2       2       2       2 
     ## 
     ## summary of quality measures:
-    ##     support           confidence        coverage            lift      
-    ##  Min.   :0.005034   Min.   :0.1006   Min.   :0.01589   Min.   :0.902  
-    ##  1st Qu.:0.006636   1st Qu.:0.1277   1st Qu.:0.03707   1st Qu.:1.428  
-    ##  Median :0.008270   Median :0.1757   Median :0.05250   Median :1.821  
-    ##  Mean   :0.014550   Mean   :0.1912   Mean   :0.09165   Mean   :1.918  
-    ##  3rd Qu.:0.012667   3rd Qu.:0.2408   3rd Qu.:0.07008   3rd Qu.:2.323  
-    ##  Max.   :0.164291   Max.   :0.4037   Max.   :1.00000   Max.   :3.865  
-    ##      count       
-    ##  Min.   :  77.0  
-    ##  1st Qu.: 101.5  
-    ##  Median : 126.5  
-    ##  Mean   : 222.6  
-    ##  3rd Qu.: 193.8  
-    ##  Max.   :2513.0  
+    ##     support          confidence        coverage            lift      
+    ##  Min.   :0.01549   Min.   :0.2039   Min.   :0.06747   Min.   :1.646  
+    ##  1st Qu.:0.02154   1st Qu.:0.2439   1st Qu.:0.06943   1st Qu.:1.797  
+    ##  Median :0.02481   Median :0.2709   Median :0.07989   Median :1.982  
+    ##  Mean   :0.02664   Mean   :0.2796   Mean   :0.09724   Mean   :2.116  
+    ##  3rd Qu.:0.02924   3rd Qu.:0.3242   3rd Qu.:0.12441   3rd Qu.:2.227  
+    ##  Max.   :0.04086   Max.   :0.3619   Max.   :0.16429   Max.   :2.909  
+    ##      count      
+    ##  Min.   :237.0  
+    ##  1st Qu.:329.5  
+    ##  Median :379.5  
+    ##  Mean   :407.5  
+    ##  3rd Qu.:447.2  
+    ##  Max.   :625.0  
     ## 
     ## mining info:
     ##        data ntransactions support confidence
-    ##  grocstrans         15296   0.005        0.1
+    ##  grocstrans         15296   0.015        0.2
 
-![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/6.1.1-4.png)![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/6.1.1-5.png)
+![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/6.8-4.png)![](Final_Walker_Seth_Nesfeder_Choudhary_files/figure-markdown_strict/6.8-5.png)
+
+We see that while we expect Bread to be a common occurance in a shopping
+cart, we do not see it in our top purchased items. Lets do a specific
+analysis on co-occurrence of bread.
+
+    ## Apriori
+    ## 
+    ## Parameter specification:
+    ##  confidence minval smax arem  aval originalSupport maxtime support minlen
+    ##        0.01    0.1    1 none FALSE            TRUE       5   0.001      1
+    ##  maxlen target  ext
+    ##      10  rules TRUE
+    ## 
+    ## Algorithmic control:
+    ##  filter tree heap memopt load sort verbose
+    ##     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+    ## 
+    ## Absolute minimum support count: 15 
+    ## 
+    ## set item appearances ...[1 item(s)] done [0.00s].
+    ## set transactions ...[169 item(s), 15296 transaction(s)] done [0.00s].
+    ## sorting and recoding items ... [151 item(s)] done [0.00s].
+    ## creating transaction tree ... done [0.01s].
+    ## checking subsets of size 1 2 3 4 done [0.00s].
+    ## writing ... [31 rule(s)] done [0.00s].
+    ## creating S4 object  ... done [0.00s].
+
+    ##      lhs                        rhs           support     confidence coverage  
+    ## [1]  {}                      => {brown bread} 0.041710251 0.04171025 1.00000000
+    ## [2]  {oil}                   => {brown bread} 0.001176778 0.06521739 0.01804393
+    ## [3]  {butter milk}           => {brown bread} 0.001046025 0.05818182 0.01797856
+    ## [4]  {sugar}                 => {brown bread} 0.001307531 0.06006006 0.02177040
+    ## [5]  {UHT-milk}              => {brown bread} 0.001569038 0.07294833 0.02150889
+    ## [6]  {cream cheese }         => {brown bread} 0.001765167 0.06923077 0.02549686
+    ## [7]  {white bread}           => {brown bread} 0.002157427 0.07971014 0.02706590
+    ## [8]  {frozen vegetables}     => {brown bread} 0.001307531 0.04228330 0.03092312
+    ## [9]  {canned beer}           => {brown bread} 0.001307531 0.02617801 0.04994770
+    ## [10] {coffee}                => {brown bread} 0.001503661 0.04028021 0.03733002
+    ## [11] {newspapers}            => {brown bread} 0.001307531 0.02547771 0.05132061
+    ## [12] {margarine}             => {brown bread} 0.002811192 0.07465278 0.03765690
+    ## [13] {butter}                => {brown bread} 0.001372908 0.03853211 0.03563023
+    ## [14] {pork}                  => {brown bread} 0.001111402 0.02998236 0.03706851
+    ## [15] {frankfurter}           => {brown bread} 0.001372908 0.03620690 0.03791841
+    ## [16] {bottled beer}          => {brown bread} 0.001765167 0.03409091 0.05177824
+    ## [17] {domestic eggs}         => {brown bread} 0.003138075 0.07692308 0.04079498
+    ## [18] {fruit/vegetable juice} => {brown bread} 0.002549686 0.05485232 0.04648274
+    ## [19] {shopping bags}         => {brown bread} 0.001111402 0.01754386 0.06334990
+    ## [20] {whipped/sour cream}    => {brown bread} 0.001307531 0.02836879 0.04609048
+    ## [21] {pastry}                => {brown bread} 0.005033996 0.08800000 0.05720450
+    ## [22] {citrus fruit}          => {brown bread} 0.001046025 0.01965602 0.05321653
+    ## [23] {sausage}               => {brown bread} 0.002026674 0.03354978 0.06040795
+    ## [24] {bottled water}         => {brown bread} 0.002811192 0.03955842 0.07106433
+    ## [25] {tropical fruit}        => {brown bread} 0.001830544 0.02713178 0.06746862
+    ## [26] {root vegetables}       => {brown bread} 0.001503661 0.02145522 0.07008368
+    ## [27] {yogurt}                => {brown bread} 0.003464958 0.03862974 0.08969665
+    ## [28] {soda}                  => {brown bread} 0.003726464 0.03323615 0.11212082
+    ## [29] {rolls/buns}            => {brown bread} 0.006276151 0.05306799 0.11826621
+    ## [30] {other vegetables}      => {brown bread} 0.003661088 0.02942722 0.12441161
+    ## [31] {whole milk}            => {brown bread} 0.006733787 0.04098687 0.16429132
+    ##      lift      count
+    ## [1]  1.0000000 638  
+    ## [2]  1.5635818  18  
+    ## [3]  1.3949045  16  
+    ## [4]  1.4399352  20  
+    ## [5]  1.7489305  24  
+    ## [6]  1.6598023  27  
+    ## [7]  1.9110445  33  
+    ## [8]  1.0137388  20  
+    ## [9]  0.6276157  20  
+    ## [10] 0.9657149  23  
+    ## [11] 0.6108260  20  
+    ## [12] 1.7897945  43  
+    ## [13] 0.9238043  21  
+    ## [14] 0.7188248  17  
+    ## [15] 0.8680575  21  
+    ## [16] 0.8173269  27  
+    ## [17] 1.8442247  48  
+    ## [18] 1.3150801  39  
+    ## [19] 0.4206127  17  
+    ## [20] 0.6801396  20  
+    ## [21] 2.1097931  77  
+    ## [22] 0.4712515  16  
+    ## [23] 0.8043534  31  
+    ## [24] 0.9484100  43  
+    ## [25] 0.6504824  28  
+    ## [26] 0.5143873  23  
+    ## [27] 0.9261449  53  
+    ## [28] 0.7968341  57  
+    ## [29] 1.2723010  96  
+    ## [30] 0.7055153  56  
+    ## [31] 0.9826570 103
+
+We further tweak the subset parameters and find that bread has higher
+co- occurrence with other items like eggs, cheese and pastry.
+
+    ##     lhs         rhs           support     confidence coverage  lift     count
+    ## [1] {pastry} => {brown bread} 0.005033996 0.088      0.0572045 2.109793 77
+
+    ##     lhs                rhs           support     confidence coverage   lift    
+    ## [1] {UHT-milk}      => {brown bread} 0.001569038 0.07294833 0.02150889 1.748930
+    ## [2] {white bread}   => {brown bread} 0.002157427 0.07971014 0.02706590 1.911044
+    ## [3] {margarine}     => {brown bread} 0.002811192 0.07465278 0.03765690 1.789794
+    ## [4] {domestic eggs} => {brown bread} 0.003138075 0.07692308 0.04079498 1.844225
+    ## [5] {pastry}        => {brown bread} 0.005033996 0.08800000 0.05720450 2.109793
+    ##     count
+    ## [1] 24   
+    ## [2] 33   
+    ## [3] 43   
+    ## [4] 48   
+    ## [5] 77
+
+    ##     lhs                rhs           support     confidence coverage   lift    
+    ## [1] {oil}           => {brown bread} 0.001176778 0.06521739 0.01804393 1.563582
+    ## [2] {UHT-milk}      => {brown bread} 0.001569038 0.07294833 0.02150889 1.748930
+    ## [3] {cream cheese } => {brown bread} 0.001765167 0.06923077 0.02549686 1.659802
+    ## [4] {white bread}   => {brown bread} 0.002157427 0.07971014 0.02706590 1.911044
+    ## [5] {margarine}     => {brown bread} 0.002811192 0.07465278 0.03765690 1.789794
+    ## [6] {domestic eggs} => {brown bread} 0.003138075 0.07692308 0.04079498 1.844225
+    ## [7] {pastry}        => {brown bread} 0.005033996 0.08800000 0.05720450 2.109793
+    ##     count
+    ## [1] 18   
+    ## [2] 24   
+    ## [3] 27   
+    ## [4] 33   
+    ## [5] 43   
+    ## [6] 48   
+    ## [7] 77
+
+### Summary
+
+Upon inspection of the shopping carts we find the associations between
+the specific cart items. We find that milk, vegetables, and fruits seem
+to be high purchase high association items. Upon close placement of
+pairs that see high confidence and support, we can expect to see
+positive results in sales as they give ease of access to shoppers while
+filling their cart. For items that see high confidence in X,Y pairs, we
+must try to place Y close to X if we are not doing so for a similar
+reason. Complementary items of high association pairs can be placed at
+checkout counter as well to drive impulse purchase behavior.
+
+Also, adding complementary offers of pairs with medium range confidence
+can increase shopping tendency. We also see that an item like bread
+which is expected to be a high frequency purchase does not feature in
+our top list. The reasons can vary from: (1) people buying bread from
+their specific bakers and not a grocery store, (2) poor product
+placement, or that (3) bread of this store isn’t of great quality.
+
+Checking association rules for shopping baskets gives a deeper insight
+into purchase patterns. If the shopkeeper can also try to get user
+information while checkout, we can cluster the users based on their
+purchase behavior and try to increase our sales and customer retention.
